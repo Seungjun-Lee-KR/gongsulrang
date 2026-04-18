@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# collected raw data (large CSVs, regenerable from collector)
+/data/업무추진비_원본.csv
+/data/공슐랭_랭킹.csv
+
 # vercel
 .vercel
 
