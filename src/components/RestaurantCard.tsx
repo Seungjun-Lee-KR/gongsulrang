@@ -16,8 +16,9 @@ const rankBadgeClass = (rank: number) => {
 };
 
 export default function RestaurantCard({ restaurant, distanceMeters }: Props) {
-  const { rank, name, region, visits, totalAmount, avgAmount, deptCount, topAgency } =
+  const { rank, name, region, visits, totalAmount, avgAmount, deptCount, guDong } =
     restaurant;
+  const locationLabel = guDong || region;
 
   return (
     <Link
@@ -48,9 +49,9 @@ export default function RestaurantCard({ restaurant, distanceMeters }: Props) {
         <h3 className="text-lg font-bold leading-tight text-zinc-900 dark:text-zinc-50">
           {name}
         </h3>
-        {topAgency && (
+        {locationLabel && (
           <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-            주요 이용: {topAgency}
+            📍 {locationLabel}
           </p>
         )}
       </div>

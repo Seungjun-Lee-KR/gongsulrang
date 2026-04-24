@@ -9,4 +9,18 @@ export type Restaurant = {
   topAgency?: string;
   lat?: number;
   lng?: number;
+  placeId?: string;
+  rating?: number;
+  ratingCount?: number;
+  phone?: string;
+  hours?: string[];
+  photos?: string[];
+  googleMapsUri?: string;
+  formattedAddress?: string;
+  address?: string;
+  guDong?: string;
+  naverPlaceId?: string;
+  naverRating?: number;
+  naverVisitorReviewCount?: number;
+  naverBlogReviewCount?: number;
 };

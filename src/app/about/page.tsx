@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { usingSampleData } from "@/data/restaurants";
 
 export const metadata = {
   title: "소개 · 공슐랭",
@@ -89,15 +88,6 @@ export default function AboutPage() {
           </ul>
         </Section>
 
-        {usingSampleData && (
-          <div className="mt-12 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200">
-            현재 사이트에 표시 중인 데이터는 시연용 샘플입니다. 실데이터 수집기는
-            <code className="mx-1 rounded bg-amber-200/40 px-1.5 py-0.5 font-mono text-xs dark:bg-amber-900/40">
-              scripts/collector/collect.py
-            </code>
-            에서 실행할 수 있습니다.
-          </div>
-        )}
       </main>
 
       <footer className="border-t border-zinc-200 bg-white py-8 text-center text-sm text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">

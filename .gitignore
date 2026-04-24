@@ -37,6 +37,12 @@ yarn-error.log*
 /data/업무추진비_원본.csv
 /data/공슐랭_랭킹.csv
 
+# Google Places 사진 (런타임 asset, 500MB+ · 수집기로 재생성 가능)
+/public/places/
+
+# 세션 로그
+/2026-*-this-session-is-being-continued*.txt
+
 # vercel
 .vercel
 

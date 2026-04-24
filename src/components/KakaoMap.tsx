@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   loadKakaoMaps,
+  type KakaoCircle,
   type KakaoMapInstance,
   type KakaoMarker,
   type KakaoOverlay,
@@ -21,6 +22,7 @@ type Props = {
   center?: { lat: number; lng: number };
   level?: number;
   userCoord?: { lat: number; lng: number } | null;
+  userCircleRadius?: number;
   className?: string;
 };
 
@@ -31,11 +33,12 @@ export default function KakaoMap({
   center,
   level = 9,
   userCoord,
+  userCircleRadius,
   className,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
-  const markerObjectsRef = useRef<Array<KakaoMarker | KakaoOverlay>>([]);
+  const markerObjectsRef = useRef<Array<KakaoMarker | KakaoOverlay | KakaoCircle>>([]);
   const [error, setError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -48,26 +51,29 @@ export default function KakaoMap({
 
     let cancelled = false;
 
-    loadKakaoMaps(appkey)
-      .then(() => {
-        if (cancelled || !containerRef.current) return;
-        const kakao = window.kakao!;
-        const start = center ??
-          (markers[0] ? { lat: markers[0].lat, lng: markers[0].lng } : { lat: 36.5, lng: 127.8 });
-        const map = new kakao.maps.Map(containerRef.current, {
-          center: new kakao.maps.LatLng(start.lat, start.lng),
-          level,
+    if (mapRef.current) {
+      setReady(true);
+    } else {
+      loadKakaoMaps(appkey)
+        .then(() => {
+          if (cancelled || !containerRef.current || mapRef.current) return;
+          const kakao = window.kakao!;
+          const start = center ?? { lat: 37.5665, lng: 126.9780 };
+          const map = new kakao.maps.Map(containerRef.current, {
+            center: new kakao.maps.LatLng(start.lat, start.lng),
+            level,
+          });
+          mapRef.current = map;
+          setReady(true);
+          requestAnimationFrame(() => {
+            map.relayout();
+            map.setCenter(new kakao.maps.LatLng(start.lat, start.lng));
+          });
+        })
+        .catch((err: Error) => {
+          if (!cancelled) setError(err.message);
         });
-        mapRef.current = map;
-        setReady(true);
-        requestAnimationFrame(() => {
-          map.relayout();
-          map.setCenter(new kakao.maps.LatLng(start.lat, start.lng));
-        });
-      })
-      .catch((err: Error) => {
-        if (!cancelled) setError(err.message);
-      });
+    }
 
     const container = containerRef.current;
     const ro = new ResizeObserver(() => {
@@ -79,7 +85,7 @@ export default function KakaoMap({
       cancelled = true;
       ro.disconnect();
     };
-  }, [center, level, markers]);
+  }, [center, level]);
 
   useEffect(() => {
     if (!ready || !mapRef.current) return;
@@ -110,6 +116,20 @@ export default function KakaoMap({
 
     if (userCoord) {
       const pos = new kakao.maps.LatLng(userCoord.lat, userCoord.lng);
+      if (userCircleRadius && userCircleRadius > 0) {
+        const circle = new kakao.maps.Circle({
+          center: pos,
+          radius: userCircleRadius,
+          strokeWeight: 2,
+          strokeColor: "#f97316",
+          strokeOpacity: 0.7,
+          strokeStyle: "solid",
+          fillColor: "#f97316",
+          fillOpacity: 0.08,
+        });
+        circle.setMap(map);
+        markerObjectsRef.current.push(circle);
+      }
       const dot = new kakao.maps.CustomOverlay({
         position: pos,
         content:
@@ -119,22 +139,23 @@ export default function KakaoMap({
       markerObjectsRef.current.push(dot);
     }
 
-    if (markers.length > 1) {
-      const bounds = new kakao.maps.LatLngBounds();
-      for (const m of markers) bounds.extend(new kakao.maps.LatLng(m.lat, m.lng));
-      if (userCoord) bounds.extend(new kakao.maps.LatLng(userCoord.lat, userCoord.lng));
-      map.setBounds(bounds);
-    } else if (markers.length === 1) {
-      map.setCenter(new kakao.maps.LatLng(markers[0].lat, markers[0].lng));
-    }
-
     requestAnimationFrame(() => {
       map.relayout();
-      if (markers.length === 1) {
+      if (userCoord && userCircleRadius && userCircleRadius > 0) {
+        map.setCenter(new kakao.maps.LatLng(userCoord.lat, userCoord.lng));
+        map.setLevel(levelForRadius(userCircleRadius));
+      } else if (markers.length > 1) {
+        const bounds = new kakao.maps.LatLngBounds();
+        for (const m of markers) bounds.extend(new kakao.maps.LatLng(m.lat, m.lng));
+        if (userCoord) bounds.extend(new kakao.maps.LatLng(userCoord.lat, userCoord.lng));
+        map.setBounds(bounds);
+      } else if (markers.length === 1) {
         map.setCenter(new kakao.maps.LatLng(markers[0].lat, markers[0].lng));
+      } else if (userCoord) {
+        map.setCenter(new kakao.maps.LatLng(userCoord.lat, userCoord.lng));
       }
     });
-  }, [ready, markers, userCoord]);
+  }, [ready, markers, userCoord, userCircleRadius]);
 
   if (error) {
     return (
@@ -152,6 +173,14 @@ export default function KakaoMap({
       className={`rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 ${className ?? ""}`}
     />
   );
+}
+
+function levelForRadius(radiusM: number): number {
+  if (radiusM <= 500) return 4;
+  if (radiusM <= 700) return 4;
+  if (radiusM <= 1000) return 5;
+  if (radiusM <= 2000) return 6;
+  return 7;
 }
 
 function escapeHtml(s: string): string {
