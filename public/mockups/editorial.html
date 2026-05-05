@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>공슐랭 · Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f1e8;
+    --gold: #b8860b;
+    --rule: #2a2a2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  header.top {
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0 24px;
+  }
+  .head-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 24px;
+  }
+  .meta-left, .meta-right {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: #444;
+  }
+  .meta-right { text-align: right; }
+  .brand {
+    text-align: center;
+  }
+  .brand .ko {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 56px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .brand .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold);
+    margin-top: 6px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  nav.cats {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 3px double var(--rule);
+    margin-top: 24px;
+    padding: 14px 0;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  nav.cats a { color: var(--ink); text-decoration: none; }
+  nav.cats a:hover { color: var(--gold); }
+
+  section.hero {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-photo {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: #ddd;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  .hero-text .kicker {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .hero-text h1 {
+    font-size: 76px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 16px 0 24px;
+  }
+  .hero-text p {
+    font-size: 18px;
+    color: #333;
+    max-width: 38ch;
+    margin-bottom: 32px;
+  }
+  .star-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+  }
+  .stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat .lbl {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  h2.section {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 36px;
+    margin: 96px 0 32px;
+    text-align: center;
+    position: relative;
+  }
+  h2.section::before, h2.section::after {
+    content: '';
+    display: inline-block;
+    width: 80px; height: 1px;
+    background: var(--rule);
+    vertical-align: middle;
+    margin: 0 24px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
+  }
+  .card {
+    cursor: pointer;
+  }
+  .card-photo {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #ddd;
+    margin-bottom: 16px;
+  }
+  .card-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .8s ease;
+  }
+  .card:hover .card-photo img { transform: scale(1.04); }
+  .rank-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .rank-line .roman {
+    font-size: 28px;
+    line-height: 1;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .card h3 {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 8px 0 6px;
+  }
+  .card .place {
+    font-size: 13px;
+    color: #555;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .card .stats {
+    display: flex;
+    gap: 16px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+    color: #444;
+  }
+  .card .stats b { color: var(--ink); font-weight: 600; }
+
+  footer.bot {
+    margin: 120px 0 60px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #666;
+    border-top: 3px double var(--rule);
+    padding-top: 32px;
+  }
+
+  .page-banner {
+    background: rgba(0,0,0,0.04);
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 0;
+  }
+</style>
+</head>
+<body>
+<div class="page-banner">시안 1 / Editorial — 미슐랭 가이드의 격조를 차용. <a href="/mockups/index.html">← 시안 인덱스</a></div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="head-grid">
+      <div class="meta-left">Vol. I · Seoul Edition · 2026 — Updated Daily</div>
+      <div class="brand">
+        <div class="ko">공슐랭</div>
+        <div class="en">The Officials' Guide</div>
+      </div>
+      <div class="meta-right">공무원이 인정한 진짜 맛집</div>
+    </div>
+    <nav class="cats">
+      <a>The Ranking</a>
+      <a>구별 District</a>
+      <a>기관별 Agency</a>
+      <a>지도 Map</a>
+      <a>About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-photo">
+    <img src="/places/ChIJ6WYSTfOifDURfHt_ic8PpUk_1.jpg" alt="삼우정" />
+  </div>
+  <div class="hero-text">
+    <div class="kicker">No. 1 · Of the Year</div>
+    <h1>삼우정.</h1>
+    <p>중구 서소문동의 한 노포. 시민감사옴부즈만위원회를 비롯한 220개 부서의 1,573회 공식 회동이 이곳에서 이뤄졌다. 공슐랭 No.1.</p>
+    <div class="star-row">
+      <div class="stat"><span class="num">1,573</span><span class="lbl">Visits</span></div>
+      <div class="stat"><span class="num">220</span><span class="lbl">Departments</span></div>
+      <div class="stat"><span class="num">★ 4.1</span><span class="lbl">Google</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <h2 class="section">The Ranking · 1–8</h2>
+  <div class="grid">
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJ6WYSTfOifDURfHt_ic8PpUk_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">I</span><span>중구 · 서소문동</span></div>
+      <h3>삼우정</h3>
+      <p class="place">Old-school Korean — official's favourite</p>
+      <div class="stats"><span><b>1,573</b> 회</span><span><b>220</b> 부서</span><span>★ 4.1</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJFaLdc-2ifDURv_GFr2lQi2k_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">II</span><span>중구 · 태평로1가</span></div>
+      <h3>우도일식</h3>
+      <p class="place">Japanese · 비상기획관 민방위담당관</p>
+      <div class="stats"><span><b>1,292</b> 회</span><span><b>174</b> 부서</span><span>★ 3.9</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJt328EouifDURrqrnnv2APy0_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">III</span><span>중구 · 서소문동</span></div>
+      <h3>브이아이피참치</h3>
+      <p class="place">Sushi · 행정국 총무과</p>
+      <div class="stats"><span><b>1,236</b> 회</span><span><b>209</b> 부서</span><span>★ 4.2</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJfdhKHfOifDURuqbF3SJjGZE_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">IV</span><span>중구 · 태평로2가</span></div>
+      <h3>오리마당</h3>
+      <p class="place">Korean Duck · 물순환안전국 수변감성도시과</p>
+      <div class="stats"><span><b>1,235</b> 회</span><span><b>248</b> 부서</span><span>★ 4.1</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJrxSzb_KifDURtprQHyVqCcY_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">V</span><span>중구 · 을지로1가</span></div>
+      <h3>구이구이</h3>
+      <p class="place">BBQ · 행정국 총무과</p>
+      <div class="stats"><span><b>1,202</b> 회</span><span><b>263</b> 부서</span><span>★ 3.9</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJCfWqte2ifDURrZb6QPLy2Jw_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">VI</span><span>중구 · 무교동</span></div>
+      <h3>곰국시집</h3>
+      <p class="place">Korean Noodle · 행정국 총무과</p>
+      <div class="stats"><span><b>950</b> 회</span><span><b>201</b> 부서</span><span>★ 4.1</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJvf0gv-2ifDURvq224SHhneM_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">VII</span><span>중구 · 무교동</span></div>
+      <h3>참숯골</h3>
+      <p class="place">Charcoal BBQ · 행정국 총무과</p>
+      <div class="stats"><span><b>836</b> 회</span><span><b>174</b> 부서</span><span>★ 4.0</span></div>
+    </article>
+    <article class="card">
+      <div class="card-photo"><img src="/places/ChIJV01eDA-jfDUR3NXF1ioM3I8_1.jpg" /></div>
+      <div class="rank-line"><span class="roman">VIII</span><span>중구 · 무교동</span></div>
+      <h3>브라주카 그릴</h3>
+      <p class="place">Brazilian · 행정국 총무과</p>
+      <div class="stats"><span><b>833</b> 회</span><span><b>193</b> 부서</span><span>★ 4.6</span></div>
+    </article>
+  </div>
+</div>
+
+<footer class="bot wrap">
+  <div>The Officials' Guide · Seoul · 공슐랭 © 2026</div>
+</footer>
+</body>
+</html>

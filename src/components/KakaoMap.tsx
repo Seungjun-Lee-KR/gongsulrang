@@ -102,8 +102,8 @@ export default function KakaoMap({
 
       if (m.label) {
         const contentHtml = m.href
-          ? `<a href="${m.href}" class="inline-block -translate-y-1 rounded-full bg-zinc-900 px-2 py-0.5 text-[11px] font-semibold text-white shadow-md hover:bg-orange-600">${escapeHtml(m.label)}</a>`
-          : `<div class="inline-block -translate-y-1 rounded-full bg-zinc-900 px-2 py-0.5 text-[11px] font-semibold text-white shadow-md">${escapeHtml(m.label)}</div>`;
+          ? `<a href="${m.href}" class="inline-block -translate-y-1 rounded-full bg-[#08080a] border border-[#2a2a32] px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg hover:bg-[#ff6a3d] hover:text-[#1a0f08] hover:border-[#ff6a3d]">${escapeHtml(m.label)}</a>`
+          : `<div class="inline-block -translate-y-1 rounded-full bg-[#08080a] border border-[#2a2a32] px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg">${escapeHtml(m.label)}</div>`;
         const overlay = new kakao.maps.CustomOverlay({
           position: pos,
           content: contentHtml,
@@ -160,7 +160,7 @@ export default function KakaoMap({
   if (error) {
     return (
       <div
-        className={`flex items-center justify-center rounded-2xl border border-dashed border-zinc-300 bg-zinc-50 p-8 text-sm text-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 ${className ?? ""}`}
+        className={`flex items-center justify-center rounded-2xl border border-dashed border-line2 bg-elev p-8 text-sm text-mute ${className ?? ""}`}
       >
         지도를 불러올 수 없습니다: {error}
       </div>
@@ -170,7 +170,7 @@ export default function KakaoMap({
   return (
     <div
       ref={containerRef}
-      className={`rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 ${className ?? ""}`}
+      className={`rounded-2xl border border-line bg-elev ${className ?? ""}`}
     />
   );
 }

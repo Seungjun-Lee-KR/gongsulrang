@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>공슐랭 · 디자인 시안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;600;800&family=Nanum+Myeongjo:wght@800&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0e0e10;
+    color: #f5f5f7;
+    font-family: 'Pretendard Variable', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 80px 32px 120px; }
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .lead { color: #8a8a95; font-size: 17px; max-width: 60ch; margin-bottom: 56px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  a.tile {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #1c1c22;
+    background: #131318;
+    transition: transform .2s, border-color .2s;
+  }
+  a.tile:hover { transform: translateY(-4px); border-color: #ff6a3d; }
+  .preview {
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    position: relative;
+    overflow: hidden;
+  }
+  .preview.editorial {
+    background: #f5f1e8;
+    color: #1a1a1a;
+    font-family: 'Nanum Myeongjo', serif;
+  }
+  .preview.editorial::after {
+    content: 'The Officials\' Guide';
+    position: absolute;
+    bottom: 16px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #b8860b;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .preview.modern {
+    background: linear-gradient(135deg, #08080a 0%, #1a1a22 100%);
+    color: transparent;
+    background-clip: padding-box;
+  }
+  .preview.modern::before {
+    content: '공슐랭';
+    background: linear-gradient(135deg, #ff6a3d, #ffd07a 60%, #c2ff5e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .preview.modern::after {
+    content: '#1';
+    position: absolute;
+    bottom: 14px; right: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #c2ff5e;
+    background: rgba(194,255,94,0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .preview.newspaper {
+    background: #f4ede0;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    color: #181410;
+    font-family: 'Nanum Myeongjo', serif;
+    border-bottom: 4px solid #2b231b;
+    border-top: 4px solid #2b231b;
+  }
+  .preview.newspaper::after {
+    content: '公務員 業務推進費로 본 진짜 단골';
+    position: absolute;
+    bottom: 14px;
+    left: 0; right: 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 12px;
+    color: #5b5346;
+    font-weight: 400;
+  }
+  .body {
+    padding: 24px;
+  }
+  .body h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .body p { font-size: 13px; color: #8a8a95; line-height: 1.6; }
+  .tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px;
+    background: #1c1c22;
+    color: #c2ff5e;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .open { display: block; margin-top: 12px; font-size: 13px; color: #ff6a3d; }
+  hr { border: none; border-top: 1px solid #1c1c22; margin: 56px 0 32px; }
+  .note { color: #6b6b75; font-size: 13px; line-height: 1.65; max-width: 60ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>공슐랭 디자인 시안</h1>
+  <p class="lead">3가지 방향. 카드 클릭하면 풀 시안 페이지로 이동. 실제 데이터·사진 사용해서 mock-up.</p>
+
+  <div class="grid">
+    <a class="tile" href="/mockups/editorial.html">
+      <div class="preview editorial">공슐랭</div>
+      <div class="body">
+        <h2>1 · Editorial</h2>
+        <p>미슐랭 가이드의 격조. 흰 배경 · 명조체 · 골드 액센트. 큰 사진과 잡지형 레이아웃.</p>
+        <span class="tag">우아함 / 권위</span>
+        <span class="open">열기 →</span>
+      </div>
+    </a>
+
+    <a class="tile" href="/mockups/modern-dark.html">
+      <div class="preview modern">공슐랭</div>
+      <div class="body">
+        <h2>2 · Modern Dark</h2>
+        <p>Vercel·Linear 풍 다크 인터페이스. 그라데이션 헤드라인 + 모노 폰트 숫자 + 데이터 강조 카드.</p>
+        <span class="tag">테크 / 데이터</span>
+        <span class="open">열기 →</span>
+      </div>
+    </a>
+
+    <a class="tile" href="/mockups/newspaper.html">
+      <div class="preview newspaper">公슐랭</div>
+      <div class="body">
+        <h2>3 · Newspaper</h2>
+        <p>옛 신문 1면 풍. 한자 혼용 헤드라인 · 종이 텍스처 · 흑백 사진 톤 · 도장 모양 랭크.</p>
+        <span class="tag">레트로 / 한국</span>
+        <span class="open">열기 →</span>
+      </div>
+    </a>
+  </div>
+
+  <hr />
+  <p class="note">
+    각 시안은 정적 HTML이라 빌드 영향 없음. 마음에 드는 방향이 있으면 그쪽 톤으로 본 사이트(`src/app`, 컴포넌트, Tailwind 컬러 토큰)를 다시 짜면 돼. 혼합도 가능 — 예: Modern Dark 인터랙션 + Editorial의 hero / 또는 Newspaper의 도장 랭크 배지만 차용.
+  </p>
+</div>
+</body>
+</html>

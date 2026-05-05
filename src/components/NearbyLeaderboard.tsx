@@ -148,11 +148,11 @@ export default function NearbyLeaderboard({ restaurants }: Props) {
   })();
 
   const headline = usingSearch
-    ? `${searchCenter!.label} 주변 공무원 맛집 TOP10`
-    : "공무원들이 자주 찾는 내 주변 맛집 TOP10";
+    ? `${searchCenter!.label} 주변엔?`
+    : "내 주변엔?";
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pb-16">
+    <section className="mx-auto max-w-6xl px-6 pb-16 pt-12">
       <div className="mb-4">
         <SearchForm
           query={query}
@@ -167,12 +167,10 @@ export default function NearbyLeaderboard({ restaurants }: Props) {
 
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             {headline}
           </h2>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            {statusLabel}
-          </p>
+          <p className="mt-1 text-sm text-mute">{statusLabel}</p>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {RADIUS_OPTIONS.map(({ m, label }) => {
@@ -182,10 +180,10 @@ export default function NearbyLeaderboard({ restaurants }: Props) {
                 key={m}
                 type="button"
                 onClick={() => setRadiusM(m)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition border ${
                   active
-                    ? "bg-orange-500 text-white"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                    ? "bg-accent text-[#1a0f08] border-accent"
+                    : "bg-elev text-mute border-line2 hover:text-ink hover:border-accent"
                 }`}
               >
                 {label}
@@ -202,25 +200,25 @@ export default function NearbyLeaderboard({ restaurants }: Props) {
       </ol>
 
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-          지도에서 보기
-        </h3>
+        <h3 className="text-lg font-semibold text-ink">지도에서 보기</h3>
         {!usingSearch && geoState.status === "error" && (
           <button
             type="button"
             onClick={requestGeo}
-            className="text-xs font-medium text-orange-600 hover:underline dark:text-orange-400"
+            className="text-xs font-medium text-accent hover:underline"
           >
             위치 다시 시도
           </button>
         )}
       </div>
-      <KakaoMap
-        markers={markers}
-        userCoord={effectiveCoord}
-        userCircleRadius={effectiveCoord && !isFallback ? radiusM : undefined}
-        className="h-[420px] w-full"
-      />
+      <div className="overflow-hidden rounded-2xl border border-line">
+        <KakaoMap
+          markers={markers}
+          userCoord={effectiveCoord}
+          userCircleRadius={effectiveCoord && !isFallback ? radiusM : undefined}
+          className="h-[420px] w-full"
+        />
+      </div>
     </section>
   );
 }
@@ -246,7 +244,7 @@ function SearchForm({
 }: SearchFormProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-2xl border border-line bg-elev p-3">
       <form onSubmit={onSubmit} className="flex gap-2">
         <input
           ref={inputRef}
@@ -254,13 +252,13 @@ function SearchForm({
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="지역·지하철역·동 이름 (예: 고덕역, 여의도, 강남역)"
-          className="flex-1 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50"
+          className="flex-1 rounded-full border border-line2 bg-base px-4 py-2 text-sm text-ink placeholder:text-mute focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
           disabled={searching}
         />
         <button
           type="submit"
           disabled={searching || query.trim().length === 0}
-          className="rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-zinc-300 dark:disabled:bg-zinc-700"
+          className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-[#1a0f08] transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-line2 disabled:text-mute"
         >
           {searching ? "검색 중…" : "주변 검색"}
         </button>
@@ -268,31 +266,27 @@ function SearchForm({
       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
         {searchCenter ? (
           <>
-            <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2.5 py-1 font-medium text-orange-700 dark:bg-orange-500/10 dark:text-orange-300">
+            <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 px-2.5 py-1 font-medium text-accent">
               <span aria-hidden>📍</span>
               {searchCenter.label}
               {searchCenter.address ? (
-                <span className="text-orange-600/70 dark:text-orange-300/70">
-                  · {searchCenter.address}
-                </span>
+                <span className="text-accent/70">· {searchCenter.address}</span>
               ) : null}
             </span>
             <button
               type="button"
               onClick={onClear}
-              className="text-zinc-500 hover:text-zinc-800 hover:underline dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="text-mute hover:text-ink hover:underline"
             >
               내 위치로 돌아가기
             </button>
           </>
         ) : (
-          <span className="text-zinc-500 dark:text-zinc-400">
+          <span className="text-mute">
             원하는 지역을 입력하면 그 주변의 공무원 맛집을 볼 수 있습니다.
           </span>
         )}
-        {error ? (
-          <span className="text-red-600 dark:text-red-400">{error}</span>
-        ) : null}
+        {error ? <span className="text-red-400">{error}</span> : null}
       </div>
     </div>
   );
@@ -304,25 +298,21 @@ function LeaderboardRow({ item }: { item: Ranked }) {
     <li>
       <Link
         href={`/restaurant/${rank}`}
-        className="group flex items-center gap-4 rounded-xl border border-zinc-200 bg-white px-4 py-3 transition hover:border-orange-300 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-orange-700/60"
+        className="group flex items-center gap-3 rounded-xl border border-line bg-elev px-3 py-2.5 transition hover:border-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
         <span
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${rankBadgeClass(
-            localRank,
-          )}`}
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md font-mono text-xs font-bold tabular ${rankBadgeClass(localRank)}`}
         >
           {localRank}
         </span>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-base font-semibold text-zinc-900 dark:text-zinc-50">
-            {name}
-          </div>
-          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="truncate text-sm font-semibold text-ink">{name}</div>
+          <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[11px] text-mute">
             <span>{region}</span>
             {distanceM !== undefined && (
               <>
                 <span aria-hidden>·</span>
-                <span className="font-medium text-orange-600 dark:text-orange-400">
+                <span className="font-medium text-accent">
                   📍 {formatDistance(distanceM)}
                 </span>
               </>
@@ -330,10 +320,10 @@ function LeaderboardRow({ item }: { item: Ranked }) {
           </div>
         </div>
         <div className="flex shrink-0 flex-col items-end">
-          <span className="text-sm font-bold text-zinc-900 dark:text-zinc-50">
+          <span className="font-mono text-xs font-bold tabular text-ink">
             {formatWon(totalAmount)}
           </span>
-          <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
+          <span className="font-mono text-[10px] tabular text-mute">
             {visits.toLocaleString()}회
           </span>
         </div>
@@ -343,10 +333,9 @@ function LeaderboardRow({ item }: { item: Ranked }) {
 }
 
 function rankBadgeClass(rank: number): string {
-  if (rank === 1) return "bg-amber-400 text-amber-950";
-  if (rank === 2) return "bg-zinc-300 text-zinc-800";
-  if (rank === 3) return "bg-orange-300 text-orange-950";
-  return "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300";
+  if (rank === 1) return "bg-accent text-[#1a0f08]";
+  if (rank === 2 || rank === 3) return "bg-accent2 text-[#14210a]";
+  return "bg-elev2 text-mute border border-line2";
 }
 
 function formatRadius(m: number): string {

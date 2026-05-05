@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>공슐랭 · Modern Dark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080a;
+    --bg2: #101015;
+    --line: #1c1c22;
+    --line2: #2a2a32;
+    --ink: #f5f5f7;
+    --mute: #8a8a95;
+    --accent: #ff6a3d;
+    --accent2: #c2ff5e;
+    --grad: linear-gradient(135deg, #ff6a3d, #ffb15c);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+  .page-banner {
+    background: #1a1a22;
+    color: var(--mute);
+    text-align: center;
+    padding: 8px 0;
+    font-size: 12px;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .page-banner a { color: var(--accent); text-decoration: none; }
+
+  header.top {
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+    background: rgba(8,8,10,0.7);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .head-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+  .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--grad); }
+  nav.nav { display: flex; gap: 4px; }
+  nav.nav a {
+    color: var(--mute);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all .15s;
+  }
+  nav.nav a:hover { color: var(--ink); background: var(--bg2); }
+
+  .hero {
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px 400px at 30% 0%, rgba(255,106,61,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line2);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--mute);
+    background: var(--bg2);
+  }
+  .hero-badge .pulse { width:6px; height:6px; border-radius: 50%; background: var(--accent2); box-shadow: 0 0 12px var(--accent2); }
+  .hero h1 {
+    font-size: 88px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin: 24px 0 20px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--accent) 0%, #ffd07a 60%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p { font-size: 18px; color: var(--mute); max-width: 56ch; }
+  .hero-stats {
+    margin-top: 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .h-stat {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    background: var(--bg2);
+  }
+  .h-stat .lbl { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; }
+  .h-stat .num { font-size: 28px; font-weight: 700; margin-top: 6px; }
+  .h-stat .num span { color: var(--accent); }
+
+  section.list {
+    padding: 80px 0 40px;
+  }
+  .list-head {
+    display: flex; align-items: end; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .list-head h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .list-head .sub { color: var(--mute); margin-top: 4px; font-size: 14px; }
+  .filters { display: flex; gap: 8px; }
+  .pill {
+    padding: 8px 14px;
+    border: 1px solid var(--line2);
+    border-radius: 999px;
+    background: var(--bg2);
+    color: var(--ink);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .pill.active { background: var(--accent); border-color: var(--accent); color: #1a0f08; font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--bg2);
+    transition: transform .25s, border-color .25s;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .card .photo {
+    aspect-ratio: 1/1;
+    background: #222;
+    overflow: hidden;
+    position: relative;
+  }
+  .card .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .card .photo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8));
+  }
+  .card .rank {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--line2);
+    z-index: 2;
+  }
+  .card .rank.top1 { background: var(--accent); color: #1a0f08; border-color: var(--accent); }
+  .card .rank.top3 { background: var(--accent2); color: #14210a; border-color: var(--accent2); }
+  .card .photo .name {
+    position: absolute; left: 16px; right: 16px; bottom: 12px;
+    z-index: 2;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .card .photo .loc {
+    position: absolute; left: 16px; bottom: 38px;
+    z-index: 2;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+  }
+  .card .body {
+    padding: 14px 16px 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .card .body .item .v {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .card .body .item.hi .v { color: var(--accent); }
+  .card .body .item .l {
+    font-size: 10px;
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .heat-row {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 10px;
+    padding: 0 16px 16px;
+  }
+  .heat {
+    flex: 1;
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .heat .fill {
+    height: 100%;
+    background: var(--grad);
+  }
+  .heat-pct { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mute); }
+
+  footer.bot {
+    border-top: 1px solid var(--line);
+    margin-top: 80px;
+    padding: 48px 0;
+    text-align: center;
+    color: var(--mute);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="page-banner">시안 2 / Modern Dark — Vercel·Linear 풍 데이터 강조형. <a href="/mockups/index.html">← 시안 인덱스</a></div>
+
+<header class="top">
+  <div class="wrap head-row">
+    <div class="logo"><span class="dot"></span><span>공슐랭</span></div>
+    <nav class="nav">
+      <a>랭킹</a><a>구별</a><a>기관별</a><a>지도</a><a>About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span class="pulse"></span> 26개 자치구 · 110,528 식당 · TOP 3,000 랭킹</div>
+    <h1>공무원이 인정한<br /><span class="grad">서울 노포 3,000곳.</span></h1>
+    <p>2023년 9월 이후 공개된 서울시·자치구 업무추진비 80만 행에서 가맹점별로 집계한 진짜 단골 랭킹.</p>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="lbl">RESTAURANTS</div><div class="num"><span class="mono">3,000</span></div></div>
+      <div class="h-stat"><div class="lbl">DEPARTMENTS</div><div class="num"><span class="mono">2,418</span></div></div>
+      <div class="h-stat"><div class="lbl">VISITS LOGGED</div><div class="num"><span class="mono">800,708</span></div></div>
+      <div class="h-stat"><div class="lbl">TOTAL SPEND</div><div class="num"><span class="mono">98.3억</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="list">
+  <div class="wrap">
+    <div class="list-head">
+      <div>
+        <h2>Top of the rank</h2>
+        <div class="sub">방문횟수 기준 · 매주 갱신</div>
+      </div>
+      <div class="filters">
+        <button class="pill active">전체</button>
+        <button class="pill">한식</button>
+        <button class="pill">중구</button>
+        <button class="pill">강남</button>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="photo">
+          <span class="rank top1 mono">#1</span>
+          <img src="/places/ChIJ6WYSTfOifDURfHt_ic8PpUk_1.jpg" />
+          <div class="loc">📍 중구 서소문동</div>
+          <div class="name">삼우정</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">1,573</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">220</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.1</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">100%</span><div class="heat"><div class="fill" style="width:100%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#2</span>
+          <img src="/places/ChIJFaLdc-2ifDURv_GFr2lQi2k_1.jpg" />
+          <div class="loc">📍 중구 태평로1가</div>
+          <div class="name">우도일식</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">1,292</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">174</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 3.9</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">82%</span><div class="heat"><div class="fill" style="width:82%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank top3 mono">#3</span>
+          <img src="/places/ChIJt328EouifDURrqrnnv2APy0_1.jpg" />
+          <div class="loc">📍 중구 서소문동</div>
+          <div class="name">브이아이피참치</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">1,236</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">209</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.2</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">79%</span><div class="heat"><div class="fill" style="width:79%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#4</span>
+          <img src="/places/ChIJfdhKHfOifDURuqbF3SJjGZE_1.jpg" />
+          <div class="loc">📍 중구 태평로2가</div>
+          <div class="name">오리마당</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">1,235</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">248</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.1</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">79%</span><div class="heat"><div class="fill" style="width:79%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#5</span>
+          <img src="/places/ChIJrxSzb_KifDURtprQHyVqCcY_1.jpg" />
+          <div class="loc">📍 중구 을지로1가</div>
+          <div class="name">구이구이</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">1,202</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">263</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 3.9</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">76%</span><div class="heat"><div class="fill" style="width:76%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#6</span>
+          <img src="/places/ChIJCfWqte2ifDURrZb6QPLy2Jw_1.jpg" />
+          <div class="loc">📍 중구 무교동</div>
+          <div class="name">곰국시집</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">950</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">201</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.1</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">60%</span><div class="heat"><div class="fill" style="width:60%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#7</span>
+          <img src="/places/ChIJvf0gv-2ifDURvq224SHhneM_1.jpg" />
+          <div class="loc">📍 중구 무교동</div>
+          <div class="name">참숯골</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">836</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">174</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.0</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">53%</span><div class="heat"><div class="fill" style="width:53%"></div></div></div>
+      </article>
+
+      <article class="card">
+        <div class="photo">
+          <span class="rank mono">#8</span>
+          <img src="/places/ChIJV01eDA-jfDUR3NXF1ioM3I8_1.jpg" />
+          <div class="loc">📍 중구 무교동</div>
+          <div class="name">브라주카 그릴</div>
+        </div>
+        <div class="body">
+          <div class="item hi"><div class="v">833</div><div class="l">방문</div></div>
+          <div class="item"><div class="v">193</div><div class="l">부서</div></div>
+          <div class="item"><div class="v">★ 4.6</div><div class="l">평점</div></div>
+        </div>
+        <div class="heat-row"><span class="heat-pct mono">53%</span><div class="heat"><div class="fill" style="width:53%"></div></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="bot">
+  © 2026 공슐랭 · Built on public expense data
+</footer>
+</body>
+</html>

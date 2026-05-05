@@ -62,6 +62,11 @@ export default function RestaurantList({ restaurants }: Props) {
     return [...filtered].sort((a, b) => b[key] - a[key]);
   }, [restaurants, selectedRegion, sortKey, query, distances]);
 
+  const maxVisits = useMemo(() => {
+    if (items.length === 0) return 1;
+    return items[0].visits;
+  }, [items]);
+
   const isFiltering = query.trim() !== "" || selectedRegion !== ALL;
 
   const handleNearbyClick = () => {
@@ -79,7 +84,7 @@ export default function RestaurantList({ restaurants }: Props) {
         <div className="relative">
           <span
             aria-hidden
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-mute"
           >
             🔍
           </span>
@@ -88,12 +93,12 @@ export default function RestaurantList({ restaurants }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="식당명 검색"
-            className="w-full rounded-full border border-zinc-200 bg-white py-3 pl-11 pr-4 text-sm text-zinc-900 placeholder-zinc-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-200 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:ring-orange-900/50"
+            className="w-full rounded-full border border-line bg-elev py-3 pl-11 pr-4 text-sm text-ink placeholder:text-mute focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
           />
         </div>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-wrap gap-1.5">
         {regions.map((region) => {
           const active = region === selectedRegion;
           return (
@@ -101,10 +106,10 @@ export default function RestaurantList({ restaurants }: Props) {
               key={region}
               type="button"
               onClick={() => setSelectedRegion(region)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
+              className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition border ${
                 active
-                  ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                  : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+                  ? "bg-accent text-[#1a0f08] border-accent"
+                  : "bg-elev text-mute border-line2 hover:text-ink hover:border-accent"
               }`}
             >
               {region}
@@ -114,16 +119,16 @@ export default function RestaurantList({ restaurants }: Props) {
       </div>
 
       <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
-        <span className="text-zinc-500 dark:text-zinc-400">정렬:</span>
+        <span className="text-mute">정렬:</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={handleNearbyClick}
             disabled={geoState.status === "loading"}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+            className={`rounded-full px-3 py-1 text-xs font-medium transition border ${
               sortKey === "nearby"
-                ? "bg-orange-500 text-white"
-                : "bg-transparent text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                ? "bg-accent2 text-[#14210a] border-accent2"
+                : "bg-transparent text-mute border-line2 hover:text-ink hover:border-accent"
             } disabled:opacity-60`}
           >
             📍 내 근처
@@ -136,10 +141,10 @@ export default function RestaurantList({ restaurants }: Props) {
                 key={key}
                 type="button"
                 onClick={() => setSortKey(key)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                className={`rounded-full px-3 py-1 text-xs font-medium transition border ${
                   active
-                    ? "bg-orange-500 text-white"
-                    : "bg-transparent text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                    ? "bg-accent2 text-[#14210a] border-accent2"
+                    : "bg-transparent text-mute border-line2 hover:text-ink hover:border-accent"
                 }`}
               >
                 {label} ↓
@@ -150,13 +155,13 @@ export default function RestaurantList({ restaurants }: Props) {
       </div>
 
       {sortKey === "nearby" && geoState.status === "error" && (
-        <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200">
+        <p className="mb-4 rounded-xl border border-amber-700/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
           {geoState.message}
         </p>
       )}
 
       {items.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-zinc-300 py-16 text-center text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+        <p className="rounded-xl border border-dashed border-line2 py-16 text-center text-sm text-mute">
           {sortKey === "nearby" && geoState.status !== "success"
             ? "위치를 가져온 뒤 근처 맛집이 표시됩니다."
             : isFiltering
@@ -164,12 +169,13 @@ export default function RestaurantList({ restaurants }: Props) {
               : "표시할 데이터가 없습니다."}
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((r) => (
             <RestaurantCard
               key={r.rank}
               restaurant={r}
               distanceMeters={distances?.get(r.rank)}
+              maxVisits={maxVisits}
             />
           ))}
         </div>

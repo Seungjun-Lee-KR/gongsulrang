@@ -10,15 +10,18 @@ export const metadata = {
 
 export default function MapPage() {
   return (
-    <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex flex-1 flex-col bg-base text-ink">
       <SiteHeader />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
+        <div className="mb-8">
+          <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-accent">
+            Map
+          </div>
+          <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
             지도에서 보기
           </h1>
-          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-            22개 자치구 공무원 맛집을 지도 위에서 탐색하세요.
+          <p className="mt-3 max-w-prose text-sm text-mute">
+            26개 자치구 공무원 맛집을 지도 위에서 탐색하세요.
           </p>
         </div>
         <MapExplorer restaurants={restaurants} />

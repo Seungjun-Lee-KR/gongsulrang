@@ -2,30 +2,39 @@ import Link from "next/link";
 
 export default function SiteHeader() {
   return (
-    <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl">🏛️</span>
-          <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
+    <header className="sticky top-0 z-30 border-b border-line bg-base/70 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <span
+            aria-hidden
+            className="h-2.5 w-2.5 rounded-full"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-accent), #ffd07a 60%, var(--color-accent2))",
+            }}
+          />
+          <span className="text-base font-bold tracking-tight text-ink">
             공슐랭
           </span>
-          <span className="hidden text-xs text-zinc-500 dark:text-zinc-400 sm:inline">
-            공무원이 사용한 법인카드 결제 정보를 활용한 맛집 소개
+          <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-mute sm:inline">
+            The Officials' Guide
           </span>
         </Link>
-        <nav className="hidden gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400 sm:flex">
-          <Link href="/region" className="hover:text-zinc-900 dark:hover:text-zinc-50">
-            구별
-          </Link>
-          <Link href="/agency" className="hover:text-zinc-900 dark:hover:text-zinc-50">
-            기관별
-          </Link>
-          <Link href="/map" className="hover:text-zinc-900 dark:hover:text-zinc-50">
-            지도
-          </Link>
-          <Link href="/about" className="hover:text-zinc-900 dark:hover:text-zinc-50">
-            소개
-          </Link>
+        <nav className="hidden items-center gap-1 text-sm font-medium text-mute sm:flex">
+          {[
+            { href: "/region", label: "구별" },
+            { href: "/agency", label: "기관별" },
+            { href: "/map", label: "지도" },
+            { href: "/about", label: "소개" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-md px-3 py-1.5 transition hover:bg-elev hover:text-ink"
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
       </div>
     </header>

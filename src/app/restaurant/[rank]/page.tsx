@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { restaurants } from "@/data/restaurants";
 import { formatWon } from "@/lib/format";
 import KakaoMap from "@/components/KakaoMap";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export function generateStaticParams() {
   return restaurants.map((r) => ({ rank: String(r.rank) }));
@@ -35,70 +37,58 @@ export default async function Page({
   const photoSlots = [0, 1, 2];
 
   return (
-    <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/80">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🏛️</span>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
-              공슐랭
-            </span>
-          </Link>
-          <Link
-            href="/"
-            className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-          >
-            ← 랭킹으로
-          </Link>
-        </div>
-      </header>
+    <div className="flex flex-1 flex-col bg-base text-ink">
+      <SiteHeader />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-6">
-        <div className="flex items-start justify-between gap-4">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
+        <Link href="/" className="text-xs text-mute hover:text-ink">
+          ← 랭킹으로
+        </Link>
+        <div className="mt-4 flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-              <span className="rounded-full bg-amber-400 px-3 py-1 font-bold text-amber-950">
-                {r.rank}위
+            <div className="flex items-center gap-2 text-sm">
+              <span className="rounded-md border border-accent bg-accent px-2 py-1 font-mono text-xs font-bold tabular text-[#1a0f08]">
+                #{r.rank}
               </span>
-              <span>{r.region}</span>
+              <span className="text-mute">{r.region}</span>
             </div>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
               {r.name}
             </h1>
             {r.topAgency && (
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="mt-2 text-sm text-mute">
                 주요 이용 기관:{" "}
-                <span className="font-medium">서울시(본청) {r.topAgency}</span>
+                <span className="font-medium text-ink">{r.topAgency}</span>
               </p>
             )}
           </div>
           <div className="flex shrink-0 items-start gap-5">
             <div className="flex flex-col items-end">
-              <span className="text-2xl font-bold leading-none text-orange-600 tabular-nums dark:text-orange-400">
-                {r.visits.toLocaleString()}회
+              <span className="font-mono text-3xl font-bold leading-none tabular text-accent">
+                {r.visits.toLocaleString()}
               </span>
-              <span className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-                공무원 방문 · {r.deptCount}개 부서
+              <span className="mt-1.5 text-[10px] uppercase tracking-[0.12em] text-mute">
+                방문 · {r.deptCount}개 부서
               </span>
             </div>
             {r.naverVisitorReviewCount !== undefined && (
-              <div className="flex flex-col items-end border-l border-zinc-200 pl-5 dark:border-zinc-800">
-                <span className="text-2xl font-bold leading-none text-[#03c75a] tabular-nums">
+              <div className="flex flex-col items-end border-l border-line pl-5">
+                <span className="font-mono text-3xl font-bold leading-none tabular text-[#03c75a]">
                   {r.naverVisitorReviewCount.toLocaleString()}
                 </span>
-                <span className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-                  네이버 방문자 리뷰수
+                <span className="mt-1.5 text-[10px] uppercase tracking-[0.12em] text-mute">
+                  네이버 방문자 리뷰
                 </span>
               </div>
             )}
             {r.rating !== undefined && (
-              <div className="flex flex-col items-end border-l border-zinc-200 pl-5 dark:border-zinc-800">
-                <span className="text-2xl font-bold leading-none text-orange-600 dark:text-orange-400">
+              <div className="flex flex-col items-end border-l border-line pl-5">
+                <span className="font-mono text-3xl font-bold leading-none tabular text-accent2">
                   ★ {r.rating.toFixed(1)}
                 </span>
                 {r.ratingCount !== undefined && (
-                  <span className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-                    Google 리뷰 {r.ratingCount.toLocaleString()}개
+                  <span className="mt-1.5 text-[10px] uppercase tracking-[0.12em] text-mute">
+                    Google {r.ratingCount.toLocaleString()}개
                   </span>
                 )}
               </div>
@@ -106,13 +96,13 @@ export default async function Page({
           </div>
         </div>
 
-        <section className="mt-5 grid grid-cols-3 gap-3">
+        <section className="mt-6 grid grid-cols-3 gap-3">
           {photoSlots.map((i) => {
             const src = photos[i];
             return (
               <div
                 key={i}
-                className="relative aspect-[4/3] overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
+                className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-elev"
               >
                 {src ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -123,9 +113,12 @@ export default async function Page({
                     loading="lazy"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-xs text-zinc-400 dark:text-zinc-600">
-                    사진 없음
-                  </div>
+                  <PhotoPlaceholder
+                    name={r.name}
+                    region={r.region}
+                    rank={r.rank}
+                    slot={i}
+                  />
                 )}
               </div>
             );
@@ -133,7 +126,7 @@ export default async function Page({
         </section>
 
         <section className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-3">
-          <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="overflow-hidden rounded-xl border border-line bg-elev">
             {r.lat !== undefined && r.lng !== undefined ? (
               <KakaoMap
                 markers={[
@@ -143,27 +136,27 @@ export default async function Page({
                 className="h-56 w-full"
               />
             ) : (
-              <div className="flex h-56 w-full items-center justify-center text-sm text-zinc-400 dark:text-zinc-600">
+              <div className="flex h-56 w-full items-center justify-center text-sm text-mute">
                 위치 정보 없음
               </div>
             )}
           </div>
 
-          <div className="flex h-56 flex-col divide-y divide-zinc-100 overflow-hidden rounded-xl border border-zinc-200 bg-white dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex h-56 flex-col divide-y divide-line overflow-hidden rounded-xl border border-line bg-elev">
             {r.formattedAddress || r.googleMapsUri ? (
               <a
                 href={r.googleMapsUri ?? "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-2.5 px-3 py-2.5 transition hover:bg-zinc-50 dark:hover:bg-zinc-800/40"
+                className="group flex items-start gap-2.5 px-3 py-2.5 transition hover:bg-elev2"
               >
-                <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 group-hover:text-orange-500 dark:text-zinc-500" />
+                <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-mute group-hover:text-accent" />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  <div className="truncate text-sm font-medium text-ink">
                     {r.formattedAddress ?? "지도에서 보기"}
                   </div>
                   {r.googleMapsUri && (
-                    <div className="text-[11px] text-zinc-400 group-hover:text-orange-500 dark:text-zinc-500">
+                    <div className="text-[11px] text-mute group-hover:text-accent">
                       Google 지도에서 열기 ↗
                     </div>
                   )}
@@ -176,10 +169,10 @@ export default async function Page({
             {r.phone ? (
               <a
                 href={`tel:${r.phone.replace(/\s+/g, "")}`}
-                className="group flex items-center gap-2.5 px-3 py-2.5 transition hover:bg-zinc-50 dark:hover:bg-zinc-800/40"
+                className="group flex items-center gap-2.5 px-3 py-2.5 transition hover:bg-elev2"
               >
-                <IconPhone className="h-4 w-4 shrink-0 text-zinc-400 group-hover:text-orange-500 dark:text-zinc-500" />
-                <span className="truncate text-sm font-medium text-zinc-900 tabular-nums dark:text-zinc-100">
+                <IconPhone className="h-4 w-4 shrink-0 text-mute group-hover:text-accent" />
+                <span className="truncate text-sm font-medium text-ink tabular-nums">
                   {r.phone}
                 </span>
               </a>
@@ -188,7 +181,7 @@ export default async function Page({
             )}
 
             <div className="flex min-h-0 flex-1 items-start gap-2.5 px-3 py-2.5">
-              <IconClock className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" />
+              <IconClock className="mt-0.5 h-4 w-4 shrink-0 text-mute" />
               <div className="min-w-0 flex-1 overflow-y-auto pr-1">
                 {r.hours && r.hours.length > 0 ? (
                   <ul className="space-y-0.5">
@@ -201,27 +194,21 @@ export default async function Page({
                           key={i}
                           className="flex gap-2 text-[11px] leading-5"
                         >
-                          <span className="w-10 shrink-0 text-zinc-400 dark:text-zinc-500">
-                            {day}
-                          </span>
-                          <span className="text-zinc-700 dark:text-zinc-300">
-                            {time}
-                          </span>
+                          <span className="w-10 shrink-0 text-mute">{day}</span>
+                          <span className="text-ink/85">{time}</span>
                         </li>
                       );
                     })}
                   </ul>
                 ) : (
-                  <span className="text-xs text-zinc-400 dark:text-zinc-600">
-                    영업시간 정보 없음
-                  </span>
+                  <span className="text-xs text-mute">영업시간 정보 없음</span>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="flex h-56 flex-col rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="mb-2 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+          <div className="flex h-56 flex-col rounded-xl border border-line bg-elev p-3">
+            <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-mute">
               업무추진비 집행현황
             </div>
             <div className="grid flex-1 grid-cols-2 gap-2">
@@ -237,22 +224,78 @@ export default async function Page({
           </div>
         </section>
 
-        <p className="mt-4 text-xs leading-5 text-zinc-500 dark:text-zinc-500">
-          수치는 지방재정365가 공개한 업무추진비 집행내역을 가맹점별로 집계한
-          결과입니다. 평점·사진·영업시간은 Google Places 데이터입니다.
+        <p className="mt-6 text-xs leading-5 text-mute">
+          수치는 지방재정365·각 자치구가 공개한 업무추진비 집행내역을 가맹점별로
+          집계한 결과입니다. 평점·사진·영업시간은 Google Places, 방문자 리뷰
+          수는 네이버 데이터입니다.
         </p>
       </main>
 
-      <footer className="border-t border-zinc-200 bg-white py-5 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
-        © 2026 공슐랭
-      </footer>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function nameInitial(raw: string): string {
+  // 선행 (주)/(유) 같은 회사명 prefix 제거 후 첫 글자
+  const stripped = raw.replace(/^[(（][^)）]+[)）]\s*/, "").trim();
+  return (stripped[0] || raw.trim()[0] || "?").toUpperCase();
+}
+
+function nameHue(name: string): number {
+  let h = 7;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) | 0;
+  return Math.abs(h) % 360;
+}
+
+function PhotoPlaceholder({
+  name,
+  region,
+  rank,
+  slot,
+}: {
+  name: string;
+  region: string;
+  rank: number;
+  slot: number;
+}) {
+  const hue = nameHue(name);
+  const h2 = (hue + 35) % 360;
+  const bg = `linear-gradient(135deg, hsl(${hue} 62% 50%), hsl(${h2} 70% 38%))`;
+  const initial = nameInitial(name);
+  // 슬롯별 부가 정보 변주 (한 면이 다 같은 그림이 안 되도록)
+  const sub =
+    slot === 0
+      ? `${region} · ${rank}위`
+      : slot === 1
+        ? "사진 준비 중"
+        : "공슐랭";
+  return (
+    <div
+      className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden text-white"
+      style={{ background: bg }}
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/10 blur-xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-8 -left-6 h-28 w-28 rounded-full bg-black/15 blur-2xl"
+      />
+      <span className="text-5xl font-extrabold leading-none drop-shadow-sm">
+        {initial}
+      </span>
+      <span className="mt-2 px-3 text-center text-[11px] font-medium uppercase tracking-wider text-white/80">
+        {sub}
+      </span>
     </div>
   );
 }
 
 function InfoEmpty({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex items-center gap-2.5 px-3 py-2.5 text-zinc-400 dark:text-zinc-600">
+    <div className="flex items-center gap-2.5 px-3 py-2.5 text-mute">
       <span className="shrink-0">{icon}</span>
       <span className="text-sm">{text}</span>
     </div>
@@ -322,15 +365,15 @@ function MiniStat({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex flex-col justify-center rounded-lg bg-zinc-50 p-2 dark:bg-zinc-800/60">
-      <div className="text-[10px] text-zinc-500 dark:text-zinc-400">
+    <div className="flex flex-col justify-center rounded-lg border border-line bg-base p-2">
+      <div className="text-[10px] uppercase tracking-[0.1em] text-mute">
         {label}
       </div>
       <div
-        className={`mt-0.5 text-base font-bold leading-tight ${
+        className={`mt-0.5 font-mono leading-tight tabular ${
           highlight
-            ? "text-orange-600 dark:text-orange-400"
-            : "text-zinc-900 dark:text-zinc-50"
+            ? "text-accent text-lg font-bold"
+            : "text-ink text-base font-bold"
         }`}
       >
         {value}

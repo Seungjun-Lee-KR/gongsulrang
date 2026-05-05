@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>공슐랭 · Newspaper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4ede0;
+    --paper2: #ebe1cd;
+    --ink: #181410;
+    --red: #b22229;
+    --rule: #2b231b;
+    --mute: #5b5346;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1.5px 1.5px;
+    color: var(--ink);
+    font-family: 'Nanum Myeongjo', 'Gowun Batang', serif;
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+  .page-banner {
+    background: var(--paper2);
+    text-align: center;
+    padding: 8px 0;
+    font-size: 12px;
+    color: var(--mute);
+    border-bottom: 1px solid #c9bfa6;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .page-banner a { color: var(--red); text-decoration: none; }
+
+  .nameplate {
+    border-top: 6px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-top: 18px;
+    padding: 14px 0 10px;
+  }
+  .nameplate .row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--mute);
+  }
+  .nameplate .right { text-align: right; }
+  .nameplate .title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 96px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--ink);
+    margin: 4px 0 6px;
+  }
+  .nameplate .sub {
+    text-align: center;
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--mute);
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+  .ruleline {
+    border-bottom: 3px double var(--rule);
+    margin-top: 8px;
+  }
+
+  nav.nav {
+    display: flex; justify-content: center; gap: 0;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 28px;
+  }
+  nav.nav a {
+    padding: 0 18px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    border-right: 1px solid #c9bfa6;
+  }
+  nav.nav a:last-child { border-right: none; }
+  nav.nav a:hover { color: var(--red); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 36px;
+    margin-top: 12px;
+  }
+
+  .lead-story h1 {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+  }
+  .lead-story h1 .red { color: var(--red); }
+  .lead-story .deck {
+    font-style: italic;
+    font-size: 18px;
+    color: #2c2820;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .lead-photo {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: #ddd;
+    margin-bottom: 8px;
+    filter: grayscale(0.55) contrast(1.05) sepia(0.18);
+  }
+  .lead-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .caption {
+    font-family: 'Nanum Myeongjo', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--mute);
+    border-bottom: 1px solid #c9bfa6;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  .lead-body {
+    column-count: 2;
+    column-gap: 28px;
+    font-size: 15px;
+    line-height: 1.75;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .lead-body p { margin-bottom: 10px; text-indent: 1.5em; }
+  .lead-body p:first-child { text-indent: 0; }
+  .lead-body p:first-child::first-letter {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 56px;
+    float: left;
+    line-height: 0.9;
+    margin: 6px 8px 0 0;
+    color: var(--red);
+  }
+
+  /* Sidebar — top picks */
+  .sidebar h2 {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 22px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 12px;
+    letter-spacing: 0.06em;
+  }
+  .picks {
+    border: 1px solid var(--rule);
+    border-top: none;
+    padding: 14px 14px 6px;
+  }
+  .pick {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #c9bfa6;
+    align-items: start;
+  }
+  .pick:last-child { border-bottom: none; }
+  .seal {
+    width: 36px; height: 36px;
+    border: 2px solid var(--red);
+    color: var(--red);
+    background: rgba(178,34,41,0.06);
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    transform: rotate(-2deg);
+  }
+  .pick .name {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .pick .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mute);
+    margin-top: 3px;
+  }
+  .pick .visits {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .pick .visits small { display: block; color: var(--mute); font-weight: 400; font-size: 10px; }
+
+  /* Lower section: photo grid */
+  .secondary-head {
+    border-top: 3px double var(--rule);
+    margin-top: 56px;
+    padding-top: 12px;
+    text-align: center;
+  }
+  .secondary-head .label {
+    display: inline-block;
+    background: var(--paper);
+    padding: 0 16px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 800;
+    font-size: 22px;
+    margin-top: -22px;
+    letter-spacing: 0.1em;
+  }
+  .photo-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .ptile .img {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #ddd;
+    filter: grayscale(0.4) sepia(0.15);
+  }
+  .ptile .img img { width: 100%; height: 100%; object-fit: cover; }
+  .ptile .label {
+    border-top: 1px solid var(--rule);
+    padding: 8px 0 0;
+    margin-top: 8px;
+  }
+  .ptile h4 {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .ptile .small {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mute);
+    margin-top: 2px;
+  }
+
+  footer.colophon {
+    margin-top: 80px;
+    border-top: 6px solid var(--rule);
+    padding: 20px 0 40px;
+    text-align: center;
+    font-family: 'Nanum Myeongjo', serif;
+    font-style: italic;
+    color: var(--mute);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="page-banner">시안 3 / Newspaper — 옛 신문 헤드라인 풍 한국식. <a href="/mockups/index.html">← 시안 인덱스</a></div>
+
+<div class="wrap">
+  <div class="nameplate">
+    <div class="row">
+      <div>VOL. I · NO. 1</div>
+      <div>SEOUL EDITION</div>
+      <div class="right">2026年 5月</div>
+    </div>
+    <div class="title">公슐랭</div>
+    <div class="sub">公務員 業務推進費로 본 서울의 진짜 단골</div>
+  </div>
+  <div class="ruleline"></div>
+  <nav class="nav">
+    <a>第一版 랭킹</a>
+    <a>區別</a>
+    <a>機關別</a>
+    <a>地圖</a>
+    <a>About</a>
+  </nav>
+</div>
+
+<div class="wrap layout">
+  <article class="lead-story">
+    <div class="byline">중구發 · 본지 데이터팀</div>
+    <h1>공무원이 인정한 <span class="red">서소문 노포</span>, 1,573회 회동.</h1>
+    <div class="deck">
+      서울시 220개 부서가 약속이라도 한 듯, 회식 자리는 늘 이곳이었다.
+      공슐랭이 분석한 80만 건의 업무추진비 행 끝에서 발견한 단 한 식당의 이야기.
+    </div>
+    <div class="lead-photo">
+      <img src="/places/ChIJ6WYSTfOifDURfHt_ic8PpUk_1.jpg" alt="삼우정" />
+    </div>
+    <div class="caption">중구 서소문동 「삼우정」 — 공슐랭 No.1 (제공 / Google)</div>
+    <div class="lead-body">
+      <p>중구 서소문동에 위치한 「삼우정」이 2023년 9월 이후 공무원 업무추진비 집행 빈도 기준 서울 1위에 올랐다. 본지가 서울시·25개 자치구가 공개한 80만 건의 업무추진비 데이터를 가맹점별로 집계한 결과, 이 식당은 무려 1,573회 회동 장소로 사용됐으며 시민감사옴부즈만위원회를 비롯한 220개 부서가 다녀갔다.</p>
+      <p>2위는 1,292회의 「우도일식」(태평로1가), 3위는 1,236회의 「브이아이피참치」(서소문동) 순. 상위 10위 가운데 8곳이 중구 소재로, 시청·정부서울청사 인근의 노포가 공무원의 회식·간담회 무대를 사실상 독점하고 있는 것으로 나타났다.</p>
+      <p>본지는 이번 분석을 위해 지방재정365 등에서 공개한 자료를 동일 식당명·동일 자치구 단위로 정규화했으며, 체인 지점은 별도로 분리해 집계했다. 평점·사진은 Google Places가 제공한 데이터를 활용했다.</p>
+    </div>
+  </article>
+
+  <aside class="sidebar">
+    <h2>第一版 — TOP 8</h2>
+    <div class="picks">
+      <div class="pick">
+        <div class="seal">壹</div>
+        <div>
+          <div class="name">삼우정</div>
+          <div class="meta">중구 서소문동 · ★ 4.1</div>
+        </div>
+        <div class="visits">1,573회<small>220 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">貳</div>
+        <div>
+          <div class="name">우도일식</div>
+          <div class="meta">중구 태평로1가 · ★ 3.9</div>
+        </div>
+        <div class="visits">1,292회<small>174 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">參</div>
+        <div>
+          <div class="name">브이아이피참치</div>
+          <div class="meta">중구 서소문동 · ★ 4.2</div>
+        </div>
+        <div class="visits">1,236회<small>209 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">四</div>
+        <div>
+          <div class="name">오리마당</div>
+          <div class="meta">중구 태평로2가 · ★ 4.1</div>
+        </div>
+        <div class="visits">1,235회<small>248 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">五</div>
+        <div>
+          <div class="name">구이구이</div>
+          <div class="meta">중구 을지로1가 · ★ 3.9</div>
+        </div>
+        <div class="visits">1,202회<small>263 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">六</div>
+        <div>
+          <div class="name">곰국시집</div>
+          <div class="meta">중구 무교동 · ★ 4.1</div>
+        </div>
+        <div class="visits">950회<small>201 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">七</div>
+        <div>
+          <div class="name">참숯골</div>
+          <div class="meta">중구 무교동 · ★ 4.0</div>
+        </div>
+        <div class="visits">836회<small>174 부서</small></div>
+      </div>
+      <div class="pick">
+        <div class="seal">八</div>
+        <div>
+          <div class="name">브라주카 그릴</div>
+          <div class="meta">중구 무교동 · ★ 4.6</div>
+        </div>
+        <div class="visits">833회<small>193 부서</small></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="wrap">
+  <div class="secondary-head"><span class="label">寫眞으로 본 단골</span></div>
+  <div class="photo-row">
+    <div class="ptile">
+      <div class="img"><img src="/places/ChIJfdhKHfOifDURuqbF3SJjGZE_1.jpg" /></div>
+      <div class="label"><h4>오리마당</h4><div class="small">중구 · 1,235회</div></div>
+    </div>
+    <div class="ptile">
+      <div class="img"><img src="/places/ChIJrxSzb_KifDURtprQHyVqCcY_1.jpg" /></div>
+      <div class="label"><h4>구이구이</h4><div class="small">중구 · 1,202회</div></div>
+    </div>
+    <div class="ptile">
+      <div class="img"><img src="/places/ChIJCfWqte2ifDURrZb6QPLy2Jw_1.jpg" /></div>
+      <div class="label"><h4>곰국시집</h4><div class="small">중구 · 950회</div></div>
+    </div>
+    <div class="ptile">
+      <div class="img"><img src="/places/ChIJV01eDA-jfDUR3NXF1ioM3I8_1.jpg" /></div>
+      <div class="label"><h4>브라주카 그릴</h4><div class="small">중구 · 833회</div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="colophon">公슐랭 · 발행 © 二〇二六</footer>
+</body>
+</html>
