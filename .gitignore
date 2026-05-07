@@ -40,6 +40,24 @@ yarn-error.log*
 # Google Places 사진 (런타임 asset, 500MB+ · 수집기로 재생성 가능)
 /public/places/
 
+# 자치구 원본 PDF/XLSX (수백MB, 수집기 재실행으로 재생성)
+/data/output/*_pdfs/
+/data/raw/
+/data/output/*_run.log
+
+# 파이썬 캐시
+**/__pycache__/
+*.pyc
+
+# 폐기/실험 산출물 (Naver 제거 + 구버전)
+/data/output/naver_ratings.json
+/data/output/.naver_cache.json*
+/data/output/sample_*.csv
+/data/output/seoul_expense_raw_xlsx_backup.csv
+/data/output/seoul_expense_raw_api_pilot.csv
+/data/output/seoul_bonchong_2024_list.csv
+/data/output/districts_probe.*
+
 # 세션 로그
 /2026-*-this-session-is-being-continued*.txt
 
