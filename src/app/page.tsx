@@ -40,7 +40,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1 className="mt-6 text-5xl font-extrabold tracking-tight leading-[1.02] sm:text-7xl">
+            <h1 className="mt-6 break-keep text-[2.6rem] font-extrabold tracking-tight leading-[1.05] sm:text-7xl sm:leading-[1.02]">
               서울시 공무원이 인정한
               <br />
               <span className="text-gradient-accent">서울 맛집 TOP {restaurants.length.toLocaleString()}</span>
@@ -53,7 +53,7 @@ export default function Home() {
               <HeroStat label="식당 개수" value={restaurants.length.toLocaleString()} />
               <HeroStat label="방문 횟수" value={totalVisits.toLocaleString()} />
               <HeroStat label="결제 금액" value={`${formatBig(totalSpend)}원`} />
-              <HeroStat label="기관 개수" value={agencyCount.toLocaleString()} />
+              <HeroStat label="방문 부서의 수" value={agencyCount.toLocaleString()} />
             </div>
           </div>
         </section>

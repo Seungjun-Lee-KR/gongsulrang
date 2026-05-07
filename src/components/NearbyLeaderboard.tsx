@@ -193,7 +193,7 @@ export default function NearbyLeaderboard({ restaurants }: Props) {
         </div>
       </div>
 
-      <ol className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
+      <ol className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-5">
         {items.map((r) => (
           <LeaderboardRow key={r.rank} item={r} />
         ))}

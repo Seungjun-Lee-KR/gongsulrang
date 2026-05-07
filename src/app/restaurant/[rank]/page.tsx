@@ -44,7 +44,7 @@ export default async function Page({
         <Link href="/" className="text-xs text-mute hover:text-ink">
           ← 랭킹으로
         </Link>
-        <div className="mt-4 flex items-start justify-between gap-4">
+        <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-sm">
               <span className="rounded-md border border-accent bg-accent px-2 py-1 font-mono text-xs font-bold tabular text-[#1a0f08]">
@@ -52,38 +52,28 @@ export default async function Page({
               </span>
               <span className="text-mute">{r.region}</span>
             </div>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+            <h1 className="mt-3 break-keep text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
               {r.name}
             </h1>
             {r.topAgency && (
-              <p className="mt-2 text-sm text-mute">
+              <p className="mt-2 break-keep text-sm text-mute">
                 주요 이용 기관:{" "}
                 <span className="font-medium text-ink">{r.topAgency}</span>
               </p>
             )}
           </div>
-          <div className="flex shrink-0 items-start gap-5">
-            <div className="flex flex-col items-end">
-              <span className="font-mono text-3xl font-bold leading-none tabular text-accent">
+          <div className="flex items-start gap-3 divide-x divide-line sm:shrink-0 sm:gap-5 sm:divide-x-0">
+            <div className="flex flex-1 flex-col items-start sm:flex-none sm:items-end">
+              <span className="font-mono text-2xl font-bold leading-none tabular text-accent sm:text-3xl">
                 {r.visits.toLocaleString()}
               </span>
               <span className="mt-1.5 text-[10px] uppercase tracking-[0.12em] text-mute">
                 방문 · {r.deptCount}개 부서
               </span>
             </div>
-            {r.naverVisitorReviewCount !== undefined && (
-              <div className="flex flex-col items-end border-l border-line pl-5">
-                <span className="font-mono text-3xl font-bold leading-none tabular text-[#03c75a]">
-                  {r.naverVisitorReviewCount.toLocaleString()}
-                </span>
-                <span className="mt-1.5 text-[10px] uppercase tracking-[0.12em] text-mute">
-                  네이버 방문자 리뷰
-                </span>
-              </div>
-            )}
             {r.rating !== undefined && (
-              <div className="flex flex-col items-end border-l border-line pl-5">
-                <span className="font-mono text-3xl font-bold leading-none tabular text-accent2">
+              <div className="flex flex-1 flex-col items-start pl-3 sm:flex-none sm:items-end sm:border-l sm:border-line sm:pl-5">
+                <span className="font-mono text-2xl font-bold leading-none tabular text-accent2 sm:text-3xl">
                   ★ {r.rating.toFixed(1)}
                 </span>
                 {r.ratingCount !== undefined && (
@@ -225,9 +215,9 @@ export default async function Page({
         </section>
 
         <p className="mt-6 text-xs leading-5 text-mute">
-          수치는 지방재정365·각 자치구가 공개한 업무추진비 집행내역을 가맹점별로
-          집계한 결과입니다. 평점·사진·영업시간은 Google Places, 방문자 리뷰
-          수는 네이버 데이터입니다.
+          수치는 서울 열린데이터광장·각 자치구가 공개한 업무추진비 집행내역을
+          가맹점별로 집계한 결과입니다. 평점·사진·영업시간은 Google Places
+          데이터입니다.
         </p>
       </main>
 

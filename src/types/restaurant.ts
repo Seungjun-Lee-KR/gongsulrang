@@ -19,8 +19,4 @@ export type Restaurant = {
   formattedAddress?: string;
   address?: string;
   guDong?: string;
-  naverPlaceId?: string;
-  naverRating?: number;
-  naverVisitorReviewCount?: number;
-  naverBlogReviewCount?: number;
 };

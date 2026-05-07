@@ -28,8 +28,8 @@ export default function AgencyIndex() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-line bg-elev">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto rounded-2xl border border-line bg-elev">
+          <table className="w-full min-w-[720px] text-sm">
             <thead className="border-b border-line bg-elev2 text-[10px] uppercase tracking-[0.12em] text-mute">
               <tr>
                 <th className="px-4 py-3 text-left font-medium">#</th>
