@@ -36,8 +36,48 @@ export default async function Page({
   const photos = r.photos ?? [];
   const photoSlots = [0, 1, 2];
 
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    name: r.name,
+    url: `https://gongsulrang.vercel.app/restaurant/${r.rank}`,
+  };
+  if (r.formattedAddress || r.guDong || r.region) {
+    jsonLd.address = {
+      "@type": "PostalAddress",
+      addressCountry: "KR",
+      addressRegion: "서울특별시",
+      addressLocality: r.guDong || r.region || undefined,
+      streetAddress: r.formattedAddress || r.address || undefined,
+    };
+  }
+  if (r.lat !== undefined && r.lng !== undefined) {
+    jsonLd.geo = {
+      "@type": "GeoCoordinates",
+      latitude: r.lat,
+      longitude: r.lng,
+    };
+  }
+  if (r.phone) jsonLd.telephone = r.phone;
+  if (r.rating !== undefined) {
+    jsonLd.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: r.rating,
+      ratingCount: r.ratingCount ?? undefined,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+  if (r.hours && r.hours.length > 0) {
+    jsonLd.openingHours = r.hours;
+  }
+
   return (
     <div className="flex flex-1 flex-col bg-base text-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
