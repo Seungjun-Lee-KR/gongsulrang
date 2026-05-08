@@ -42,6 +42,8 @@ yarn-error.log*
 
 # 자치구 원본 PDF/XLSX (수백MB, 수집기 재실행으로 재생성)
 /data/output/*_pdfs/
+/data/output/*_xlss/
+/data/output/*_xls/
 /data/raw/
 /data/output/*_run.log
 

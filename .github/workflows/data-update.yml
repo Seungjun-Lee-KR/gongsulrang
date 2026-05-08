@@ -5,6 +5,11 @@ on:
     # 매주 일요일 17:00 UTC = 월요일 02:00 KST
     - cron: '0 17 * * 0'
   workflow_dispatch:
+    inputs:
+      max_pages:
+        description: '자치구 게시판 listing 페이지 상한 (delta=10, 풀 sync=200)'
+        required: false
+        default: '10'
 
 concurrency:
   group: data-update
@@ -37,15 +42,19 @@ jobs:
         run: python scripts/01_fetch_openapi.py
 
       - name: 자치구 24구 수집
+        # 매주 갱신은 최근 페이지만 훑으면 충분 (delta-only)
+        # 풀 sync 필요 시 입력 max_pages를 크게 (예: 200)
+        env:
+          MAX_PAGES: ${{ inputs.max_pages || '10' }}
         run: |
           set +e
           fails=()
           districts=(ddm dobong dongjak ep gangbuk gangnam gangseo geumcheon guro gwangjin gwanak jongno junggu jungnang mapo nowon sb sdm seocho seongdong songpa yangcheon ydp yongsan)
           for c in "${districts[@]}"; do
             echo "::group::collect_$c"
-            if python "scripts/collect_${c}.py" --stage all 2>/dev/null; then
+            if python "scripts/collect_${c}.py" --stage all --max-pages "$MAX_PAGES" 2>/dev/null; then
               :
-            elif python "scripts/collect_${c}.py"; then
+            elif python "scripts/collect_${c}.py" --max-pages "$MAX_PAGES"; then
               :
             else
               fails+=("$c")
