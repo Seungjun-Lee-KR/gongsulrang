@@ -16,6 +16,7 @@ _os.chdir(_Path(__file__).resolve().parent.parent)
 import csv
 import json
 import os
+from urllib.parse import quote
 
 SRC = "data/output/gongsulrang_ranking_seoul_2024_geo.csv"
 ENRICH = "data/output/places_enrich.json"
@@ -24,6 +25,19 @@ DST = "src/data/restaurants.json"
 TOP_N = 3000
 # 좌표 없는 건 프론트에서 핀이 안 찍히므로 제외
 REQUIRE_LATLNG = True
+# 옵션 B: photo_refs를 동적 프록시 URL로 변환 (default width=800)
+PHOTO_PROXY_WIDTH = 800
+
+
+def build_photo_urls(e: dict) -> list[str]:
+    refs = e.get("photo_refs") or []
+    if refs:
+        return [
+            f"/api/photo?ref={quote(ref, safe='')}&w={PHOTO_PROXY_WIDTH}"
+            for ref in refs
+        ]
+    # legacy fallback (dev only — public/places/ is .gitignored)
+    return e.get("photos") or []
 
 def main():
     rows = list(csv.DictReader(open(SRC, encoding="utf-8-sig")))
@@ -84,8 +98,9 @@ def main():
                 item["phone"] = e["phone"]
             if e.get("hours"):
                 item["hours"] = e["hours"]
-            if e.get("photos"):
-                item["photos"] = e["photos"]
+            photo_urls = build_photo_urls(e)
+            if photo_urls:
+                item["photos"] = photo_urls
             if e.get("google_maps_uri"):
                 item["googleMapsUri"] = e["google_maps_uri"]
             if e.get("formatted_address"):

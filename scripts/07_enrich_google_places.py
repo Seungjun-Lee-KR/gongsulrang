@@ -106,7 +106,7 @@ def download_photo(photo_name: str, dst_path: str) -> bool:
     return True
 
 
-def enrich_row(row: dict, cache: dict):
+def enrich_row(row: dict, cache: dict, download: bool = False):
     name = row["식당명"].strip()
     region = row.get("지역", "").strip()
     addr = row.get("주소", "").strip()
@@ -121,17 +121,18 @@ def enrich_row(row: dict, cache: dict):
 
     pid = place.get("id")
     photos = place.get("photos") or []
-    photo_names = [p["name"] for p in photos[:PHOTO_MAX]]
+    photo_refs = [p["name"] for p in photos[:PHOTO_MAX]]
     saved_photos = []
-    for i, pn in enumerate(photo_names, 1):
-        dst = os.path.join(PHOTO_DIR, f"{pid}_{i}.jpg")
-        if os.path.exists(dst):
-            saved_photos.append(f"/places/{pid}_{i}.jpg")
-            continue
-        ok = download_photo(pn, dst)
-        if ok:
-            saved_photos.append(f"/places/{pid}_{i}.jpg")
-        time.sleep(RATE)
+    if download:
+        for i, pn in enumerate(photo_refs, 1):
+            dst = os.path.join(PHOTO_DIR, f"{pid}_{i}.jpg")
+            if os.path.exists(dst):
+                saved_photos.append(f"/places/{pid}_{i}.jpg")
+                continue
+            ok = download_photo(pn, dst)
+            if ok:
+                saved_photos.append(f"/places/{pid}_{i}.jpg")
+            time.sleep(RATE)
 
     enriched = {
         "status": "ok",
@@ -145,6 +146,7 @@ def enrich_row(row: dict, cache: dict):
         "google_maps_uri": place.get("googleMapsUri", ""),
         "website_uri": place.get("websiteUri", ""),
         "price_level": place.get("priceLevel"),
+        "photo_refs": photo_refs,
         "photos": saved_photos,
     }
     cache[key] = enriched
@@ -154,22 +156,36 @@ def enrich_row(row: dict, cache: dict):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--top", type=int, default=300, help="상위 N개만 enrich")
+    ap.add_argument("--download", action="store_true", help="사진을 public/places/로 다운로드 (기본 off — 옵션 B 동적 프록시 사용)")
     args = ap.parse_args()
 
-    os.makedirs(PHOTO_DIR, exist_ok=True)
+    if args.download:
+        os.makedirs(PHOTO_DIR, exist_ok=True)
     cache = cache_load()
+    # 기존 places_enrich.json — cache hit 시 photo_refs 등 보강 데이터 보존용
+    prior = {}
+    if os.path.exists(OUT_JSON):
+        try:
+            prior = json.load(open(OUT_JSON, encoding="utf-8"))
+        except Exception:
+            prior = {}
     rows = list(csv.DictReader(open(SRC, encoding="utf-8-sig")))
     target = rows[:args.top]
-    print(f"대상: {len(target)}건 (TOP {args.top})")
+    print(f"대상: {len(target)}건 (TOP {args.top}, download={args.download})")
 
     result = {}
     n_ok = n_fail = 0
     for i, row in enumerate(target, 1):
         key = f"{row['식당명']}|{row.get('지역','')}|{row.get('주소','')}"
         try:
-            e = enrich_row(row, cache)
+            e = enrich_row(row, cache, download=args.download)
         except Exception as ex:
             e = {"status": f"err:{type(ex).__name__}: {ex}"}
+        # cache hit가 photo_refs 누락이지만 직전 places_enrich.json에 있으면 보존
+        if e.get("status") == "ok" and not e.get("photo_refs"):
+            prior_refs = (prior.get(key) or {}).get("photo_refs")
+            if prior_refs:
+                e = {**e, "photo_refs": prior_refs}
         result[key] = {"rank": int(row["순위"]), "name": row["식당명"], "region": row.get("지역",""), **e}
         if e.get("status") == "ok":
             n_ok += 1
