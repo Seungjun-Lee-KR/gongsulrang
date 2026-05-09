@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { auth } from "@/lib/auth";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -51,11 +53,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="ko" className={`${jetbrainsMono.variable} h-full antialiased`}>
       <head>
@@ -65,7 +68,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-base text-ink">
-        {children}
+        <Providers session={session}>{children}</Providers>
         <Analytics />
         <SpeedInsights />
       </body>
