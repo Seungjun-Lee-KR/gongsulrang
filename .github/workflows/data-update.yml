@@ -44,14 +44,25 @@ jobs:
       - name: 자치구 24구 수집
         # 매주 갱신은 최근 페이지만 훑으면 충분 (delta-only)
         # 풀 sync 필요 시 입력 max_pages를 크게 (예: 200)
+        # CSV 축소 가드: parse 실패율이 높아 expense_raw.csv가 70% 미만으로 줄면
+        # 이전 버전으로 자동 복원 (기존 데이터 보존). 임계값은 SHRINK_PCT.
         env:
           MAX_PAGES: ${{ inputs.max_pages || '10' }}
+          SHRINK_PCT: '70'
         run: |
           set +e
           fails=()
+          shrunk=()
           districts=(ddm dobong dongjak ep gangbuk gangnam gangseo geumcheon guro gwangjin gwanak jongno junggu jungnang mapo nowon sb sdm seocho seongdong songpa yangcheon ydp yongsan)
+          mkdir -p /tmp/csv-snapshots
           for c in "${districts[@]}"; do
             echo "::group::collect_$c"
+            csv="data/output/${c}_expense_raw.csv"
+            before_lines=0
+            if [ -f "$csv" ]; then
+              cp "$csv" "/tmp/csv-snapshots/${c}_before.csv"
+              before_lines=$(wc -l < "$csv")
+            fi
             if python "scripts/collect_${c}.py" --stage all --max-pages "$MAX_PAGES" 2>/dev/null; then
               :
             elif python "scripts/collect_${c}.py" --max-pages "$MAX_PAGES"; then
@@ -60,18 +71,46 @@ jobs:
               fails+=("$c")
               echo "::warning::collect_$c 실패"
             fi
+            if [ -f "/tmp/csv-snapshots/${c}_before.csv" ] && [ -f "$csv" ] && [ "$before_lines" -gt 100 ]; then
+              after_lines=$(wc -l < "$csv")
+              threshold=$((before_lines * SHRINK_PCT / 100))
+              if [ "$after_lines" -lt "$threshold" ]; then
+                echo "::warning::collect_$c CSV 축소 감지: ${after_lines}행 < 임계 ${threshold}행 (이전 ${before_lines}). 이전 CSV로 복원."
+                cp "/tmp/csv-snapshots/${c}_before.csv" "$csv"
+                shrunk+=("$c")
+              fi
+            fi
             echo "::endgroup::"
           done
           if [ ${#fails[@]} -gt 0 ]; then
             echo "::warning::수집 실패 자치구: ${fails[*]}"
           fi
+          if [ ${#shrunk[@]} -gt 0 ]; then
+            echo "::warning::CSV 축소로 복원된 자치구: ${shrunk[*]}"
+          fi
 
       - name: 강동구 수집
+        env:
+          SHRINK_PCT: '70'
         run: |
           set +e
+          csv="data/output/gangdong_expense_raw.csv"
+          before_lines=0
+          if [ -f "$csv" ]; then
+            cp "$csv" /tmp/gangdong_before.csv
+            before_lines=$(wc -l < "$csv")
+          fi
           python scripts/09_gangdong_list.py || echo "::warning::gangdong list"
           python scripts/10_gangdong_fetch_pdfs.py || echo "::warning::gangdong fetch"
           python scripts/11_gangdong_parse.py || echo "::warning::gangdong parse"
+          if [ -f /tmp/gangdong_before.csv ] && [ -f "$csv" ] && [ "$before_lines" -gt 100 ]; then
+            after_lines=$(wc -l < "$csv")
+            threshold=$((before_lines * SHRINK_PCT / 100))
+            if [ "$after_lines" -lt "$threshold" ]; then
+              echo "::warning::gangdong CSV 축소 감지: ${after_lines}행 < 임계 ${threshold}행 (이전 ${before_lines}). 이전 CSV로 복원."
+              cp /tmp/gangdong_before.csv "$csv"
+            fi
+          fi
 
       - name: 식당 단위 집계
         run: python scripts/04_aggregate.py
