@@ -8,7 +8,7 @@
     아래처럼 .env 파일에 저장 후 불러오세요.
 
     .env 파일 내용:
-        LOFIN_API_KEY=2P6CH7W36I
+        LOFIN_API_KEY=<발급받은_지방재정365_API_키>
 
 사용법:
     pip install requests pandas python-dotenv tqdm

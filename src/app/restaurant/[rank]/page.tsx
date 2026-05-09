@@ -5,6 +5,7 @@ import { formatWon } from "@/lib/format";
 import KakaoMap from "@/components/KakaoMap";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Giscus from "@/components/Giscus";
 
 export function generateStaticParams() {
   return restaurants.map((r) => ({ rank: String(r.rank) }));
@@ -259,6 +260,17 @@ export default async function Page({
           가맹점별로 집계한 결과입니다. 평점·사진·영업시간은 Google Places
           데이터입니다.
         </p>
+
+        <section className="mt-10 border-t border-line pt-8">
+          <h2 className="text-xl font-bold tracking-tight text-ink">댓글</h2>
+          <p className="mt-1 text-sm text-mute">
+            가본 후기·정정 의견·일행 추천 등 자유롭게 남겨주세요. GitHub 계정으로
+            로그인합니다.
+          </p>
+          <div className="mt-5">
+            <Giscus />
+          </div>
+        </section>
       </main>
 
       <SiteFooter />
