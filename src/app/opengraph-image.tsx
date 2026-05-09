@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { restaurants } from "@/data/restaurants";
 
-export const alt = "공슐랭 — 공무원이 인정한 서울 맛집";
+export const alt = "공슐랭 — 법카 데이터로 찾은 서울 맛집";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -68,11 +68,11 @@ export default async function Image() {
               letterSpacing: "-0.01em",
             }}
           >
-            서울시 공무원이 인정한
+            서울시 법카사용 데이터로 찾은
           </div>
           <div
             style={{
-              fontSize: 116,
+              fontSize: 124,
               fontWeight: 800,
               letterSpacing: "-0.03em",
               lineHeight: 1.0,
@@ -82,7 +82,7 @@ export default async function Image() {
               color: "transparent",
             }}
           >
-            {`서울 맛집 TOP ${total}`}
+            서울 맛집 탐방
           </div>
         </div>
 
@@ -96,7 +96,7 @@ export default async function Image() {
           }}
         >
           <div style={{ fontSize: 26, color: "#8a8a95" }}>
-            서울시·25개 구청 업무추진비 80만 건 분석
+            {`업무추진비 80만 건에서 찾은 식당 ${total}곳`}
           </div>
           <div style={{ fontSize: 26, color: "#8a8a95", fontWeight: 700 }}>
             gongsulrang.vercel.app

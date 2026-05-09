@@ -23,10 +23,10 @@ export default function AboutPage() {
         <p className="mt-6 text-lg leading-8 text-mute">
           공슐랭은{" "}
           <strong className="font-semibold text-ink">공무원 + 미슐랭</strong>의
-          합성어로, 공무원들이 업무추진비로 자주 찾는 식당을 모아 보여주는
-          사이트입니다. 전문가 평론가 대신{" "}
-          <em className="text-accent2 not-italic">공공 지출 데이터</em>가 매긴
-          랭킹입니다.
+          합성어로, 공무원 업무추진비(법카) 결제 내역에 자주 등장하는 식당을
+          모아 보여주는 사이트입니다. 전문가 평론가 대신{" "}
+          <em className="text-accent2 not-italic">공공 지출 데이터</em>가
+          가리키는 빈도 통계입니다.
         </p>
 
         <Section title="데이터 출처">
@@ -100,9 +100,9 @@ export default function AboutPage() {
               목적으로 한 비영리 프로젝트입니다.
             </li>
             <li>
-              사이트 곳곳에 등장하는 “공무원이 인정한”·“공슐랭” 등 표현은 결제
-              빈도 통계에 대한 비유적 카피이며, 식당의 영업·품질에 대한 공식
-              인증이나 평가가 아닙니다.
+              사이트 곳곳에 등장하는 “공슐랭”·“맛집 탐방” 등 표현은 결제 빈도
+              통계에 대한 비유적 카피이며, 식당의 영업·품질에 대한 공식 인증이나
+              평가가 아닙니다.
             </li>
             <li>
               랭킹과 통계는 <strong className="text-ink">참고용 정보</strong>로

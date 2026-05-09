@@ -41,12 +41,12 @@ export default function Home() {
             </div>
 
             <h1 className="mt-6 break-keep text-[2.6rem] font-extrabold tracking-tight leading-[1.05] sm:text-7xl sm:leading-[1.02]">
-              서울시 공무원이 인정한
+              서울시 법카사용 데이터로 찾은
               <br />
-              <span className="text-gradient-accent">서울 맛집 TOP {restaurants.length.toLocaleString()}</span>
+              <span className="text-gradient-accent">서울 맛집 탐방</span>
             </h1>
             <p className="mt-5 max-w-[58ch] text-base text-mute sm:text-lg">
-              서울시청·25개 구청 법카 결제내역 80만건을 분석하여 엄선한 맛집
+              서울시청·25개 구청 업무추진비 80만 건에서 찾아낸 식당 {restaurants.length.toLocaleString()}곳
             </p>
 
             <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">

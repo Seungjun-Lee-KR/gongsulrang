@@ -12,9 +12,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 const SITE_URL = "https://gongsulrang.vercel.app";
 const SITE_NAME = "공슐랭";
-const SITE_TAGLINE = "공무원이 인정한 서울 맛집";
+const SITE_TAGLINE = "법카 데이터로 찾은 서울 맛집";
 const SITE_DESCRIPTION =
-  "서울시·25개 자치구 공무원이 업무추진비로 자주 찾는 식당 랭킹. 공공 데이터 80만 건을 가공해 매주 갱신합니다.";
+  "서울시·25개 자치구 공무원 업무추진비(법카) 결제 80만 건에서 찾아낸 식당 3,000곳. 공공 데이터를 가공해 매주 갱신합니다.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

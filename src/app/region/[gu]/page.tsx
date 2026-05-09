@@ -22,7 +22,7 @@ export async function generateMetadata({
   const region = decodeURIComponent(gu);
   return {
     title: `${region} 공슐랭 · 공슐랭`,
-    description: `${region} 공무원이 자주 가는 맛집 랭킹`,
+    description: `${region} 공무원 업무추진비 데이터로 찾은 식당 랭킹`,
   };
 }
 
