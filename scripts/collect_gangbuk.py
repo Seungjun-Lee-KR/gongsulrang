@@ -99,6 +99,8 @@ def stage_list(session: requests.Session, since_dt: datetime, max_pages: int):
     rate = RateLimiter(RATE_LIST)
     print(f"[{DISTRICT}] list crawling since={since_dt.date()} max-pages={max_pages}")
     page = 1
+    no_new_streak = 0
+    NO_NEW_LIMIT = 2
     while page <= max_pages:
         try:
             rows = fetch_list_page(session, page)
@@ -116,6 +118,7 @@ def stage_list(session: requests.Session, since_dt: datetime, max_pages: int):
             print(f"  cp={page}: 0행, 종료")
             break
         in_range = out_range = 0
+        new_added = 0
         oldest = None
         for row in rows:
             d = parse_date(row["date"])
@@ -124,14 +127,22 @@ def stage_list(session: requests.Session, since_dt: datetime, max_pages: int):
                 in_range += 1
                 if row["id"] not in all_posts:
                     all_posts[row["id"]] = row
+                    new_added += 1
             else:
                 out_range += 1
         if page % 20 == 0 or page <= 5:
             print(f"  cp={page}: rows={len(rows)} in={in_range} out={out_range} "
-                  f"oldest={oldest.date() if oldest else '?'}")
+                  f"new={new_added} oldest={oldest.date() if oldest else '?'}")
         if rows and out_range == len(rows):
             print("  → 전체 범위 밖, 중단")
             break
+        if new_added == 0:
+            no_new_streak += 1
+            if no_new_streak >= NO_NEW_LIMIT:
+                print(f"  → {NO_NEW_LIMIT}페이지 연속 신규 게시물 없음, 중단")
+                break
+        else:
+            no_new_streak = 0
         page += 1
         rate.wait()
 

@@ -55,6 +55,10 @@ jobs:
           shrunk=()
           districts=(ddm dobong dongjak ep gangbuk gangnam gangseo geumcheon guro gwangjin gwanak jongno junggu jungnang mapo nowon sb sdm seocho seongdong songpa yangcheon ydp yongsan)
           mkdir -p /tmp/csv-snapshots
+          # ep/gwanak/sdm은 posts.json 캐시 없이 매번 CSV를 full overwrite하는
+          # streaming 구조라 --max-pages 제한이 곧 데이터 손실로 이어짐 (guard가 revert).
+          # 따라서 이 3개는 자체 default(전체 페이지)로 돌리도록 분기.
+          full_crawl=" ep gwanak sdm "
           for c in "${districts[@]}"; do
             echo "::group::collect_$c"
             csv="data/output/${c}_expense_raw.csv"
@@ -63,13 +67,22 @@ jobs:
               cp "$csv" "/tmp/csv-snapshots/${c}_before.csv"
               before_lines=$(wc -l < "$csv")
             fi
-            if python "scripts/collect_${c}.py" --stage all --max-pages "$MAX_PAGES" 2>/dev/null; then
-              :
-            elif python "scripts/collect_${c}.py" --max-pages "$MAX_PAGES"; then
-              :
+            if [[ "$full_crawl" == *" $c "* ]]; then
+              if python "scripts/collect_${c}.py"; then
+                :
+              else
+                fails+=("$c")
+                echo "::warning::collect_$c 실패"
+              fi
             else
-              fails+=("$c")
-              echo "::warning::collect_$c 실패"
+              if python "scripts/collect_${c}.py" --stage all --max-pages "$MAX_PAGES" 2>/dev/null; then
+                :
+              elif python "scripts/collect_${c}.py" --max-pages "$MAX_PAGES"; then
+                :
+              else
+                fails+=("$c")
+                echo "::warning::collect_$c 실패"
+              fi
             fi
             if [ -f "/tmp/csv-snapshots/${c}_before.csv" ] && [ -f "$csv" ] && [ "$before_lines" -gt 100 ]; then
               after_lines=$(wc -l < "$csv")
