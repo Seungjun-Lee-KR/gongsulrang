@@ -4,7 +4,15 @@ import Kakao from "next-auth/providers/kakao";
 import Naver from "next-auth/providers/naver";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google, Kakao, Naver],
+  providers: [
+    Google,
+    // Kakao 콘솔에서 Client Secret 사용 안 함으로 두면 secret 비어있어도 OK
+    Kakao({
+      clientId: process.env.AUTH_KAKAO_ID,
+      clientSecret: process.env.AUTH_KAKAO_SECRET ?? "",
+    }),
+    Naver,
+  ],
   trustHost: true,
   session: { strategy: "jwt" },
   callbacks: {
