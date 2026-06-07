@@ -11,7 +11,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.AUTH_KAKAO_ID,
       clientSecret: process.env.AUTH_KAKAO_SECRET ?? "",
     }),
-    Naver,
+    Naver({
+      clientId: process.env.AUTH_NAVER_ID,
+      clientSecret: process.env.AUTH_NAVER_SECRET,
+      authorization: {
+        url: "https://nid.naver.com/oauth2.0/authorize",
+        params: { scope: "name email profile_image" },
+      },
+      checks: ["state", "pkce"],
+    }),
   ],
   trustHost: true,
   session: { strategy: "jwt" },
