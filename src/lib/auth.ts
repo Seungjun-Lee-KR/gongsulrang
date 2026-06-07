@@ -10,6 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Kakao({
       clientId: process.env.AUTH_KAKAO_ID,
       clientSecret: process.env.AUTH_KAKAO_SECRET ?? "",
+      client: { token_endpoint_auth_method: "none" },
     }),
     Naver({
       clientId: process.env.AUTH_NAVER_ID,
@@ -22,6 +23,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   trustHost: true,
+  debug: true,
+  logger: {
+    error: (error) => console.error("[next-auth][error]", error),
+    warn: (msg) => console.warn("[next-auth][warn]", msg),
+    debug: (msg, meta) =>
+      console.debug("[next-auth][debug]", msg, meta ?? ""),
+  },
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, profile, account }) {
