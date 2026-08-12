@@ -69,3 +69,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Vercel marketplace 통합이 설치하는 에이전트 스킬 문서 (저장소에 커밋하지 않음)
+.agents/
+.claude/
+skills-lock.json
