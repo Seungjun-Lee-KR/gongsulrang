@@ -26,7 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, profile, account }) {
+    async jwt({ token, account }) {
       if (account) {
         token.provider = account.provider;
       }

@@ -39,21 +39,19 @@ export default function KakaoMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const markerObjectsRef = useRef<Array<KakaoMarker | KakaoOverlay | KakaoCircle>>([]);
-  const [error, setError] = useState<string | null>(null);
+  // appkey는 모듈 상수라 누락 여부를 초기 상태로 바로 결정할 수 있다
+  const [error, setError] = useState<string | null>(() =>
+    appkey ? null : "NEXT_PUBLIC_KAKAO_MAP_KEY가 설정되지 않았습니다.",
+  );
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!appkey) {
-      setError("NEXT_PUBLIC_KAKAO_MAP_KEY가 설정되지 않았습니다.");
-      return;
-    }
-    if (!containerRef.current) return;
+    if (!appkey || !containerRef.current) return;
 
     let cancelled = false;
 
-    if (mapRef.current) {
-      setReady(true);
-    } else {
+    // mapRef가 이미 있으면 이전 실행에서 ready도 true가 된 상태다
+    if (!mapRef.current) {
       loadKakaoMaps(appkey)
         .then(() => {
           if (cancelled || !containerRef.current || mapRef.current) return;

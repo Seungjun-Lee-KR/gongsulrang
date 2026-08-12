@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Comment = {
   id: string;
@@ -33,23 +33,29 @@ export default function CommentSection({ rank }: { rank: number }) {
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    try {
-      const r = await fetch(`/api/comments/${rank}`, { cache: "no-store" });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = (await r.json()) as { comments: Comment[] };
-      setComments(data.comments);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "로딩 실패");
-    } finally {
-      setLoading(false);
-    }
-  }, [rank]);
+  // refreshKey를 올리면 아래 effect가 목록을 다시 불러온다.
+  // 재로딩 시에는 기존 목록을 그대로 둔 채 갱신되어 깜빡임도 없다.
+  const [refreshKey, setRefreshKey] = useState(0);
+  const reload = () => setRefreshKey((k) => k + 1);
 
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const r = await fetch(`/api/comments/${rank}`, { cache: "no-store" });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const data = (await r.json()) as { comments: Comment[] };
+        if (!cancelled) setComments(data.comments);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "로딩 실패");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [rank, refreshKey]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +73,7 @@ export default function CommentSection({ rank }: { rank: number }) {
         throw new Error(body.error ?? `HTTP ${r.status}`);
       }
       setContent("");
-      await load();
+      reload();
     } catch (e) {
       setError(e instanceof Error ? e.message : "전송 실패");
     } finally {
@@ -85,7 +91,7 @@ export default function CommentSection({ rank }: { rank: number }) {
         const body = (await r.json().catch(() => ({}))) as { error?: string };
         throw new Error(body.error ?? `HTTP ${r.status}`);
       }
-      await load();
+      reload();
     } catch (e) {
       setError(e instanceof Error ? e.message : "삭제 실패");
     }

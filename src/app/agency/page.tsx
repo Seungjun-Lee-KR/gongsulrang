@@ -24,7 +24,7 @@ export default function AgencyIndex() {
             기관별 공슐랭
           </h1>
           <p className="mt-3 max-w-prose text-sm text-mute">
-            각 식당의 주요 이용 부서 기준. "이 부서는 여기를 자주 간다" 관점.
+            각 식당의 주요 이용 부서 기준. &ldquo;이 부서는 여기를 자주 간다&rdquo; 관점.
           </p>
         </div>
 

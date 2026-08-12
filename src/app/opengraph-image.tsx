@@ -55,7 +55,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            The Officials' Guide
+            The Officials&apos; Guide
           </div>
         </div>
 

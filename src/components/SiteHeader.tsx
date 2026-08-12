@@ -17,7 +17,7 @@ export default function SiteHeader() {
             공슐랭
           </span>
           <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-mute sm:inline">
-            The Officials' Guide
+            The Officials&apos; Guide
           </span>
         </Link>
         <nav className="-mr-2 flex items-center gap-0.5 text-[13px] font-medium text-mute sm:gap-1 sm:text-sm">
