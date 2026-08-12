@@ -48,6 +48,7 @@ _spec.loader.exec_module(momentum)
 
 CACHE_PATH = ROOT / "data" / "output" / ".kakao_place_cache.json"
 OUT = ROOT / "data" / "output" / "momentum_bonchong.json"
+FRONTEND_OUT = ROOT / "src" / "data" / "momentum.json"  # /trending 페이지가 임포트
 
 MIN_TOTAL_VISITS = 10  # 이 미만 클러스터는 랭킹에 못 들므로 매칭 생략
 RATE = 0.12  # 초당 ~8회
@@ -225,6 +226,7 @@ def main() -> None:
         },
     )
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    FRONTEND_OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"\n매칭 {len(place_of)}/{len(targets)} ({len(place_of)/len(targets):.0%})"
           f" · API {_calls}회 · place 병합 {len(merges)}묶음")

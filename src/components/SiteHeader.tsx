@@ -22,6 +22,7 @@ export default function SiteHeader() {
         </Link>
         <nav className="-mr-2 flex items-center gap-0.5 text-[13px] font-medium text-mute sm:gap-1 sm:text-sm">
           {[
+            { href: "/trending", label: "뜨는집" },
             { href: "/region", label: "구별" },
             { href: "/agency", label: "기관별" },
             { href: "/map", label: "지도" },
