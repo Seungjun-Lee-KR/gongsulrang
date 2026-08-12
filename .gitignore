@@ -74,3 +74,6 @@ next-env.d.ts
 .agents/
 .claude/
 skills-lock.json
+
+# python 가상환경
+.venv/

@@ -159,10 +159,13 @@ def cluster_pairs(pair_counts: Counter) -> dict:
     return {pair: uf.find(pair) for pair in pair_counts}
 
 
-def main() -> None:
+def load_rows() -> list[dict]:
     with open(RAW, encoding="utf-8-sig") as f:
-        rows = list(csv.DictReader(f))
+        return list(csv.DictReader(f))
 
+
+def build_clusters(rows: list[dict]) -> dict:
+    """원장 → 가게 클러스터 집계. 14_kakao_place_match.py가 재사용한다."""
     # ── 1차: (이름키, 주소키) 쌍 수집 ──
     parsed = []  # (pair, raw_name, quarter, 부서, 금액)
     pair_counts: Counter = Counter()
@@ -181,57 +184,74 @@ def main() -> None:
     root_of = cluster_pairs(pair_counts)
 
     # ── 2차: 클러스터 단위 집계 ──
-    qv: dict[tuple, Counter] = defaultdict(Counter)
-    display: dict[tuple, Counter] = defaultdict(Counter)
-    name_keys: dict[tuple, Counter] = defaultdict(Counter)  # 클러스터 내 이름키 분포
-    recent_depts: dict[tuple, set] = defaultdict(set)
-    amounts: dict[tuple, list[int]] = defaultdict(list)
-    name_cluster: dict[str, Counter] = defaultdict(Counter)  # 이름키 → 클러스터별 행수
-
+    C = {
+        "qv": defaultdict(Counter),  # 분기별 방문수
+        "display": defaultdict(Counter),  # 원표기 빈도
+        "name_keys": defaultdict(Counter),  # 클러스터 내 이름키 분포
+        "recent_depts": defaultdict(set),
+        "amounts": defaultdict(list),
+        "addrs": defaultdict(Counter),  # 클러스터 내 주소키 분포
+        "name_cluster": defaultdict(Counter),  # 이름키 → 클러스터별 행수
+    }
     for pair, raw_name, q, dept, amount in parsed:
         root = root_of[pair]
-        qv[root][q] += 1
-        display[root][raw_name] += 1
-        name_keys[root][pair[0]] += 1
-        name_cluster[pair[0]][root] += 1
+        C["qv"][root][q] += 1
+        C["display"][root][raw_name] += 1
+        C["name_keys"][root][pair[0]] += 1
+        C["name_cluster"][pair[0]][root] += 1
+        if pair[1]:
+            C["addrs"][root][pair[1]] += 1
         if q in RECENT:
-            recent_depts[root].add(dept)
+            C["recent_depts"][root].add(dept)
         try:
-            amounts[root].append(int(amount))
+            C["amounts"][root].append(int(amount))
         except ValueError:
             pass
+    return C
 
-    def display_name(root: tuple) -> str:
-        # "창고43"처럼 여러 지점에 걸친 이름은 라벨로 부적합 →
-        # 행의 80% 이상이 이 클러스터에 속하는(=클러스터를 특정하는)
-        # 이름키 중 최다 표기를 쓴다. 오입력 몇 건이 지점명을
-        # "모호"로 만들지 않도록 완전 단독 소속은 요구하지 않는다.
-        for nk, _ in name_keys[root].most_common():
-            if name_cluster[nk][root] / sum(name_cluster[nk].values()) >= 0.8:
-                best = Counter(
-                    {raw: c for raw, c in display[root].items() if normalize(raw) == nk}
-                )
-                if best:
-                    return best.most_common(1)[0][0]
-        return display[root].most_common(1)[0][0]
 
-    def entry(key: tuple) -> dict:
-        series = [qv[key][q] for q in QUARTERS]
-        return {
-            "name": display_name(key),
-            "series": series,
-            "recent": sum(qv[key][q] for q in RECENT),
-            "base": sum(qv[key][q] for q in BASE),
-            "depts": len(recent_depts[key]),
-            "avgAmount": int(statistics.mean(amounts[key])) if amounts[key] else 0,
-            "variants": len(display[key]),
-        }
+def display_name(C: dict, root) -> str:
+    # "창고43"처럼 여러 지점에 걸친 이름은 라벨로 부적합 →
+    # 행의 80% 이상이 이 클러스터에 속하는(=클러스터를 특정하는)
+    # 이름키 중 최다 표기를 쓴다. 오입력 몇 건이 지점명을
+    # "모호"로 만들지 않도록 완전 단독 소속은 요구하지 않는다.
+    for nk, _ in C["name_keys"][root].most_common():
+        if C["name_cluster"][nk][root] / sum(C["name_cluster"][nk].values()) >= 0.8:
+            best = Counter(
+                {raw: c for raw, c in C["display"][root].items() if normalize(raw) == nk}
+            )
+            if best:
+                return best.most_common(1)[0][0]
+    return C["display"][root].most_common(1)[0][0]
+
+
+def entry(C: dict, key) -> dict:
+    series = [C["qv"][key][q] for q in QUARTERS]
+    return {
+        "name": display_name(C, key),
+        "series": series,
+        "recent": sum(C["qv"][key][q] for q in RECENT),
+        "base": sum(C["qv"][key][q] for q in BASE),
+        "depts": len(C["recent_depts"][key]),
+        "avgAmount": int(statistics.mean(C["amounts"][key])) if C["amounts"][key] else 0,
+        "variants": len(C["display"][key]),
+    }
+
+
+def make_result(C: dict, n_transactions: int, decorate=None, extra_stats=None) -> dict:
+    """클러스터 집계 → 랭킹 JSON. decorate(key, entry)로 항목을 보강할 수 있다."""
+
+    def make(key) -> dict:
+        e = entry(C, key)
+        if decorate:
+            decorate(key, e)
+        return e
 
     # 최소 표본/부서 다양성 필터를 통과한 후보
     candidates = [
-        entry(k)
-        for k in qv
-        if sum(qv[k][q] for q in RECENT) >= 15 and len(recent_depts[k]) >= 3
+        make(k)
+        for k in C["qv"]
+        if sum(C["qv"][k][q] for q in RECENT) >= 15 and len(C["recent_depts"][k]) >= 3
     ]
 
     rising = sorted(
@@ -249,15 +269,15 @@ def main() -> None:
     )
 
     steady = []
-    for k in qv:
-        series = [qv[k][q] for q in QUARTERS]
+    for k in C["qv"]:
+        series = [C["qv"][k][q] for q in QUARTERS]
         if all(v >= 5 for v in series):
-            e = entry(k)
+            e = make(k)
             e["cv"] = round(statistics.stdev(series) / statistics.mean(series), 3)
             steady.append(e)
     steady.sort(key=lambda e: e["cv"])
 
-    result = {
+    return {
         "source": "서울시 본청 업무추진비",
         "quarters": QUARTERS,
         "recentQuarters": list(RECENT),
@@ -266,13 +286,15 @@ def main() -> None:
         "newcomers": newcomers[:20],
         "steady": steady[:20],
         "stats": {
-            "transactions": len(rows),
-            "restaurants": len(qv),
+            "transactions": n_transactions,
+            "restaurants": len(C["qv"]),
             "candidates": len(candidates),
+            **(extra_stats or {}),
         },
     }
-    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 
+
+def show_result(result: dict, out_path=None) -> None:
     def show(title: str, items: list[dict], extra) -> None:
         print(f"\n=== {title} ===")
         for e in items:
@@ -282,10 +304,20 @@ def main() -> None:
                 f"{e['name']} (평균 {e['avgAmount']:,}원, 표기 {e['variants']}종)"
             )
 
-    show("🔥 뜨는 집 TOP 10 (기존 식당, 전년 동기 대비)", rising[:10], lambda e: f"{e['growth']}x")
-    show("⭐ 신규 진입 TOP 10", newcomers[:10], lambda e: "신규")
-    show("🏛 스테디셀러 TOP 10", steady[:10], lambda e: f"cv{e['cv']}")
-    print(f"\n거래 {len(rows):,}건 / 식당 {len(qv):,}곳 / 후보 {len(candidates)}곳 → {OUT.relative_to(ROOT)}")
+    show("🔥 뜨는 집 TOP 10 (기존 식당, 전년 동기 대비)", result["rising"][:10], lambda e: f"{e['growth']}x")
+    show("⭐ 신규 진입 TOP 10", result["newcomers"][:10], lambda e: "신규")
+    show("🏛 스테디셀러 TOP 10", result["steady"][:10], lambda e: f"cv{e['cv']}")
+    s = result["stats"]
+    tail = f" → {out_path}" if out_path else ""
+    print(f"\n거래 {s['transactions']:,}건 / 식당 {s['restaurants']:,}곳 / 후보 {s['candidates']}곳{tail}")
+
+
+def main() -> None:
+    rows = load_rows()
+    C = build_clusters(rows)
+    result = make_result(C, len(rows))
+    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    show_result(result, OUT.relative_to(ROOT))
 
 
 if __name__ == "__main__":

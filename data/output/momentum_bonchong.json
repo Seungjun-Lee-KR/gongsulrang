@@ -46,6 +46,14 @@
       "depts": 9,
       "avgAmount": 106272,
       "variants": 2,
+      "kakao": {
+        "id": "658746461",
+        "category": "중국요리",
+        "address": "서울 중구 세종대로9길 41",
+        "url": "http://place.map.kakao.com/658746461",
+        "lat": 37.56135850182551,
+        "lng": 126.97299583538343
+      },
       "growth": 13.0
     },
     {
@@ -70,10 +78,11 @@
       "depts": 14,
       "avgAmount": 68771,
       "variants": 9,
+      "kakao": null,
       "growth": 6.67
     },
     {
-      "name": "강창구 찹쌀 진순대 광화문점",
+      "name": "강창구찹쌀진순대 광화문점",
       "series": [
         0,
         0,
@@ -94,10 +103,18 @@
       "depts": 11,
       "avgAmount": 75090,
       "variants": 7,
+      "kakao": {
+        "id": "2000591368",
+        "category": "강창구찹쌀진순대",
+        "address": "서울 중구 세종대로22길 12",
+        "url": "http://place.map.kakao.com/2000591368",
+        "lat": 37.567924191826954,
+        "lng": 126.97796260421104
+      },
       "growth": 6.25
     },
     {
-      "name": "대보정시청역점",
+      "name": "대보정 시청역점",
       "series": [
         0,
         0,
@@ -118,10 +135,18 @@
       "depts": 13,
       "avgAmount": 166043,
       "variants": 4,
+      "kakao": {
+        "id": "224301553",
+        "category": "갈비",
+        "address": "서울 중구 세종대로9길 41",
+        "url": "http://place.map.kakao.com/224301553",
+        "lat": 37.5613585018255,
+        "lng": 126.972995835383
+      },
       "growth": 5.67
     },
     {
-      "name": "주식회사 시안컴퍼니",
+      "name": "시안컴퍼니",
       "series": [
         0,
         0,
@@ -142,10 +167,18 @@
       "depts": 28,
       "avgAmount": 110327,
       "variants": 8,
+      "kakao": {
+        "id": "1110619541",
+        "category": "제과,베이커리",
+        "address": "서울 중구 서소문로 116",
+        "url": "http://place.map.kakao.com/1110619541",
+        "lat": 37.5627318476521,
+        "lng": 126.974007207997
+      },
       "growth": 5.44
     },
     {
-      "name": "샵힘이나는 커피생활 무교점",
+      "name": "샵힘이나는커피생활 무교점",
       "series": [
         5,
         6,
@@ -166,10 +199,18 @@
       "depts": 7,
       "avgAmount": 20997,
       "variants": 8,
+      "kakao": {
+        "id": "321603798",
+        "category": "커피전문점",
+        "address": "서울 중구 무교로 26",
+        "url": "http://place.map.kakao.com/321603798",
+        "lat": 37.56825511958712,
+        "lng": 126.97941590139651
+      },
       "growth": 5.33
     },
     {
-      "name": "뚜레쥬르 시청역점",
+      "name": "뚜레쥬르 서울시청역점",
       "series": [
         0,
         0,
@@ -190,10 +231,18 @@
       "depts": 13,
       "avgAmount": 132497,
       "variants": 7,
+      "kakao": {
+        "id": "403274735",
+        "category": "뚜레쥬르",
+        "address": "서울 중구 서소문로 116",
+        "url": "http://place.map.kakao.com/403274735",
+        "lat": 37.5627318476521,
+        "lng": 126.974007207997
+      },
       "growth": 5.0
     },
     {
-      "name": "동해일식",
+      "name": "동해",
       "series": [
         26,
         13,
@@ -214,31 +263,15 @@
       "depts": 3,
       "avgAmount": 132088,
       "variants": 4,
+      "kakao": {
+        "id": "11246084",
+        "category": "일식집",
+        "address": "서울 중구 무교로 16",
+        "url": "http://place.map.kakao.com/11246084",
+        "lat": 37.5673748434367,
+        "lng": 126.97939690109246
+      },
       "growth": 4.67
-    },
-    {
-      "name": "담솥시청점",
-      "series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        29,
-        69,
-        70,
-        58,
-        77
-      ],
-      "recent": 135,
-      "base": 29,
-      "depts": 74,
-      "avgAmount": 73079,
-      "variants": 8,
-      "growth": 4.53
     },
     {
       "name": "멘츠루 시청점",
@@ -262,34 +295,50 @@
       "depts": 12,
       "avgAmount": 52200,
       "variants": 2,
+      "kakao": {
+        "id": "1756014504",
+        "category": "일본식라면",
+        "address": "서울 중구 서소문로11길 2",
+        "url": "http://place.map.kakao.com/1756014504",
+        "lat": 37.56301906603891,
+        "lng": 126.97311634376602
+      },
       "growth": 4.5
     },
     {
-      "name": "오제제 광화문점",
+      "name": "담솥 시청점",
       "series": [
         0,
         0,
         0,
         0,
-        1,
         0,
         0,
-        1,
-        4,
-        8,
-        10,
-        13,
-        7
+        0,
+        0,
+        32,
+        75,
+        78,
+        61,
+        80
       ],
-      "recent": 20,
-      "base": 5,
-      "depts": 15,
-      "avgAmount": 87636,
-      "variants": 3,
-      "growth": 3.5
+      "recent": 141,
+      "base": 32,
+      "depts": 78,
+      "avgAmount": 72993,
+      "variants": 10,
+      "kakao": {
+        "id": "1505045531",
+        "category": "한식",
+        "address": "서울 중구 을지로 6",
+        "url": "http://place.map.kakao.com/1505045531",
+        "lat": 37.5653818073302,
+        "lng": 126.979208425407
+      },
+      "growth": 4.3
     },
     {
-      "name": "비터버터 시청",
+      "name": "비터버터시청",
       "series": [
         0,
         0,
@@ -310,10 +359,18 @@
       "depts": 14,
       "avgAmount": 130414,
       "variants": 7,
+      "kakao": {
+        "id": "393918810",
+        "category": "카페",
+        "address": "서울 중구 세종대로 82",
+        "url": "http://place.map.kakao.com/393918810",
+        "lat": 37.5633965185471,
+        "lng": 126.977079960141
+      },
       "growth": 3.38
     },
     {
-      "name": "(주)보나비",
+      "name": "보나비",
       "series": [
         1,
         1,
@@ -334,10 +391,18 @@
       "depts": 10,
       "avgAmount": 66072,
       "variants": 5,
+      "kakao": {
+        "id": "25592452",
+        "category": "기업",
+        "address": "서울 강남구 테헤란로28길 32",
+        "url": "http://place.map.kakao.com/25592452",
+        "lat": 37.4990553263308,
+        "lng": 127.039232556407
+      },
       "growth": 3.29
     },
     {
-      "name": "쭈담",
+      "name": "쭈담 시청직영점",
       "series": [
         0,
         2,
@@ -358,6 +423,14 @@
       "depts": 14,
       "avgAmount": 89892,
       "variants": 3,
+      "kakao": {
+        "id": "1708957397",
+        "category": "해물,생선",
+        "address": "서울 중구 남대문로9길 40",
+        "url": "http://place.map.kakao.com/1708957397",
+        "lat": 37.567250693458,
+        "lng": 126.980500549609
+      },
       "growth": 3.29
     },
     {
@@ -382,6 +455,14 @@
       "depts": 21,
       "avgAmount": 124180,
       "variants": 6,
+      "kakao": {
+        "id": "1294273526",
+        "category": "피자",
+        "address": "서울 중구 세종대로21길 67-2",
+        "url": "http://place.map.kakao.com/1294273526",
+        "lat": 37.5692914197256,
+        "lng": 126.975509280916
+      },
       "growth": 3.25
     },
     {
@@ -406,6 +487,14 @@
       "depts": 7,
       "avgAmount": 57787,
       "variants": 2,
+      "kakao": {
+        "id": "5590448",
+        "category": "순대",
+        "address": "서울 중구 세종대로11길 45",
+        "url": "http://place.map.kakao.com/5590448",
+        "lat": 37.5619640614793,
+        "lng": 126.973391758063
+      },
       "growth": 3.2
     },
     {
@@ -430,34 +519,75 @@
       "depts": 16,
       "avgAmount": 87505,
       "variants": 9,
+      "kakao": null,
       "growth": 2.72
     },
     {
-      "name": "한국맥도날드(유)서울시청점",
+      "name": "스타벅스 한국프레스센터점",
       "series": [
-        13,
         3,
-        10,
-        18,
-        4,
-        7,
         8,
         5,
+        1,
+        3,
+        2,
+        3,
         9,
-        12,
-        18,
-        11,
-        28
+        3,
+        1,
+        7,
+        19,
+        15
       ],
-      "recent": 39,
-      "base": 14,
-      "depts": 12,
-      "avgAmount": 49191,
-      "variants": 7,
-      "growth": 2.67
+      "recent": 34,
+      "base": 12,
+      "depts": 10,
+      "avgAmount": 56553,
+      "variants": 5,
+      "kakao": {
+        "id": "27557389",
+        "category": "스타벅스",
+        "address": "서울 중구 세종대로 124",
+        "url": "http://place.map.kakao.com/27557389",
+        "lat": 37.567409708254644,
+        "lng": 126.97788238985001
+      },
+      "growth": 2.69
     },
     {
-      "name": "주식회사 유림면",
+      "name": "파리크라상 광화문점",
+      "series": [
+        11,
+        13,
+        8,
+        10,
+        3,
+        7,
+        6,
+        8,
+        9,
+        12,
+        14,
+        34,
+        11
+      ],
+      "recent": 45,
+      "base": 17,
+      "depts": 10,
+      "avgAmount": 86541,
+      "variants": 13,
+      "kakao": {
+        "id": "117723606",
+        "category": "파리크라상",
+        "address": "서울 종로구 종로 1",
+        "url": "http://place.map.kakao.com/117723606",
+        "lat": 37.5709596389058,
+        "lng": 126.977926618852
+      },
+      "growth": 2.56
+    },
+    {
+      "name": "유림면",
       "series": [
         0,
         4,
@@ -478,10 +608,18 @@
       "depts": 13,
       "avgAmount": 39767,
       "variants": 6,
+      "kakao": {
+        "id": "10679979",
+        "category": "국수",
+        "address": "서울 중구 서소문로 139-1",
+        "url": "http://place.map.kakao.com/10679979",
+        "lat": 37.564237853813395,
+        "lng": 126.9760949785008
+      },
       "growth": 2.5
     },
     {
-      "name": "보승회관시청점",
+      "name": "보승회관 시청점",
       "series": [
         25,
         26,
@@ -502,6 +640,14 @@
       "depts": 18,
       "avgAmount": 64396,
       "variants": 5,
+      "kakao": {
+        "id": "1312968255",
+        "category": "국밥",
+        "address": "서울 중구 세종대로 66",
+        "url": "http://place.map.kakao.com/1312968255",
+        "lat": 37.562165658551486,
+        "lng": 126.97657667055994
+      },
       "growth": 2.42
     }
   ],
@@ -527,7 +673,15 @@
       "base": 0,
       "depts": 59,
       "avgAmount": 159298,
-      "variants": 14
+      "variants": 14,
+      "kakao": {
+        "id": "1387568482",
+        "category": "해물,생선",
+        "address": "서울 중구 덕수궁길 7",
+        "url": "http://place.map.kakao.com/1387568482",
+        "lat": 37.5647235422685,
+        "lng": 126.976350626801
+      }
     },
     {
       "name": "주식회사 에스씨케이컴퍼니",
@@ -550,10 +704,11 @@
       "base": 0,
       "depts": 39,
       "avgAmount": 103552,
-      "variants": 7
+      "variants": 7,
+      "kakao": null
     },
     {
-      "name": "종로은행나무집시청점",
+      "name": "종로은행나무집 시청점",
       "series": [
         0,
         0,
@@ -573,7 +728,15 @@
       "base": 0,
       "depts": 42,
       "avgAmount": 157543,
-      "variants": 9
+      "variants": 9,
+      "kakao": {
+        "id": "568857175",
+        "category": "육류,고기",
+        "address": "서울 중구 세종대로22길 12",
+        "url": "http://place.map.kakao.com/568857175",
+        "lat": 37.5679250928226,
+        "lng": 126.977962603946
+      }
     },
     {
       "name": "육전국밥 서소문점",
@@ -596,7 +759,15 @@
       "base": 0,
       "depts": 45,
       "avgAmount": 77883,
-      "variants": 4
+      "variants": 4,
+      "kakao": {
+        "id": "1240774020",
+        "category": "국밥",
+        "address": "서울 중구 서소문로 99",
+        "url": "http://place.map.kakao.com/1240774020",
+        "lat": 37.5628864027198,
+        "lng": 126.972180354731
+      }
     },
     {
       "name": "주식회사 무와",
@@ -619,7 +790,8 @@
       "base": 0,
       "depts": 44,
       "avgAmount": 121911,
-      "variants": 5
+      "variants": 5,
+      "kakao": null
     },
     {
       "name": "여의도삼계탕 서울파이낸스센터점",
@@ -642,10 +814,18 @@
       "base": 0,
       "depts": 37,
       "avgAmount": 100387,
-      "variants": 8
+      "variants": 8,
+      "kakao": {
+        "id": "1676530658",
+        "category": "삼계탕",
+        "address": "서울 중구 세종대로 136",
+        "url": "http://place.map.kakao.com/1676530658",
+        "lat": 37.56842339797618,
+        "lng": 126.97825675890313
+      }
     },
     {
-      "name": "두부공방",
+      "name": "탁사발두부공방 덕수궁점",
       "series": [
         0,
         0,
@@ -665,10 +845,18 @@
       "base": 0,
       "depts": 40,
       "avgAmount": 78982,
-      "variants": 5
+      "variants": 5,
+      "kakao": {
+        "id": "1012212170",
+        "category": "두부전문점",
+        "address": "서울 중구 덕수궁길 7",
+        "url": "http://place.map.kakao.com/1012212170",
+        "lat": 37.5647244419041,
+        "lng": 126.976343835273
+      }
     },
     {
-      "name": "레망도레",
+      "name": "레망도레 광화문점",
       "series": [
         0,
         0,
@@ -688,7 +876,15 @@
       "base": 0,
       "depts": 26,
       "avgAmount": 90200,
-      "variants": 6
+      "variants": 6,
+      "kakao": {
+        "id": "94685330",
+        "category": "제과,베이커리",
+        "address": "서울 중구 무교로 17",
+        "url": "http://place.map.kakao.com/94685330",
+        "lat": 37.5674072175205,
+        "lng": 126.979045998683
+      }
     },
     {
       "name": "올리페페 광화문점",
@@ -711,7 +907,15 @@
       "base": 0,
       "depts": 37,
       "avgAmount": 151593,
-      "variants": 8
+      "variants": 8,
+      "kakao": {
+        "id": "1504649128",
+        "category": "이탈리안",
+        "address": "서울 종로구 청계천로 11",
+        "url": "http://place.map.kakao.com/1504649128",
+        "lat": 37.569483980692496,
+        "lng": 126.97886770139667
+      }
     },
     {
       "name": "진진만두 시청점",
@@ -734,7 +938,15 @@
       "base": 0,
       "depts": 30,
       "avgAmount": 117434,
-      "variants": 4
+      "variants": 4,
+      "kakao": {
+        "id": "1261257194",
+        "category": "분식",
+        "address": "서울 중구 을지로 6",
+        "url": "http://place.map.kakao.com/1261257194",
+        "lat": 37.565362858198924,
+        "lng": 126.97904883509149
+      }
     },
     {
       "name": "(주)삼원가든 투뿔 코리안 스테이크하우스 광화문점",
@@ -757,7 +969,8 @@
       "base": 0,
       "depts": 25,
       "avgAmount": 139581,
-      "variants": 11
+      "variants": 11,
+      "kakao": null
     },
     {
       "name": "이테르",
@@ -780,30 +993,15 @@
       "base": 0,
       "depts": 31,
       "avgAmount": 150018,
-      "variants": 4
-    },
-    {
-      "name": "(주)뉴서울호텔 시청지점",
-      "series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        9,
-        24
-      ],
-      "recent": 33,
-      "base": 0,
-      "depts": 13,
-      "avgAmount": 45054,
-      "variants": 6
+      "variants": 4,
+      "kakao": {
+        "id": "458792476",
+        "category": "이탈리안",
+        "address": "서울 중구 남대문로5길 39",
+        "url": "http://place.map.kakao.com/458792476",
+        "lat": 37.5632157101453,
+        "lng": 126.978636310756
+      }
     },
     {
       "name": "어쩌다농부",
@@ -826,7 +1024,8 @@
       "base": 0,
       "depts": 19,
       "avgAmount": 57042,
-      "variants": 3
+      "variants": 3,
+      "kakao": null
     },
     {
       "name": "파스쿠찌 서울시의회별관점",
@@ -849,10 +1048,18 @@
       "base": 0,
       "depts": 21,
       "avgAmount": 54013,
-      "variants": 4
+      "variants": 4,
+      "kakao": {
+        "id": "1200994128",
+        "category": "파스쿠찌",
+        "address": "서울 중구 덕수궁길 15",
+        "url": "http://place.map.kakao.com/1200994128",
+        "lat": 37.5642961369467,
+        "lng": 126.974742378321
+      }
     },
     {
-      "name": "레츠펍",
+      "name": "레츠펍 시청점",
       "series": [
         0,
         0,
@@ -872,7 +1079,15 @@
       "base": 0,
       "depts": 24,
       "avgAmount": 106987,
-      "variants": 1
+      "variants": 1,
+      "kakao": {
+        "id": "752590709",
+        "category": "호프,요리주점",
+        "address": "서울 중구 남대문로1길 47",
+        "url": "http://place.map.kakao.com/752590709",
+        "lat": 37.56318843276615,
+        "lng": 126.97730978957345
+      }
     },
     {
       "name": "이소",
@@ -895,7 +1110,15 @@
       "base": 0,
       "depts": 11,
       "avgAmount": 89279,
-      "variants": 2
+      "variants": 2,
+      "kakao": {
+        "id": "1946899279",
+        "category": "국밥",
+        "address": "서울 중구 남대문로9길 51",
+        "url": "http://place.map.kakao.com/1946899279",
+        "lat": 37.5668135413675,
+        "lng": 126.979502322903
+      }
     },
     {
       "name": "호앙비엣 시청역점",
@@ -918,7 +1141,15 @@
       "base": 0,
       "depts": 15,
       "avgAmount": 84081,
-      "variants": 4
+      "variants": 4,
+      "kakao": {
+        "id": "298828324",
+        "category": "베트남음식",
+        "address": "서울 중구 세종대로 70",
+        "url": "http://place.map.kakao.com/298828324",
+        "lat": 37.56233235187649,
+        "lng": 126.97662189188075
+      }
     },
     {
       "name": "주식회사 오제제 에스에프씨몰",
@@ -941,7 +1172,8 @@
       "base": 0,
       "depts": 18,
       "avgAmount": 85095,
-      "variants": 2
+      "variants": 2,
+      "kakao": null
     },
     {
       "name": "차돌삼합 진대감 시청점",
@@ -964,33 +1196,144 @@
       "base": 0,
       "depts": 15,
       "avgAmount": 90363,
-      "variants": 5
+      "variants": 5,
+      "kakao": {
+        "id": "815706578",
+        "category": "육류,고기",
+        "address": "서울 중구 서소문로 101-1",
+        "url": "http://place.map.kakao.com/815706578",
+        "lat": 37.562977434485056,
+        "lng": 126.972312747033
+      }
+    },
+    {
+      "name": "멜로멜로레스토랑",
+      "series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        12,
+        8,
+        12
+      ],
+      "recent": 20,
+      "base": 0,
+      "depts": 15,
+      "avgAmount": 166854,
+      "variants": 5,
+      "kakao": {
+        "id": "2105224547",
+        "category": "이탈리안",
+        "address": "서울 중구 남대문로5길 15",
+        "url": "http://place.map.kakao.com/2105224547",
+        "lat": 37.5620741661953,
+        "lng": 126.978739633597
+      }
     }
   ],
   "steady": [
     {
       "name": "창고43 시청점",
       "series": [
-        104,
         105,
-        113,
-        99,
+        108,
         114,
-        104,
-        103,
-        104,
-        93,
-        85,
-        131,
+        99,
+        119,
+        109,
+        105,
+        106,
         98,
+        86,
+        131,
+        100,
         111
       ],
-      "recent": 209,
-      "base": 197,
+      "recent": 211,
+      "base": 204,
       "depts": 80,
-      "avgAmount": 102650,
-      "variants": 41,
-      "cv": 0.106
+      "avgAmount": 102666,
+      "variants": 42,
+      "kakao": {
+        "id": "26470073",
+        "category": "육류,고기",
+        "address": "서울 중구 서소문로 120",
+        "url": "http://place.map.kakao.com/26470073",
+        "lat": 37.5628716392173,
+        "lng": 126.974637597573
+      },
+      "cv": 0.102
+    },
+    {
+      "name": "구이구이 시청직영점",
+      "series": [
+        129,
+        84,
+        91,
+        97,
+        106,
+        90,
+        99,
+        87,
+        95,
+        91,
+        101,
+        75,
+        92
+      ],
+      "recent": 167,
+      "base": 182,
+      "depts": 83,
+      "avgAmount": 106296,
+      "variants": 20,
+      "kakao": {
+        "id": "26966188",
+        "category": "해물,생선",
+        "address": "서울 중구 을지로 6",
+        "url": "http://place.map.kakao.com/26966188",
+        "lat": 37.5654998284391,
+        "lng": 126.97915519398
+      },
+      "cv": 0.135
+    },
+    {
+      "name": "해우리 서울시청점",
+      "series": [
+        64,
+        64,
+        71,
+        60,
+        81,
+        52,
+        78,
+        67,
+        67,
+        68,
+        86,
+        62,
+        62
+      ],
+      "recent": 124,
+      "base": 134,
+      "depts": 51,
+      "avgAmount": 140298,
+      "variants": 31,
+      "kakao": {
+        "id": "115914510",
+        "category": "한식",
+        "address": "서울 중구 서소문로 95",
+        "url": "http://place.map.kakao.com/115914510",
+        "lat": 37.5628241434809,
+        "lng": 126.971798946071
+      },
+      "cv": 0.136
     },
     {
       "name": "아리연",
@@ -1014,55 +1357,143 @@
       "depts": 41,
       "avgAmount": 152278,
       "variants": 22,
+      "kakao": {
+        "id": "1853194863",
+        "category": "한정식",
+        "address": "서울 중구 세종대로12길 12",
+        "url": "http://place.map.kakao.com/1853194863",
+        "lat": 37.56162512636357,
+        "lng": 126.97691072875094
+      },
       "cv": 0.141
-    },
-    {
-      "name": "구이구이",
-      "series": [
-        127,
-        84,
-        88,
-        97,
-        104,
-        89,
-        94,
-        86,
-        94,
-        86,
-        100,
-        70,
-        87
-      ],
-      "recent": 157,
-      "base": 180,
-      "depts": 82,
-      "avgAmount": 106349,
-      "variants": 16,
-      "cv": 0.144
     },
     {
       "name": "포항집",
       "series": [
-        44,
-        35,
-        43,
-        40,
-        36,
+        46,
         37,
-        45,
-        48,
+        51,
+        42,
+        38,
+        42,
+        46,
+        49,
         35,
-        36,
+        39,
+        54,
+        47,
+        34
+      ],
+      "recent": 81,
+      "base": 84,
+      "depts": 40,
+      "avgAmount": 82685,
+      "variants": 10,
+      "kakao": {
+        "id": "1901751102",
+        "category": "회",
+        "address": "서울 중구 서소문로 113-1",
+        "url": "http://place.map.kakao.com/1901751102",
+        "lat": 37.5632281821709,
+        "lng": 126.973492043238
+      },
+      "cv": 0.147
+    },
+    {
+      "name": "남도한식정든님",
+      "series": [
+        57,
+        58,
+        55,
+        38,
+        56,
         53,
-        43,
-        33
+        56,
+        49,
+        48,
+        55,
+        58,
+        68,
+        39
+      ],
+      "recent": 107,
+      "base": 97,
+      "depts": 45,
+      "avgAmount": 142590,
+      "variants": 21,
+      "kakao": {
+        "id": "515275467",
+        "category": "한식",
+        "address": "서울 중구 세종대로14길 22-5",
+        "url": "http://place.map.kakao.com/515275467",
+        "lat": 37.5625551757894,
+        "lng": 126.978069446991
+      },
+      "cv": 0.152
+    },
+    {
+      "name": "열빈 광화문점",
+      "series": [
+        58,
+        41,
+        45,
+        46,
+        46,
+        51,
+        47,
+        55,
+        34,
+        38,
+        47,
+        42,
+        34
       ],
       "recent": 76,
-      "base": 83,
-      "depts": 38,
-      "avgAmount": 83556,
-      "variants": 10,
-      "cv": 0.147
+      "base": 89,
+      "depts": 45,
+      "avgAmount": 148466,
+      "variants": 20,
+      "kakao": {
+        "id": "20944552",
+        "category": "중식",
+        "address": "서울 중구 세종대로21길 22",
+        "url": "http://place.map.kakao.com/20944552",
+        "lat": 37.5675715269573,
+        "lng": 126.976035053502
+      },
+      "cv": 0.161
+    },
+    {
+      "name": "차이797 시청점",
+      "series": [
+        75,
+        62,
+        79,
+        77,
+        71,
+        69,
+        89,
+        75,
+        82,
+        50,
+        84,
+        53,
+        65
+      ],
+      "recent": 118,
+      "base": 157,
+      "depts": 53,
+      "avgAmount": 117159,
+      "variants": 24,
+      "kakao": {
+        "id": "1111308175",
+        "category": "차이797",
+        "address": "서울 중구 서소문로 120",
+        "url": "http://place.map.kakao.com/1111308175",
+        "lat": 37.5628932689636,
+        "lng": 126.974664754549
+      },
+      "cv": 0.163
     },
     {
       "name": "참숯골",
@@ -1086,30 +1517,78 @@
       "depts": 52,
       "avgAmount": 131138,
       "variants": 10,
+      "kakao": {
+        "id": "8082008",
+        "category": "육류,고기",
+        "address": "서울 중구 무교로 16",
+        "url": "http://place.map.kakao.com/8082008",
+        "lat": 37.5673199020013,
+        "lng": 126.979507843716
+      },
       "cv": 0.164
     },
     {
-      "name": "무교소호정",
+      "name": "소호정 무교점",
       "series": [
-        79,
-        49,
-        65,
-        63,
-        64,
-        45,
-        61,
+        93,
+        56,
+        76,
+        80,
         77,
-        55,
-        61,
-        72,
-        63,
-        49
+        57,
+        79,
+        96,
+        64,
+        71,
+        78,
+        70,
+        61
       ],
-      "recent": 112,
-      "base": 132,
-      "depts": 58,
-      "avgAmount": 132400,
+      "recent": 131,
+      "base": 160,
+      "depts": 63,
+      "avgAmount": 137188,
+      "variants": 19,
+      "kakao": {
+        "id": "12228811",
+        "category": "소호정",
+        "address": "서울 중구 무교로 17-25",
+        "url": "http://place.map.kakao.com/12228811",
+        "lat": 37.56744047047224,
+        "lng": 126.97857850847534
+      },
+      "cv": 0.168
+    },
+    {
+      "name": "월매네남원추어탕 서소문본점",
+      "series": [
+        64,
+        50,
+        60,
+        66,
+        69,
+        39,
+        55,
+        53,
+        62,
+        38,
+        54,
+        61,
+        59
+      ],
+      "recent": 120,
+      "base": 115,
+      "depts": 54,
+      "avgAmount": 76696,
       "variants": 16,
+      "kakao": {
+        "id": "8043055",
+        "category": "추어",
+        "address": "서울 중구 서소문로 109-8",
+        "url": "http://place.map.kakao.com/8043055",
+        "lat": 37.5633254428339,
+        "lng": 126.973283747876
+      },
       "cv": 0.169
     },
     {
@@ -1134,55 +1613,15 @@
       "depts": 42,
       "avgAmount": 78746,
       "variants": 10,
+      "kakao": {
+        "id": "8531849",
+        "category": "설렁탕",
+        "address": "서울 중구 서소문동 60-1",
+        "url": "http://place.map.kakao.com/8531849",
+        "lat": 37.56254797998396,
+        "lng": 126.97371638875006
+      },
       "cv": 0.17
-    },
-    {
-      "name": "(주)강가",
-      "series": [
-        39,
-        41,
-        45,
-        52,
-        47,
-        36,
-        42,
-        55,
-        45,
-        43,
-        64,
-        41,
-        38
-      ],
-      "recent": 79,
-      "base": 100,
-      "depts": 44,
-      "avgAmount": 130873,
-      "variants": 22,
-      "cv": 0.172
-    },
-    {
-      "name": "열빈",
-      "series": [
-        48,
-        34,
-        38,
-        38,
-        34,
-        37,
-        33,
-        37,
-        26,
-        29,
-        34,
-        30,
-        26
-      ],
-      "recent": 56,
-      "base": 63,
-      "depts": 33,
-      "avgAmount": 147466,
-      "variants": 14,
-      "cv": 0.172
     },
     {
       "name": "부민옥",
@@ -1206,6 +1645,14 @@
       "depts": 25,
       "avgAmount": 75048,
       "variants": 5,
+      "kakao": {
+        "id": "1346301870",
+        "category": "한식",
+        "address": "서울 중구 다동길 24-12",
+        "url": "http://place.map.kakao.com/1346301870",
+        "lat": 37.5675038430283,
+        "lng": 126.98031824515
+      },
       "cv": 0.176
     },
     {
@@ -1230,6 +1677,7 @@
       "depts": 31,
       "avgAmount": 107726,
       "variants": 10,
+      "kakao": null,
       "cv": 0.177
     },
     {
@@ -1254,55 +1702,15 @@
       "depts": 61,
       "avgAmount": 106379,
       "variants": 18,
+      "kakao": {
+        "id": "18443723",
+        "category": "일식집",
+        "address": "서울 중구 세종대로 124",
+        "url": "http://place.map.kakao.com/18443723",
+        "lat": 37.567445745539,
+        "lng": 126.977868796214
+      },
       "cv": 0.178
-    },
-    {
-      "name": "월매네남원추어탕",
-      "series": [
-        64,
-        48,
-        60,
-        65,
-        68,
-        39,
-        53,
-        48,
-        60,
-        32,
-        54,
-        61,
-        58
-      ],
-      "recent": 119,
-      "base": 108,
-      "depts": 53,
-      "avgAmount": 76362,
-      "variants": 15,
-      "cv": 0.193
-    },
-    {
-      "name": "주식회사 시청해우리",
-      "series": [
-        53,
-        57,
-        65,
-        52,
-        74,
-        42,
-        68,
-        47,
-        46,
-        48,
-        67,
-        45,
-        46
-      ],
-      "recent": 91,
-      "base": 93,
-      "depts": 44,
-      "avgAmount": 140265,
-      "variants": 23,
-      "cv": 0.193
     },
     {
       "name": "오리마당",
@@ -1326,6 +1734,7 @@
       "depts": 73,
       "avgAmount": 121504,
       "variants": 13,
+      "kakao": null,
       "cv": 0.193
     },
     {
@@ -1350,7 +1759,47 @@
       "depts": 28,
       "avgAmount": 147214,
       "variants": 8,
+      "kakao": {
+        "id": "8577709",
+        "category": "중식",
+        "address": "서울 중구 다동길 24-10",
+        "url": "http://place.map.kakao.com/8577709",
+        "lat": 37.5674786354639,
+        "lng": 126.980440498664
+      },
       "cv": 0.196
+    },
+    {
+      "name": "참치공방 시청지점",
+      "series": [
+        34,
+        34,
+        41,
+        48,
+        33,
+        24,
+        32,
+        35,
+        36,
+        40,
+        24,
+        28,
+        31
+      ],
+      "recent": 59,
+      "base": 71,
+      "depts": 40,
+      "avgAmount": 150451,
+      "variants": 21,
+      "kakao": {
+        "id": "1920359216",
+        "category": "참치회",
+        "address": "서울 중구 세종대로 64",
+        "url": "http://place.map.kakao.com/1920359216",
+        "lat": 37.56195674986522,
+        "lng": 126.97720263907202
+      },
+      "cv": 0.197
     },
     {
       "name": "브라주카 그릴",
@@ -1374,10 +1823,18 @@
       "depts": 71,
       "avgAmount": 126497,
       "variants": 11,
+      "kakao": {
+        "id": "356383284",
+        "category": "양식",
+        "address": "서울 중구 무교로 19",
+        "url": "http://place.map.kakao.com/356383284",
+        "lat": 37.56761083089322,
+        "lng": 126.9789802904269
+      },
       "cv": 0.198
     },
     {
-      "name": "무교동낙지",
+      "name": "무교동낙지애보쌈",
       "series": [
         32,
         50,
@@ -1398,60 +1855,23 @@
       "depts": 48,
       "avgAmount": 82880,
       "variants": 24,
+      "kakao": {
+        "id": "1764291942",
+        "category": "해물,생선",
+        "address": "서울 중구 덕수궁길 7",
+        "url": "http://place.map.kakao.com/1764291942",
+        "lat": 37.5648001264934,
+        "lng": 126.976348338841
+      },
       "cv": 0.2
-    },
-    {
-      "name": "남도한식-정든님",
-      "series": [
-        29,
-        28,
-        27,
-        21,
-        35,
-        32,
-        39,
-        30,
-        31,
-        31,
-        43,
-        45,
-        28
-      ],
-      "recent": 73,
-      "base": 61,
-      "depts": 31,
-      "avgAmount": 144526,
-      "variants": 5,
-      "cv": 0.208
-    },
-    {
-      "name": "한가람",
-      "series": [
-        25,
-        29,
-        17,
-        30,
-        17,
-        24,
-        17,
-        23,
-        22,
-        30,
-        23,
-        18,
-        24
-      ],
-      "recent": 42,
-      "base": 45,
-      "depts": 25,
-      "avgAmount": 137675,
-      "variants": 12,
-      "cv": 0.208
     }
   ],
   "stats": {
     "transactions": 153015,
-    "restaurants": 16242,
-    "candidates": 295
+    "restaurants": 16114,
+    "candidates": 292,
+    "kakaoMatched": 971,
+    "kakaoUnmatched": 606,
+    "kakaoMerged": 128
   }
 }
