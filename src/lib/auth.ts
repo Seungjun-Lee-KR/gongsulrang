@@ -6,11 +6,12 @@ import Naver from "next-auth/providers/naver";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google,
-    // Kakao 콘솔에서 Client Secret 사용 안 함으로 두면 secret 비어있어도 OK
+    // 카카오 콘솔에서 Client Secret이 "사용함"이므로 secret 필수.
+    // 미전송/오전송 시 토큰 교환이 KOE010(Bad client credentials)로 실패한다.
+    // token_endpoint_auth_method는 provider 기본값(client_secret_post)을 그대로 쓴다.
     Kakao({
       clientId: process.env.AUTH_KAKAO_ID,
-      clientSecret: process.env.AUTH_KAKAO_SECRET ?? "",
-      client: { token_endpoint_auth_method: "none" },
+      clientSecret: process.env.AUTH_KAKAO_SECRET,
     }),
     Naver({
       clientId: process.env.AUTH_NAVER_ID,
@@ -23,13 +24,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   trustHost: true,
-  debug: true,
-  logger: {
-    error: (error) => console.error("[next-auth][error]", error),
-    warn: (msg) => console.warn("[next-auth][warn]", msg),
-    debug: (msg, meta) =>
-      console.debug("[next-auth][debug]", msg, meta ?? ""),
-  },
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, profile, account }) {
