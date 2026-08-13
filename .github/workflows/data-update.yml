@@ -137,11 +137,20 @@ jobs:
       - name: 프론트엔드 JSON 생성
         run: python scripts/06_to_frontend_json.py
 
+      - name: 모멘텀 랭킹 (본청 + 자치구)
+        # 13이 데이터에서 분기 축을 자동 도출하므로 분기가 바뀌어도 무설정.
+        # 카카오 장소 캐시(data/output/.kakao_place_cache.json)가 커밋돼 있어
+        # 신규 클러스터 몇 개만 실제 API를 탄다.
+        run: |
+          python scripts/14_kakao_place_match.py
+          python scripts/15_momentum_districts.py
+
       - name: 변경분 commit & push
         run: |
           git config user.name "gongsulrang-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/output src/data/restaurants.json
+          git add data/output src/data/restaurants.json \
+            src/data/momentum.json src/data/momentum-districts.json
           if git diff --cached --quiet; then
             echo "변경 없음"
           else
