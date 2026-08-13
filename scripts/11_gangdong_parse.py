@@ -119,15 +119,48 @@ def extract_rows(pdf_path: str) -> list[list[str]]:
     return collected
 
 
+# 와이드 레이아웃 감지·복원용: 일부 PDF는 사용일시가 (일자, 시간) 두 칸이다
+_TIME_CELL = re.compile(r"^\d{1,2}:\d{2}(?::\d{2})?$")
+_TITLE_YM = re.compile(r"(20\d{2})\s*년\s*(\d{1,2})\s*월")
+_DAY_ONLY = re.compile(r"^(\d{1,2})\s*[./]\s*(\d{1,2})")
+
+
+def restore_day_only(date_str: str, post: dict) -> str:
+    """연도 없는 "3.5.(목)"를 게시물 제목("2026년 3월 …")의 연도로 복원."""
+    d = _DAY_ONLY.match(date_str)
+    t = _TITLE_YM.search(post.get("title") or "")
+    if not d or not t:
+        return date_str
+    mo, day = int(d.group(1)), int(d.group(2))
+    year, title_mo = int(t.group(1)), int(t.group(2))
+    if not (1 <= mo <= 12 and 1 <= day <= 31):
+        return date_str
+    if mo == 12 and title_mo == 1:  # 연말연시 경계 보정
+        year -= 1
+    elif mo == 1 and title_mo == 12:
+        year += 1
+    return f"{year}-{mo:02d}-{day:02d}"
+
+
 def row_to_record(row: list[str], post: dict) -> dict | None:
-    # [연번, 사용자, 사용일시, 장소, 집행목적, 인원, 집행액, 결제방법, 비목]
     if len(row) < 9:
         row = row + [""] * (9 - len(row))
-    seq, user, dt, place, purpose, _num, amount, pay, bimok = row[:9]
+    if _TIME_CELL.match(clean_cell(row[3])):
+        # 와이드: [연번, 사용자, 사용일자, 사용시간, 장소, 집행목적, 인원, 집행액, 결제방법]
+        # (사용일시가 두 칸으로 갈라지고 비목이 없다. 장소 자리의 시간이 표식)
+        seq, user, dt, time_cell, place, purpose, _num, amount, pay = row[:9]
+        bimok = ""
+        date, _ = parse_datetime(dt)
+        time_part = clean_cell(time_cell)
+        if not re.match(r"^20\d{2}", date):
+            date = restore_day_only(date, post)
+    else:
+        # [연번, 사용자, 사용일시, 장소, 집행목적, 인원, 집행액, 결제방법, 비목]
+        seq, user, dt, place, purpose, _num, amount, pay, bimok = row[:9]
+        date, time_part = parse_datetime(dt)
     place_clean = strip_place(place)
     if not place_clean:
         return None
-    date, time_part = parse_datetime(dt)
     amt = parse_amount(amount)
     dept = post.get("dept") or ""
     dept_full = f"강동구 {dept}".strip()

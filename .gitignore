@@ -77,3 +77,6 @@ skills-lock.json
 
 # python 가상환경
 .venv/
+
+# CSV fixer 백업
+data/output/*.bak

@@ -1560,8 +1560,8 @@
         }
       ],
       "stats": {
-        "transactions": 33862,
-        "restaurants": 4040,
+        "transactions": 33801,
+        "restaurants": 4036,
         "candidates": 105,
         "kakaoMatched": 248,
         "kakaoUnmatched": 173,
@@ -1573,6 +1573,7 @@
     {
       "source": "강동구 업무추진비",
       "quarters": [
+        "2023-Q3",
         "2023-Q4",
         "2024-Q1",
         "2024-Q2",
@@ -1594,7 +1595,120 @@
       ],
       "rising": [
         {
-          "name": "카페희희",
+          "name": "평상집 강동성내점",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            11,
+            11,
+            16,
+            25
+          ],
+          "recent": 41,
+          "base": 1,
+          "depts": 15,
+          "avgAmount": 100093,
+          "variants": 2,
+          "kakao": {
+            "id": "1308702321",
+            "category": "삼계탕",
+            "address": "서울 강동구 올림픽로48길 28",
+            "url": "http://place.map.kakao.com/1308702321",
+            "lat": 37.5288703167907,
+            "lng": 127.121510682338
+          },
+          "growth": 21.0
+        },
+        {
+          "name": "화랑골",
+          "series": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            2,
+            1,
+            9,
+            26,
+            4
+          ],
+          "recent": 30,
+          "base": 2,
+          "depts": 7,
+          "avgAmount": 126758,
+          "variants": 3,
+          "kakao": {
+            "id": "2113948458",
+            "category": "갈비",
+            "address": "서울 강동구 고덕로 429-1",
+            "url": "http://place.map.kakao.com/2113948458",
+            "lat": 37.5577877847997,
+            "lng": 127.173510302615
+          },
+          "growth": 10.33
+        },
+        {
+          "name": "모밀엔카츠",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            5,
+            8,
+            10,
+            3
+          ],
+          "recent": 13,
+          "base": 1,
+          "depts": 5,
+          "avgAmount": 69720,
+          "variants": 1,
+          "kakao": null,
+          "growth": 7.0
+        },
+        {
+          "name": "대길소갈비",
+          "series": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            6,
+            6,
+            5
+          ],
+          "recent": 11,
+          "base": 1,
+          "depts": 5,
+          "avgAmount": 143378,
+          "variants": 1,
+          "kakao": {
+            "id": "1230719926",
+            "category": "갈비",
+            "address": "서울 강동구 성내로8길 24",
+            "url": "http://place.map.kakao.com/1230719926",
+            "lat": 37.5285345247586,
+            "lng": 127.12297973036
+          },
+          "growth": 6.0
+        },
+        {
+          "name": "주식회사 이지피쥐",
           "series": [
             0,
             0,
@@ -1602,16 +1716,123 @@
             0,
             0,
             1,
-            3,
-            3,
-            11,
+            0,
+            0,
+            0,
+            9,
             2
           ],
-          "recent": 13,
+          "recent": 11,
           "base": 1,
-          "depts": 5,
-          "avgAmount": 80685,
-          "variants": 3,
+          "depts": 7,
+          "avgAmount": 34166,
+          "variants": 2,
+          "kakao": null,
+          "growth": 6.0
+        },
+        {
+          "name": "묵호",
+          "series": [
+            2,
+            1,
+            2,
+            1,
+            0,
+            0,
+            1,
+            5,
+            2,
+            4,
+            5
+          ],
+          "recent": 9,
+          "base": 1,
+          "depts": 6,
+          "avgAmount": 101521,
+          "variants": 1,
+          "kakao": {
+            "id": "848171719",
+            "category": "회",
+            "address": "서울 강동구 천호옛길 40",
+            "url": "http://place.map.kakao.com/848171719",
+            "lat": 37.5329115324445,
+            "lng": 127.123032172716
+          },
+          "growth": 5.0
+        },
+        {
+          "name": "카페 로뎀",
+          "series": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            3,
+            3,
+            3,
+            5
+          ],
+          "recent": 8,
+          "base": 1,
+          "depts": 2,
+          "avgAmount": 25350,
+          "variants": 2,
+          "kakao": null,
+          "growth": 4.5
+        },
+        {
+          "name": "교촌치킨 성내점",
+          "series": [
+            1,
+            3,
+            0,
+            3,
+            1,
+            1,
+            0,
+            1,
+            1,
+            5,
+            3
+          ],
+          "recent": 8,
+          "base": 1,
+          "depts": 4,
+          "avgAmount": 83080,
+          "variants": 1,
+          "kakao": {
+            "id": "10142801",
+            "category": "교촌치킨",
+            "address": "서울 강동구 올림픽로 610",
+            "url": "http://place.map.kakao.com/10142801",
+            "lat": 37.53579480398427,
+            "lng": 127.1229644974947
+          },
+          "growth": 4.5
+        },
+        {
+          "name": "카페희희",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8,
+            11,
+            13,
+            35,
+            4
+          ],
+          "recent": 39,
+          "base": 8,
+          "depts": 13,
+          "avgAmount": 90312,
+          "variants": 6,
           "kakao": {
             "id": "949159805",
             "category": "카페",
@@ -1620,616 +1841,7 @@
             "lat": 37.5303720298612,
             "lng": 127.125205857647
           },
-          "growth": 7.0
-        },
-        {
-          "name": "파리바게뜨 강동구청점",
-          "series": [
-            1,
-            0,
-            2,
-            0,
-            0,
-            2,
-            4,
-            4,
-            15,
-            1
-          ],
-          "recent": 16,
-          "base": 2,
-          "depts": 6,
-          "avgAmount": 74588,
-          "variants": 1,
-          "kakao": {
-            "id": "12732158",
-            "category": "파리바게뜨",
-            "address": "서울 강동구 성내로 19",
-            "url": "http://place.map.kakao.com/12732158",
-            "lat": 37.53014560853759,
-            "lng": 127.12288960469505
-          },
-          "growth": 5.67
-        },
-        {
-          "name": "루하커피",
-          "series": [
-            6,
-            0,
-            2,
-            0,
-            0,
-            1,
-            1,
-            2,
-            7,
-            2
-          ],
-          "recent": 9,
-          "base": 1,
-          "depts": 6,
-          "avgAmount": 42586,
-          "variants": 1,
-          "kakao": null,
-          "growth": 5.0
-        },
-        {
-          "name": "전원식당",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            3,
-            3,
-            5,
-            3
-          ],
-          "recent": 8,
-          "base": 1,
-          "depts": 5,
-          "avgAmount": 43133,
-          "variants": 1,
-          "kakao": {
-            "id": "20524325",
-            "category": "한식",
-            "address": "서울 강동구 성안로3길 86",
-            "url": "http://place.map.kakao.com/20524325",
-            "lat": 37.527442777156836,
-            "lng": 127.12529825420233
-          },
-          "growth": 4.5
-        },
-        {
-          "name": "지에스 더 프레시",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            2,
-            1,
-            0,
-            0,
-            6,
-            8
-          ],
-          "recent": 14,
-          "base": 3,
-          "depts": 4,
-          "avgAmount": 56668,
-          "variants": 1,
-          "kakao": null,
-          "growth": 3.75
-        },
-        {
-          "name": "아이갓에브리띵 강동구청",
-          "series": [
-            6,
-            1,
-            1,
-            3,
-            9,
-            2,
-            8,
-            24,
-            21,
-            20
-          ],
-          "recent": 41,
-          "base": 11,
-          "depts": 9,
-          "avgAmount": 23202,
-          "variants": 6,
-          "kakao": {
-            "id": "1644330880",
-            "category": "커피전문점",
-            "address": "서울 강동구 성내로 25",
-            "url": "http://place.map.kakao.com/1644330880",
-            "lat": 37.5301608836441,
-            "lng": 127.123792447647
-          },
-          "growth": 3.5
-        },
-        {
-          "name": "화양연화",
-          "series": [
-            0,
-            1,
-            0,
-            0,
-            3,
-            0,
-            1,
-            3,
-            10,
-            3
-          ],
-          "recent": 13,
-          "base": 3,
-          "depts": 7,
-          "avgAmount": 138738,
-          "variants": 1,
-          "kakao": {
-            "id": "688018025",
-            "category": "중국요리",
-            "address": "서울 강동구 올림픽로48길 32",
-            "url": "http://place.map.kakao.com/688018025",
-            "lat": 37.5288070441216,
-            "lng": 127.121707431176
-          },
-          "growth": 3.5
-        },
-        {
-          "name": "신라삼계탕",
-          "series": [
-            3,
-            2,
-            5,
-            0,
-            0,
-            2,
-            3,
-            5,
-            3,
-            5
-          ],
-          "recent": 8,
-          "base": 2,
-          "depts": 4,
-          "avgAmount": 111900,
-          "variants": 1,
-          "kakao": {
-            "id": "27218641",
-            "category": "삼계탕",
-            "address": "서울 강동구 성내로6길 14-5",
-            "url": "http://place.map.kakao.com/27218641",
-            "lat": 37.5294162713074,
-            "lng": 127.122433609667
-          },
-          "growth": 3.0
-        },
-        {
-          "name": "오양별",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            3,
-            1,
-            2,
-            0,
-            10,
-            4
-          ],
-          "recent": 14,
-          "base": 4,
-          "depts": 7,
-          "avgAmount": 77495,
-          "variants": 1,
-          "kakao": {
-            "id": "1045804996",
-            "category": "곱창,막창",
-            "address": "서울 강동구 성내로 62",
-            "url": "http://place.map.kakao.com/1045804996",
-            "lat": 37.5278260377425,
-            "lng": 127.126673443526
-          },
-          "growth": 3.0
-        },
-        {
-          "name": "스타벅스 코리아",
-          "series": [
-            2,
-            3,
-            6,
-            2,
-            3,
-            3,
-            5,
-            4,
-            16,
-            3
-          ],
-          "recent": 19,
-          "base": 6,
-          "depts": 9,
-          "avgAmount": 38985,
-          "variants": 2,
-          "kakao": null,
-          "growth": 2.86
-        },
-        {
-          "name": "먼데이블루스 성내점",
-          "series": [
-            4,
-            0,
-            0,
-            0,
-            3,
-            3,
-            2,
-            4,
-            10,
-            7
-          ],
-          "recent": 17,
-          "base": 6,
-          "depts": 6,
-          "avgAmount": 118578,
-          "variants": 3,
-          "kakao": {
-            "id": "1574455508",
-            "category": "와인바",
-            "address": "서울 강동구 성내로6길 14-13",
-            "url": "http://place.map.kakao.com/1574455508",
-            "lat": 37.5295788025948,
-            "lng": 127.122094472736
-          },
-          "growth": 2.57
-        },
-        {
-          "name": "포르마레",
-          "series": [
-            0,
-            2,
-            0,
-            5,
-            5,
-            0,
-            2,
-            6,
-            8,
-            5
-          ],
-          "recent": 13,
-          "base": 5,
-          "depts": 5,
-          "avgAmount": 57176,
-          "variants": 1,
-          "kakao": {
-            "id": "1525089714",
-            "category": "카페",
-            "address": "서울 강동구 성내로9길 35",
-            "url": "http://place.map.kakao.com/1525089714",
-            "lat": 37.5304829822592,
-            "lng": 127.125083856709
-          },
-          "growth": 2.33
-        },
-        {
-          "name": "펄스맥 고덕역점",
-          "series": [
-            0,
-            0,
-            1,
-            1,
-            3,
-            1,
-            3,
-            0,
-            8,
-            2
-          ],
-          "recent": 10,
-          "base": 4,
-          "depts": 2,
-          "avgAmount": 57587,
-          "variants": 1,
-          "kakao": {
-            "id": "1512343132",
-            "category": "카페",
-            "address": "서울 강동구 동남로73길 31",
-            "url": "http://place.map.kakao.com/1512343132",
-            "lat": 37.55267224420344,
-            "lng": 127.15446793631808
-          },
-          "growth": 2.2
-        },
-        {
-          "name": "토팡가 커피 로스터스",
-          "series": [
-            6,
-            1,
-            4,
-            0,
-            4,
-            1,
-            3,
-            3,
-            9,
-            3
-          ],
-          "recent": 12,
-          "base": 5,
-          "depts": 6,
-          "avgAmount": 65180,
-          "variants": 1,
-          "kakao": {
-            "id": "860524434",
-            "category": "카페",
-            "address": "서울 강동구 성내로5길 21",
-            "url": "http://place.map.kakao.com/860524434",
-            "lat": 37.53087470025726,
-            "lng": 127.12357866869046
-          },
-          "growth": 2.17
-        },
-        {
-          "name": "카페헤이샌디",
-          "series": [
-            0,
-            0,
-            2,
-            3,
-            1,
-            5,
-            6,
-            6,
-            8,
-            5
-          ],
-          "recent": 13,
-          "base": 6,
-          "depts": 4,
-          "avgAmount": 65389,
-          "variants": 1,
-          "kakao": {
-            "id": "444770102",
-            "category": "디저트카페",
-            "address": "서울 강동구 성내로 28",
-            "url": "http://place.map.kakao.com/444770102",
-            "lat": 37.529392627225434,
-            "lng": 127.12350834320453
-          },
-          "growth": 2.0
-        },
-        {
-          "name": "우리좋은교회",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            4,
-            2,
-            7,
-            5,
-            3
-          ],
-          "recent": 8,
-          "base": 4,
-          "depts": 4,
-          "avgAmount": 28214,
-          "variants": 3,
-          "kakao": {
-            "id": "370601759",
-            "category": "교회",
-            "address": "서울 강동구 성내로3길 37",
-            "url": "http://place.map.kakao.com/370601759",
-            "lat": 37.5316497607042,
-            "lng": 127.123387614014
-          },
-          "growth": 1.8
-        },
-        {
-          "name": "달청",
-          "series": [
-            4,
-            2,
-            0,
-            1,
-            3,
-            2,
-            5,
-            4,
-            6,
-            3
-          ],
-          "recent": 9,
-          "base": 5,
-          "depts": 7,
-          "avgAmount": 86129,
-          "variants": 1,
-          "kakao": null,
-          "growth": 1.67
-        },
-        {
-          "name": "커피아마렐로",
-          "series": [
-            1,
-            2,
-            1,
-            2,
-            2,
-            6,
-            0,
-            6,
-            7,
-            7
-          ],
-          "recent": 14,
-          "base": 8,
-          "depts": 5,
-          "avgAmount": 23876,
-          "variants": 1,
-          "kakao": {
-            "id": "17361031",
-            "category": "카페",
-            "address": "서울 강동구 성내로6길 14-26",
-            "url": "http://place.map.kakao.com/17361031",
-            "lat": 37.5298748952638,
-            "lng": 127.121547383689
-          },
-          "growth": 1.67
-        },
-        {
-          "name": "포몬스 천호점",
-          "series": [
-            0,
-            2,
-            0,
-            0,
-            5,
-            2,
-            2,
-            6,
-            8,
-            2
-          ],
-          "recent": 10,
-          "base": 7,
-          "depts": 5,
-          "avgAmount": 61214,
-          "variants": 3,
-          "kakao": {
-            "id": "15265452",
-            "category": "포몬스",
-            "address": "서울 강동구 성내로 54",
-            "url": "http://place.map.kakao.com/15265452",
-            "lat": 37.52820533568555,
-            "lng": 127.125852745754
-          },
-          "growth": 1.38
-        },
-        {
-          "name": "페이브베이커리 강동구청점",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            6,
-            0,
-            2,
-            3,
-            5
-          ],
-          "recent": 8,
-          "base": 6,
-          "depts": 4,
-          "avgAmount": 27734,
-          "variants": 1,
-          "kakao": {
-            "id": "933086300",
-            "category": "카페",
-            "address": "서울 강동구 성내로6길 34",
-            "url": "http://place.map.kakao.com/933086300",
-            "lat": 37.52840748785663,
-            "lng": 127.1221072707899
-          },
-          "growth": 1.29
-        }
-      ],
-      "newcomers": [
-        {
-          "name": "브로일링커피 강동점",
-          "series": [
-            2,
-            0,
-            0,
-            0,
-            0,
-            0,
-            2,
-            4,
-            9,
-            5
-          ],
-          "recent": 14,
-          "base": 0,
-          "depts": 8,
-          "avgAmount": 30120,
-          "variants": 3,
-          "kakao": {
-            "id": "472671966",
-            "category": "카페",
-            "address": "서울 강동구 성내로10길 9-6",
-            "url": "http://place.map.kakao.com/472671966",
-            "lat": 37.52825135144103,
-            "lng": 127.12494324027448
-          }
-        },
-        {
-          "name": "고석정",
-          "series": [
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            3,
-            2,
-            10,
-            4
-          ],
-          "recent": 14,
-          "base": 0,
-          "depts": 3,
-          "avgAmount": 138469,
-          "variants": 1,
-          "kakao": {
-            "id": "9852452",
-            "category": "육류,고기",
-            "address": "서울 강동구 성내로 8-14",
-            "url": "http://place.map.kakao.com/9852452",
-            "lat": 37.529866178345046,
-            "lng": 127.12126227027355
-          }
-        },
-        {
-          "name": "화랑골",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            3,
-            12,
-            2
-          ],
-          "recent": 14,
-          "base": 0,
-          "depts": 2,
-          "avgAmount": 111529,
-          "variants": 1,
-          "kakao": {
-            "id": "2113948458",
-            "category": "갈비",
-            "address": "서울 강동구 고덕로 429-1",
-            "url": "http://place.map.kakao.com/2113948458",
-            "lat": 37.5577877847997,
-            "lng": 127.173510302615
-          }
+          "growth": 4.44
         },
         {
           "name": "복호두 강동구청점",
@@ -2241,14 +1853,15 @@
             0,
             0,
             4,
-            5,
-            8,
-            5
+            6,
+            12,
+            10,
+            11
           ],
-          "recent": 13,
-          "base": 0,
-          "depts": 4,
-          "avgAmount": 39677,
+          "recent": 21,
+          "base": 4,
+          "depts": 9,
+          "avgAmount": 57388,
           "variants": 1,
           "kakao": {
             "id": "142938162",
@@ -2257,29 +1870,276 @@
             "url": "http://place.map.kakao.com/142938162",
             "lat": 37.53047977516591,
             "lng": 127.12212196251215
-          }
+          },
+          "growth": 4.4
         },
         {
-          "name": "네이버파이낸셜",
+          "name": "호기하우스",
+          "series": [
+            1,
+            1,
+            0,
+            3,
+            3,
+            2,
+            2,
+            3,
+            10,
+            6,
+            12
+          ],
+          "recent": 18,
+          "base": 4,
+          "depts": 9,
+          "avgAmount": 70369,
+          "variants": 1,
+          "kakao": null,
+          "growth": 3.8
+        },
+        {
+          "name": "담소소사골순대육개장 굽은다리역점",
+          "series": [
+            0,
+            6,
+            2,
+            2,
+            4,
+            4,
+            0,
+            3,
+            1,
+            12,
+            4
+          ],
+          "recent": 16,
+          "base": 4,
+          "depts": 6,
+          "avgAmount": 60931,
+          "variants": 6,
+          "kakao": {
+            "id": "26464354",
+            "category": "담소소사골순대육개장",
+            "address": "서울 강동구 양재대로 1558",
+            "url": "http://place.map.kakao.com/26464354",
+            "lat": 37.5445841757226,
+            "lng": 127.142867381428
+          },
+          "growth": 3.4
+        },
+        {
+          "name": "디오디오",
           "series": [
             0,
             0,
             0,
             0,
+            1,
             0,
-            0,
-            0,
-            0,
+            2,
+            7,
+            2,
             4,
+            5
+          ],
+          "recent": 9,
+          "base": 2,
+          "depts": 5,
+          "avgAmount": 118338,
+          "variants": 1,
+          "kakao": null,
+          "growth": 3.33
+        },
+        {
+          "name": "매머드익스프레스 강동구청점",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            2,
+            2,
+            0,
+            0,
+            0,
+            8,
+            1
+          ],
+          "recent": 9,
+          "base": 2,
+          "depts": 3,
+          "avgAmount": 51135,
+          "variants": 5,
+          "kakao": {
+            "id": "1484495744",
+            "category": "매머드익스프레스",
+            "address": "서울 강동구 성내로3가길 27",
+            "url": "http://place.map.kakao.com/1484495744",
+            "lat": 37.5304063062464,
+            "lng": 127.12431667036
+          },
+          "growth": 3.33
+        },
+        {
+          "name": "루하커피",
+          "series": [
+            0,
+            8,
+            1,
+            3,
+            0,
+            5,
+            1,
+            1,
+            5,
+            18,
+            4
+          ],
+          "recent": 22,
+          "base": 6,
+          "depts": 15,
+          "avgAmount": 51171,
+          "variants": 1,
+          "kakao": null,
+          "growth": 3.29
+        },
+        {
+          "name": "현대백화점 천호점",
+          "series": [
+            0,
+            1,
+            2,
+            2,
+            0,
+            3,
+            0,
+            6,
+            6,
+            10,
+            2
+          ],
+          "recent": 12,
+          "base": 3,
+          "depts": 9,
+          "avgAmount": 52644,
+          "variants": 5,
+          "kakao": {
+            "id": "13125937",
+            "category": "현대백화점",
+            "address": "서울 강동구 천호대로 1005",
+            "url": "http://place.map.kakao.com/13125937",
+            "lat": 37.538841968226784,
+            "lng": 127.1244432563588
+          },
+          "growth": 3.25
+        },
+        {
+          "name": "스시꽃피다",
+          "series": [
+            2,
+            7,
+            3,
+            1,
+            5,
+            3,
+            1,
+            4,
+            3,
+            8,
             7
           ],
-          "recent": 11,
-          "base": 0,
-          "depts": 3,
-          "avgAmount": 206057,
-          "variants": 3,
-          "kakao": null
+          "recent": 15,
+          "base": 4,
+          "depts": 8,
+          "avgAmount": 69422,
+          "variants": 1,
+          "kakao": {
+            "id": "1700111139",
+            "category": "초밥,롤",
+            "address": "서울 강동구 성안로3길 120",
+            "url": "http://place.map.kakao.com/1700111139",
+            "lat": 37.5282185087234,
+            "lng": 127.123617276822
+          },
+          "growth": 3.2
         },
+        {
+          "name": "화양연화",
+          "series": [
+            1,
+            1,
+            1,
+            11,
+            8,
+            5,
+            4,
+            9,
+            9,
+            22,
+            8
+          ],
+          "recent": 30,
+          "base": 9,
+          "depts": 17,
+          "avgAmount": 112216,
+          "variants": 1,
+          "kakao": {
+            "id": "688018025",
+            "category": "중국요리",
+            "address": "서울 강동구 올림픽로48길 32",
+            "url": "http://place.map.kakao.com/688018025",
+            "lat": 37.5288070441216,
+            "lng": 127.121707431176
+          },
+          "growth": 3.1
+        },
+        {
+          "name": "매머드익스 프레스 강",
+          "series": [
+            2,
+            5,
+            0,
+            1,
+            1,
+            2,
+            2,
+            3,
+            5,
+            9,
+            4
+          ],
+          "recent": 13,
+          "base": 4,
+          "depts": 7,
+          "avgAmount": 42758,
+          "variants": 4,
+          "kakao": null,
+          "growth": 2.8
+        },
+        {
+          "name": "프랭크커핀바 올림픽공",
+          "series": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            2,
+            1,
+            0,
+            7,
+            6,
+            3
+          ],
+          "recent": 9,
+          "base": 3,
+          "depts": 6,
+          "avgAmount": 25119,
+          "variants": 5,
+          "kakao": null,
+          "growth": 2.5
+        }
+      ],
+      "newcomers": [
         {
           "name": "주식회사 깜촌",
           "series": [
@@ -2291,67 +2151,48 @@
             0,
             0,
             0,
-            3,
-            7
+            0,
+            13,
+            13
           ],
-          "recent": 10,
+          "recent": 26,
           "base": 0,
-          "depts": 4,
-          "avgAmount": 162000,
-          "variants": 1,
+          "depts": 14,
+          "avgAmount": 157530,
+          "variants": 4,
           "kakao": null
         },
         {
-          "name": "카페몽타주",
+          "name": "맷돌집",
           "series": [
-            1,
-            1,
             0,
             0,
             0,
             0,
-            3,
-            4,
-            7,
+            0,
+            0,
+            0,
+            0,
+            6,
+            20,
             3
           ],
-          "recent": 10,
+          "recent": 23,
           "base": 0,
-          "depts": 4,
-          "avgAmount": 20100,
-          "variants": 1,
-          "kakao": null
-        },
-        {
-          "name": "화선연",
-          "series": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            4,
-            5,
-            4
-          ],
-          "recent": 9,
-          "base": 0,
-          "depts": 3,
-          "avgAmount": 24412,
+          "depts": 10,
+          "avgAmount": 155306,
           "variants": 1,
           "kakao": {
-            "id": "1712992130",
-            "category": "카페",
-            "address": "서울 강동구 성내로6길 14-20",
-            "url": "http://place.map.kakao.com/1712992130",
-            "lat": 37.529880894482844,
-            "lng": 127.12184606890662
+            "id": "1033974988",
+            "category": "족발,보쌈",
+            "address": "서울 강동구 성안로3길 91",
+            "url": "http://place.map.kakao.com/1033974988",
+            "lat": 37.5273665924418,
+            "lng": 127.124920269729
           }
         },
         {
-          "name": "이자카야엔",
+          "name": "고향옥얼큰순대국 강동구청점",
           "series": [
             0,
             0,
@@ -2359,23 +2200,24 @@
             0,
             0,
             0,
-            3,
-            4,
-            6,
-            3
+            0,
+            0,
+            1,
+            8,
+            5
           ],
-          "recent": 9,
+          "recent": 13,
           "base": 0,
-          "depts": 3,
-          "avgAmount": 80781,
-          "variants": 1,
+          "depts": 11,
+          "avgAmount": 54307,
+          "variants": 2,
           "kakao": {
-            "id": "445179756",
-            "category": "일본식주점",
-            "address": "서울 강동구 성안로3길 117",
-            "url": "http://place.map.kakao.com/445179756",
-            "lat": 37.5279654011893,
-            "lng": 127.123546717449
+            "id": "349285033",
+            "category": "고향옥얼큰순대국",
+            "address": "서울 강동구 성내로6길 31",
+            "url": "http://place.map.kakao.com/349285033",
+            "lat": 37.52832111851976,
+            "lng": 127.1228538031563
           }
         },
         {
@@ -2389,53 +2231,788 @@
             0,
             0,
             0,
+            0,
+            7,
+            5
+          ],
+          "recent": 12,
+          "base": 0,
+          "depts": 7,
+          "avgAmount": 152666,
+          "variants": 7,
+          "kakao": {
+            "id": "806605615",
+            "category": "양식",
+            "address": "서울 강동구 올림픽로48길 23-10",
+            "url": "http://place.map.kakao.com/806605615",
+            "lat": 37.5293836092437,
+            "lng": 127.121780773669
+          }
+        },
+        {
+          "name": "버거킹 강동구청점",
+          "series": [
+            2,
+            5,
+            4,
+            1,
+            2,
+            0,
+            0,
+            4,
+            5,
+            3,
+            8
+          ],
+          "recent": 11,
+          "base": 0,
+          "depts": 7,
+          "avgAmount": 47164,
+          "variants": 3,
+          "kakao": {
+            "id": "902667372",
+            "category": "버거킹",
+            "address": "서울 강동구 성내로 22",
+            "url": "http://place.map.kakao.com/902667372",
+            "lat": 37.5295636358381,
+            "lng": 127.122818506722
+          }
+        },
+        {
+          "name": "봉이밥 올림픽공원점",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            4,
+            8,
+            3
+          ],
+          "recent": 11,
+          "base": 0,
+          "depts": 9,
+          "avgAmount": 55200,
+          "variants": 3,
+          "kakao": {
+            "id": "1516501058",
+            "category": "한식",
+            "address": "서울 강동구 성안로 15",
+            "url": "http://place.map.kakao.com/1516501058",
+            "lat": 37.5253517597717,
+            "lng": 127.129285905927
+          }
+        },
+        {
+          "name": "명태가 명일동점",
+          "series": [
+            0,
+            2,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            3,
             6,
+            3
+          ],
+          "recent": 9,
+          "base": 0,
+          "depts": 3,
+          "avgAmount": 75500,
+          "variants": 1,
+          "kakao": {
+            "id": "1486109127",
+            "category": "해물,생선",
+            "address": "서울 강동구 상암로 195",
+            "url": "http://place.map.kakao.com/1486109127",
+            "lat": 37.546689238092014,
+            "lng": 127.14407881627258
+          }
+        },
+        {
+          "name": "예스터데이 투데이",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4,
+            5,
+            7,
             2
+          ],
+          "recent": 9,
+          "base": 0,
+          "depts": 8,
+          "avgAmount": 140783,
+          "variants": 1,
+          "kakao": null
+        },
+        {
+          "name": "암사민물장어 암사본점",
+          "series": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            3,
+            4,
+            4
+          ],
+          "recent": 8,
+          "base": 0,
+          "depts": 2,
+          "avgAmount": 293642,
+          "variants": 2,
+          "kakao": {
+            "id": "8497857",
+            "category": "장어",
+            "address": "서울 강동구 고덕로 33",
+            "url": "http://place.map.kakao.com/8497857",
+            "lat": 37.554993973518,
+            "lng": 127.129071142121
+          }
+        },
+        {
+          "name": "머치모어",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            2,
+            2,
+            6
+          ],
+          "recent": 8,
+          "base": 0,
+          "depts": 6,
+          "avgAmount": 26480,
+          "variants": 4,
+          "kakao": {
+            "id": "1115970168",
+            "category": "디저트카페",
+            "address": "서울 강동구 올림픽로48길 27",
+            "url": "http://place.map.kakao.com/1115970168",
+            "lat": 37.5290205682104,
+            "lng": 127.121720222772
+          }
+        },
+        {
+          "name": "푸드트럭마스터",
+          "series": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8,
+            0
           ],
           "recent": 8,
           "base": 0,
           "depts": 3,
-          "avgAmount": 172000,
-          "variants": 4,
-          "kakao": null
-        },
-        {
-          "name": "대관령두부마을",
-          "series": [
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            1,
-            5,
-            3
-          ],
-          "recent": 8,
-          "base": 0,
-          "depts": 5,
-          "avgAmount": 86009,
+          "avgAmount": 13500,
           "variants": 2,
-          "kakao": {
-            "id": "16621033",
-            "category": "두부전문점",
-            "address": "서울 강동구 성안로3길 99",
-            "url": "http://place.map.kakao.com/16621033",
-            "lat": 37.5275507656414,
-            "lng": 127.124571001659
-          }
+          "kakao": null
         }
       ],
-      "steady": [],
+      "steady": [
+        {
+          "name": "신라삼계탕",
+          "series": [
+            14,
+            22,
+            21,
+            22,
+            23,
+            25,
+            15,
+            20,
+            27,
+            18,
+            14
+          ],
+          "recent": 32,
+          "base": 40,
+          "depts": 18,
+          "avgAmount": 123574,
+          "variants": 2,
+          "kakao": {
+            "id": "27218641",
+            "category": "삼계탕",
+            "address": "서울 강동구 성내로6길 14-5",
+            "url": "http://place.map.kakao.com/27218641",
+            "lat": 37.5294162713074,
+            "lng": 127.122433609667
+          },
+          "cv": 0.219
+        },
+        {
+          "name": "까페항상",
+          "series": [
+            16,
+            20,
+            12,
+            12,
+            15,
+            27,
+            18,
+            23,
+            25,
+            16,
+            12
+          ],
+          "recent": 28,
+          "base": 45,
+          "depts": 14,
+          "avgAmount": 39628,
+          "variants": 2,
+          "kakao": {
+            "id": "795440538",
+            "category": "카페",
+            "address": "서울 강동구 성내로3길 5",
+            "url": "http://place.map.kakao.com/795440538",
+            "lat": 37.5306582373814,
+            "lng": 127.122060028774
+          },
+          "cv": 0.299
+        },
+        {
+          "name": "아이갓에브리띵 강동구청",
+          "series": [
+            22,
+            63,
+            27,
+            33,
+            32,
+            40,
+            30,
+            31,
+            51,
+            47,
+            42
+          ],
+          "recent": 89,
+          "base": 70,
+          "depts": 23,
+          "avgAmount": 28499,
+          "variants": 20,
+          "kakao": {
+            "id": "1644330880",
+            "category": "커피전문점",
+            "address": "서울 강동구 성내로 25",
+            "url": "http://place.map.kakao.com/1644330880",
+            "lat": 37.5301608836441,
+            "lng": 127.123792447647
+          },
+          "cv": 0.316
+        },
+        {
+          "name": "카페헤이샌디",
+          "series": [
+            3,
+            8,
+            12,
+            13,
+            13,
+            12,
+            6,
+            10,
+            9,
+            11,
+            8
+          ],
+          "recent": 19,
+          "base": 18,
+          "depts": 8,
+          "avgAmount": 52253,
+          "variants": 3,
+          "kakao": {
+            "id": "444770102",
+            "category": "디저트카페",
+            "address": "서울 강동구 성내로 28",
+            "url": "http://place.map.kakao.com/444770102",
+            "lat": 37.529392627225434,
+            "lng": 127.12350834320453
+          },
+          "cv": 0.329
+        },
+        {
+          "name": "비사벌전주콩나물국밥 성내점",
+          "series": [
+            8,
+            7,
+            3,
+            5,
+            8,
+            5,
+            4,
+            8,
+            6,
+            3,
+            7
+          ],
+          "recent": 10,
+          "base": 9,
+          "depts": 6,
+          "avgAmount": 61564,
+          "variants": 13,
+          "kakao": {
+            "id": "561355455",
+            "category": "국밥",
+            "address": "서울 강동구 성내로6길 14-20",
+            "url": "http://place.map.kakao.com/561355455",
+            "lat": 37.52988080574878,
+            "lng": 127.12193205109901
+          },
+          "cv": 0.333
+        },
+        {
+          "name": "브로일링커피 강동점",
+          "series": [
+            8,
+            10,
+            9,
+            10,
+            23,
+            14,
+            11,
+            13,
+            13,
+            14,
+            10
+          ],
+          "recent": 24,
+          "base": 25,
+          "depts": 16,
+          "avgAmount": 31452,
+          "variants": 9,
+          "kakao": {
+            "id": "472671966",
+            "category": "카페",
+            "address": "서울 강동구 성내로10길 9-6",
+            "url": "http://place.map.kakao.com/472671966",
+            "lat": 37.52825135144103,
+            "lng": 127.12494324027448
+          },
+          "cv": 0.334
+        },
+        {
+          "name": "커피아마렐로",
+          "series": [
+            11,
+            23,
+            28,
+            26,
+            35,
+            32,
+            21,
+            19,
+            19,
+            12,
+            18
+          ],
+          "recent": 30,
+          "base": 53,
+          "depts": 13,
+          "avgAmount": 25347,
+          "variants": 1,
+          "kakao": {
+            "id": "17361031",
+            "category": "카페",
+            "address": "서울 강동구 성내로6길 14-26",
+            "url": "http://place.map.kakao.com/17361031",
+            "lat": 37.5298748952638,
+            "lng": 127.121547383689
+          },
+          "cv": 0.343
+        },
+        {
+          "name": "페이브베이커리 강동구청점",
+          "series": [
+            5,
+            12,
+            8,
+            5,
+            10,
+            13,
+            11,
+            4,
+            9,
+            8,
+            10
+          ],
+          "recent": 18,
+          "base": 24,
+          "depts": 12,
+          "avgAmount": 30575,
+          "variants": 1,
+          "kakao": {
+            "id": "933086300",
+            "category": "카페",
+            "address": "서울 강동구 성내로6길 34",
+            "url": "http://place.map.kakao.com/933086300",
+            "lat": 37.52840748785663,
+            "lng": 127.1221072707899
+          },
+          "cv": 0.345
+        },
+        {
+          "name": "은아식당",
+          "series": [
+            16,
+            22,
+            5,
+            12,
+            10,
+            13,
+            13,
+            9,
+            13,
+            19,
+            12
+          ],
+          "recent": 31,
+          "base": 26,
+          "depts": 13,
+          "avgAmount": 155810,
+          "variants": 1,
+          "kakao": {
+            "id": "1956461264",
+            "category": "오리",
+            "address": "서울 강동구 성내로 8-10",
+            "url": "http://place.map.kakao.com/1956461264",
+            "lat": 37.5300048276801,
+            "lng": 127.121364316088
+          },
+          "cv": 0.356
+        },
+        {
+          "name": "화진포막국수 강동구청점",
+          "series": [
+            3,
+            11,
+            8,
+            10,
+            5,
+            7,
+            5,
+            10,
+            8,
+            9,
+            4
+          ],
+          "recent": 13,
+          "base": 12,
+          "depts": 11,
+          "avgAmount": 73850,
+          "variants": 3,
+          "kakao": {
+            "id": "8165290",
+            "category": "국수",
+            "address": "서울 강동구 성내로10길 12",
+            "url": "http://place.map.kakao.com/8165290",
+            "lat": 37.5284409724457,
+            "lng": 127.124554380837
+          },
+          "cv": 0.369
+        },
+        {
+          "name": "벌스커피",
+          "series": [
+            9,
+            28,
+            13,
+            15,
+            12,
+            16,
+            12,
+            12,
+            10,
+            14,
+            10
+          ],
+          "recent": 24,
+          "base": 28,
+          "depts": 11,
+          "avgAmount": 47386,
+          "variants": 10,
+          "kakao": null,
+          "cv": 0.379
+        },
+        {
+          "name": "연어로만 성내점",
+          "series": [
+            17,
+            14,
+            12,
+            8,
+            9,
+            11,
+            6,
+            11,
+            8,
+            10,
+            3
+          ],
+          "recent": 13,
+          "base": 17,
+          "depts": 9,
+          "avgAmount": 94003,
+          "variants": 2,
+          "kakao": {
+            "id": "11906036",
+            "category": "일식",
+            "address": "서울 강동구 올림픽로48길 22",
+            "url": "http://place.map.kakao.com/11906036",
+            "lat": 37.52898500537335,
+            "lng": 127.1212563184543
+          },
+          "cv": 0.384
+        },
+        {
+          "name": "대풍",
+          "series": [
+            4,
+            15,
+            12,
+            5,
+            8,
+            9,
+            6,
+            10,
+            9,
+            5,
+            7
+          ],
+          "recent": 12,
+          "base": 15,
+          "depts": 9,
+          "avgAmount": 97011,
+          "variants": 1,
+          "kakao": null,
+          "cv": 0.405
+        },
+        {
+          "name": "달청",
+          "series": [
+            10,
+            35,
+            14,
+            9,
+            14,
+            19,
+            14,
+            16,
+            21,
+            26,
+            18
+          ],
+          "recent": 44,
+          "base": 33,
+          "depts": 22,
+          "avgAmount": 84523,
+          "variants": 1,
+          "kakao": null,
+          "cv": 0.42
+        },
+        {
+          "name": "포몬스 천호점",
+          "series": [
+            9,
+            17,
+            12,
+            10,
+            4,
+            16,
+            9,
+            19,
+            16,
+            26,
+            9
+          ],
+          "recent": 35,
+          "base": 25,
+          "depts": 15,
+          "avgAmount": 76455,
+          "variants": 5,
+          "kakao": {
+            "id": "15265452",
+            "category": "포몬스",
+            "address": "서울 강동구 성내로 54",
+            "url": "http://place.map.kakao.com/15265452",
+            "lat": 37.52820533568555,
+            "lng": 127.125852745754
+          },
+          "cv": 0.459
+        },
+        {
+          "name": "해전해물탕",
+          "series": [
+            5,
+            21,
+            13,
+            9,
+            8,
+            7,
+            12,
+            5,
+            10,
+            7,
+            10
+          ],
+          "recent": 17,
+          "base": 19,
+          "depts": 7,
+          "avgAmount": 106809,
+          "variants": 2,
+          "kakao": null,
+          "cv": 0.467
+        },
+        {
+          "name": "고석정",
+          "series": [
+            7,
+            8,
+            16,
+            10,
+            5,
+            12,
+            9,
+            19,
+            11,
+            25,
+            14
+          ],
+          "recent": 39,
+          "base": 21,
+          "depts": 9,
+          "avgAmount": 196814,
+          "variants": 1,
+          "kakao": {
+            "id": "9852452",
+            "category": "육류,고기",
+            "address": "서울 강동구 성내로 8-14",
+            "url": "http://place.map.kakao.com/9852452",
+            "lat": 37.529866178345046,
+            "lng": 127.12126227027355
+          },
+          "cv": 0.472
+        },
+        {
+          "name": "어전",
+          "series": [
+            18,
+            37,
+            27,
+            35,
+            14,
+            35,
+            10,
+            19,
+            11,
+            11,
+            17
+          ],
+          "recent": 28,
+          "base": 45,
+          "depts": 16,
+          "avgAmount": 123227,
+          "variants": 1,
+          "kakao": {
+            "id": "12122192",
+            "category": "회",
+            "address": "서울 강동구 성안로3길 112-5",
+            "url": "http://place.map.kakao.com/12122192",
+            "lat": 37.5282758881951,
+            "lng": 127.123888888855
+          },
+          "cv": 0.489
+        },
+        {
+          "name": "오륜정",
+          "series": [
+            3,
+            28,
+            10,
+            10,
+            13,
+            15,
+            10,
+            11,
+            9,
+            14,
+            13
+          ],
+          "recent": 27,
+          "base": 25,
+          "depts": 16,
+          "avgAmount": 148885,
+          "variants": 1,
+          "kakao": {
+            "id": "428708189",
+            "category": "육류,고기",
+            "address": "서울 강동구 성내로6길 32",
+            "url": "http://place.map.kakao.com/428708189",
+            "lat": 37.5285407316691,
+            "lng": 127.122208176028
+          },
+          "cv": 0.494
+        },
+        {
+          "name": "스타벅스 코리아",
+          "series": [
+            13,
+            22,
+            20,
+            18,
+            16,
+            25,
+            16,
+            31,
+            36,
+            57,
+            21
+          ],
+          "recent": 78,
+          "base": 41,
+          "depts": 19,
+          "avgAmount": 45940,
+          "variants": 4,
+          "kakao": null,
+          "cv": 0.504
+        }
+      ],
       "stats": {
-        "transactions": 11430,
-        "restaurants": 5534,
-        "candidates": 32,
-        "kakaoMatched": 56,
-        "kakaoUnmatched": 24,
-        "kakaoMerged": 1
+        "transactions": 32801,
+        "restaurants": 8337,
+        "candidates": 120,
+        "kakaoMatched": 300,
+        "kakaoUnmatched": 201,
+        "kakaoMerged": 26
       },
       "slug": "gangdong",
       "name": "강동구"
@@ -4124,11 +4701,11 @@
         }
       ],
       "stats": {
-        "transactions": 28200,
-        "restaurants": 3797,
-        "candidates": 175,
+        "transactions": 28143,
+        "restaurants": 3794,
+        "candidates": 174,
         "kakaoMatched": 359,
-        "kakaoUnmatched": 220,
+        "kakaoUnmatched": 218,
         "kakaoMerged": 23
       },
       "slug": "gangbuk",
@@ -5501,11 +6078,11 @@
         }
       ],
       "stats": {
-        "transactions": 30454,
-        "restaurants": 4386,
+        "transactions": 30420,
+        "restaurants": 4384,
         "candidates": 111,
         "kakaoMatched": 287,
-        "kakaoUnmatched": 265,
+        "kakaoUnmatched": 264,
         "kakaoMerged": 21
       },
       "slug": "gangseo",
@@ -7179,11 +7756,11 @@
         }
       ],
       "stats": {
-        "transactions": 47321,
-        "restaurants": 4838,
+        "transactions": 47281,
+        "restaurants": 4835,
         "candidates": 231,
         "kakaoMatched": 501,
-        "kakaoUnmatched": 180,
+        "kakaoUnmatched": 179,
         "kakaoMerged": 30
       },
       "slug": "gwanak",
@@ -8705,11 +9282,11 @@
         }
       ],
       "stats": {
-        "transactions": 22570,
-        "restaurants": 3331,
+        "transactions": 22547,
+        "restaurants": 3330,
         "candidates": 62,
         "kakaoMatched": 257,
-        "kakaoUnmatched": 165,
+        "kakaoUnmatched": 164,
         "kakaoMerged": 17
       },
       "slug": "gwangjin",
@@ -10160,11 +10737,11 @@
         }
       ],
       "stats": {
-        "transactions": 13120,
-        "restaurants": 1928,
+        "transactions": 13108,
+        "restaurants": 1927,
         "candidates": 75,
         "kakaoMatched": 144,
-        "kakaoUnmatched": 107,
+        "kakaoUnmatched": 106,
         "kakaoMerged": 8
       },
       "slug": "guro",
@@ -11465,8 +12042,8 @@
         }
       ],
       "stats": {
-        "transactions": 24155,
-        "restaurants": 2268,
+        "transactions": 24144,
+        "restaurants": 2262,
         "candidates": 47,
         "kakaoMatched": 172,
         "kakaoUnmatched": 67,
@@ -12354,8 +12931,8 @@
         }
       ],
       "stats": {
-        "transactions": 16362,
-        "restaurants": 1861,
+        "transactions": 16360,
+        "restaurants": 1860,
         "candidates": 32,
         "kakaoMatched": 76,
         "kakaoUnmatched": 54,
@@ -13888,11 +14465,11 @@
         }
       ],
       "stats": {
-        "transactions": 25026,
-        "restaurants": 3494,
+        "transactions": 24999,
+        "restaurants": 3493,
         "candidates": 132,
         "kakaoMatched": 259,
-        "kakaoUnmatched": 181,
+        "kakaoUnmatched": 180,
         "kakaoMerged": 28
       },
       "slug": "dobong",
@@ -15466,11 +16043,11 @@
         }
       ],
       "stats": {
-        "transactions": 26931,
-        "restaurants": 4362,
-        "candidates": 101,
+        "transactions": 26890,
+        "restaurants": 4354,
+        "candidates": 100,
         "kakaoMatched": 237,
-        "kakaoUnmatched": 100,
+        "kakaoUnmatched": 98,
         "kakaoMerged": 23
       },
       "slug": "ddm",
@@ -16966,11 +17543,11 @@
         }
       ],
       "stats": {
-        "transactions": 27329,
-        "restaurants": 3138,
+        "transactions": 27302,
+        "restaurants": 3136,
         "candidates": 103,
         "kakaoMatched": 234,
-        "kakaoUnmatched": 168,
+        "kakaoUnmatched": 167,
         "kakaoMerged": 15
       },
       "slug": "dongjak",
@@ -18145,11 +18722,11 @@
         }
       ],
       "stats": {
-        "transactions": 17919,
-        "restaurants": 3169,
-        "candidates": 79,
+        "transactions": 17855,
+        "restaurants": 3166,
+        "candidates": 78,
         "kakaoMatched": 160,
-        "kakaoUnmatched": 103,
+        "kakaoUnmatched": 101,
         "kakaoMerged": 15
       },
       "slug": "mapo",
@@ -19447,11 +20024,11 @@
         }
       ],
       "stats": {
-        "transactions": 29238,
-        "restaurants": 5517,
-        "candidates": 123,
+        "transactions": 29132,
+        "restaurants": 5507,
+        "candidates": 122,
         "kakaoMatched": 249,
-        "kakaoUnmatched": 247,
+        "kakaoUnmatched": 244,
         "kakaoMerged": 13
       },
       "slug": "seocho",
@@ -20841,11 +21418,11 @@
         }
       ],
       "stats": {
-        "transactions": 26494,
-        "restaurants": 2304,
+        "transactions": 26429,
+        "restaurants": 2296,
         "candidates": 65,
         "kakaoMatched": 196,
-        "kakaoUnmatched": 72,
+        "kakaoUnmatched": 71,
         "kakaoMerged": 25
       },
       "slug": "seongdong",
@@ -22339,11 +22916,11 @@
         }
       ],
       "stats": {
-        "transactions": 36367,
-        "restaurants": 4615,
+        "transactions": 36302,
+        "restaurants": 4610,
         "candidates": 190,
         "kakaoMatched": 405,
-        "kakaoUnmatched": 248,
+        "kakaoUnmatched": 247,
         "kakaoMerged": 27
       },
       "slug": "sb",
@@ -23605,8 +24182,8 @@
         }
       ],
       "stats": {
-        "transactions": 28628,
-        "restaurants": 4762,
+        "transactions": 28616,
+        "restaurants": 4761,
         "candidates": 67,
         "kakaoMatched": 307,
         "kakaoUnmatched": 215,
@@ -23951,29 +24528,6 @@
           "growth": 3.25
         },
         {
-          "name": "네이버파이낸셜",
-          "series": [
-            3,
-            0,
-            2,
-            2,
-            0,
-            4,
-            0,
-            4,
-            3,
-            8,
-            7
-          ],
-          "recent": 15,
-          "base": 4,
-          "depts": 7,
-          "avgAmount": 174513,
-          "variants": 9,
-          "kakao": null,
-          "growth": 3.2
-        },
-        {
           "name": "프랭크버거",
           "series": [
             0,
@@ -24168,6 +24722,36 @@
             "lng": 126.8654960369
           },
           "growth": 2.33
+        },
+        {
+          "name": "심마니초애삼계탕 본점",
+          "series": [
+            2,
+            7,
+            2,
+            2,
+            3,
+            1,
+            2,
+            3,
+            10,
+            7,
+            1
+          ],
+          "recent": 8,
+          "base": 3,
+          "depts": 6,
+          "avgAmount": 117712,
+          "variants": 1,
+          "kakao": {
+            "id": "506810812",
+            "category": "삼계탕",
+            "address": "서울 양천구 남부순환로 605",
+            "url": "http://place.map.kakao.com/506810812",
+            "lat": 37.5150572323337,
+            "lng": 126.840737881167
+          },
+          "growth": 2.25
         }
       ],
       "newcomers": [
@@ -24893,11 +25477,11 @@
         }
       ],
       "stats": {
-        "transactions": 19091,
-        "restaurants": 2909,
-        "candidates": 101,
+        "transactions": 19056,
+        "restaurants": 2907,
+        "candidates": 100,
         "kakaoMatched": 178,
-        "kakaoUnmatched": 153,
+        "kakaoUnmatched": 152,
         "kakaoMerged": 12
       },
       "slug": "yangcheon",
@@ -26419,8 +27003,8 @@
         }
       ],
       "stats": {
-        "transactions": 32013,
-        "restaurants": 3789,
+        "transactions": 31998,
+        "restaurants": 3787,
         "candidates": 129,
         "kakaoMatched": 292,
         "kakaoUnmatched": 192,
@@ -27455,29 +28039,6 @@
           "cv": 0.235
         },
         {
-          "name": "우아한형제들",
-          "series": [
-            71,
-            132,
-            104,
-            90,
-            94,
-            128,
-            133,
-            143,
-            129,
-            159,
-            90
-          ],
-          "recent": 249,
-          "base": 261,
-          "depts": 19,
-          "avgAmount": 47229,
-          "variants": 40,
-          "kakao": null,
-          "cv": 0.236
-        },
-        {
           "name": "이즈비",
           "series": [
             10,
@@ -27958,14 +28519,44 @@
             "lng": 126.994474310497
           },
           "cv": 0.384
+        },
+        {
+          "name": "고인돌",
+          "series": [
+            10,
+            45,
+            70,
+            52,
+            66,
+            78,
+            53,
+            37,
+            56,
+            75,
+            30
+          ],
+          "recent": 105,
+          "base": 131,
+          "depts": 32,
+          "avgAmount": 77200,
+          "variants": 1,
+          "kakao": {
+            "id": "16907091",
+            "category": "육류,고기",
+            "address": "서울 용산구 녹사평대로26길 24",
+            "url": "http://place.map.kakao.com/16907091",
+            "lat": 37.53095978360545,
+            "lng": 126.99163922381605
+          },
+          "cv": 0.397
         }
       ],
       "stats": {
-        "transactions": 24748,
-        "restaurants": 3141,
-        "candidates": 103,
+        "transactions": 23375,
+        "restaurants": 3134,
+        "candidates": 102,
         "kakaoMatched": 224,
-        "kakaoUnmatched": 128,
+        "kakaoUnmatched": 124,
         "kakaoMerged": 16
       },
       "slug": "yongsan",
@@ -29205,8 +29796,8 @@
         }
       ],
       "stats": {
-        "transactions": 24361,
-        "restaurants": 4567,
+        "transactions": 24349,
+        "restaurants": 4565,
         "candidates": 87,
         "kakaoMatched": 257,
         "kakaoUnmatched": 161,
@@ -30129,29 +30720,6 @@
       ],
       "steady": [
         {
-          "name": "네이버파이낸셜",
-          "series": [
-            10,
-            16,
-            10,
-            11,
-            10,
-            14,
-            14,
-            12,
-            12,
-            19,
-            18
-          ],
-          "recent": 37,
-          "base": 28,
-          "depts": 12,
-          "avgAmount": 118251,
-          "variants": 7,
-          "kakao": null,
-          "cv": 0.243
-        },
-        {
           "name": "이디야커피 오장동점",
           "series": [
             6,
@@ -30692,14 +31260,44 @@
             "lng": 126.9951071020646
           },
           "cv": 0.541
+        },
+        {
+          "name": "복정집",
+          "series": [
+            9,
+            31,
+            14,
+            6,
+            8,
+            22,
+            13,
+            9,
+            9,
+            13,
+            11
+          ],
+          "recent": 24,
+          "base": 35,
+          "depts": 10,
+          "avgAmount": 70291,
+          "variants": 2,
+          "kakao": {
+            "id": "13287670",
+            "category": "해물,생선",
+            "address": "서울 중구 퇴계로 235",
+            "url": "http://place.map.kakao.com/13287670",
+            "lat": 37.562537366282804,
+            "lng": 126.99760049744003
+          },
+          "cv": 0.553
         }
       ],
       "stats": {
-        "transactions": 25568,
-        "restaurants": 4116,
-        "candidates": 97,
+        "transactions": 25391,
+        "restaurants": 4113,
+        "candidates": 96,
         "kakaoMatched": 337,
-        "kakaoUnmatched": 194,
+        "kakaoUnmatched": 192,
         "kakaoMerged": 17
       },
       "slug": "junggu",
@@ -32149,11 +32747,11 @@
         }
       ],
       "stats": {
-        "transactions": 23630,
-        "restaurants": 2807,
+        "transactions": 23538,
+        "restaurants": 2805,
         "candidates": 89,
         "kakaoMatched": 249,
-        "kakaoUnmatched": 113,
+        "kakaoUnmatched": 111,
         "kakaoMerged": 20
       },
       "slug": "jungnang",

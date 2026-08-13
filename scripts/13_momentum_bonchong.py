@@ -34,9 +34,66 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "output" / "seoul_expense_raw.csv"
 OUT = ROOT / "data" / "output" / "momentum_bonchong.json"
 
-QUARTERS = [f"{y}-Q{q}" for y in (2023, 2024, 2025) for q in (1, 2, 3, 4)] + ["2026-Q1"]
-RECENT = ("2025-Q4", "2026-Q1")
-BASE = ("2024-Q4", "2025-Q1")  # 전년 동분기 → 회식 시즌 등 계절성 상쇄
+
+# "2026-03-05" 외에 자치구 장부의 "2025.2.", "2025/3/2", "20260219" 변형도 잡는다.
+# 연도가 없는 표기("2.21.", "06-05")는 분기를 특정할 수 없어 버린다.
+_DATE_HEAD = re.compile(r"^(20\d{2})[.\-/년\s]+(\d{1,2})\b")
+_DATE_COMPACT = re.compile(r"^(20\d{2})(\d{2})\d{2}$")
+
+
+def quarter_of(date: str) -> str | None:
+    m = _DATE_HEAD.match(date) or _DATE_COMPACT.match(date)
+    if not m:
+        return None
+    y, mo = int(m.group(1)), int(m.group(2))
+    if y >= 2023 and 1 <= mo <= 12:
+        return f"{y}-Q{(mo - 1) // 3 + 1}"
+    return None
+
+
+def load_rows(path: Path = RAW) -> list[dict]:
+    # 일부 자치구 CSV에 NUL 바이트가 섞여 있어 csv 모듈이 죽는다 — 제거 후 파싱
+    import io
+
+    text = path.read_text(encoding="utf-8-sig", errors="replace").replace("\x00", "")
+    return list(csv.DictReader(io.StringIO(text)))
+
+
+def _quarter_seq(last: str) -> list[str]:
+    seq = [f"{y}-Q{q}" for y in range(2023, int(last[:4]) + 1) for q in (1, 2, 3, 4)]
+    return seq[: seq.index(last) + 1]
+
+
+def detect_axis() -> tuple:
+    """본청 데이터에서 분기 축을 도출 — 분기가 바뀌어도 상수 수정이 필요 없다.
+
+    끝점은 '업로드가 충분히 찬'(분기 행수가 중앙값의 절반 이상) 마지막 분기.
+    공개 데이터는 분기 종료 후 1~2달 걸쳐 올라오므로, 달력상 끝난 분기라도
+    행수가 덜 찼으면 아직 축에 넣지 않는다.
+    """
+    fallback = (_quarter_seq("2026-Q1"), ("2025-Q4", "2026-Q1"), ("2024-Q4", "2025-Q1"))
+    try:
+        rows = load_rows()
+    except OSError:
+        return fallback
+    qc = Counter()
+    for r in rows:
+        q = quarter_of(r.get("사용일") or "")
+        if q:
+            qc[q] += 1
+    if not qc:
+        return fallback
+    cutoff = statistics.median(qc.values()) * 0.5
+    filled = sorted(q for q, c in qc.items() if c >= cutoff)
+    if not filled:
+        return fallback
+    quarters = _quarter_seq(filled[-1])
+    if len(quarters) < 6:  # 전년 동분기 비교가 불가능한 축이면 고정값 유지
+        return fallback
+    return quarters, (quarters[-2], quarters[-1]), (quarters[-6], quarters[-5])
+
+
+QUARTERS, RECENT, BASE = detect_axis()  # BASE: 전년 동분기 → 회식 시즌 등 계절성 상쇄
 
 # 식당이 아닌 내부 시설/매점류
 NONFOOD = (
@@ -64,22 +121,6 @@ def normalize(name: str) -> str:
     s = _PAREN_TAIL.sub("", s)
     s = re.sub(r"\s+", "", s)
     return s
-
-
-# "2026-03-05" 외에 자치구 장부의 "2025.2.", "2025/3/2", "20260219" 변형도 잡는다.
-# 연도가 없는 표기("2.21.", "06-05")는 분기를 특정할 수 없어 버린다.
-_DATE_HEAD = re.compile(r"^(20\d{2})[.\-/년\s]+(\d{1,2})\b")
-_DATE_COMPACT = re.compile(r"^(20\d{2})(\d{2})\d{2}$")
-
-
-def quarter_of(date: str) -> str | None:
-    m = _DATE_HEAD.match(date) or _DATE_COMPACT.match(date)
-    if not m:
-        return None
-    y, mo = int(m.group(1)), int(m.group(2))
-    if y >= 2023 and 1 <= mo <= 12:
-        return f"{y}-Q{(mo - 1) // 3 + 1}"
-    return None
 
 
 # 도로명주소 → (구, 도로명, 건물번호). "서울 중구 무교로 21", "중구 무교로21",
@@ -167,14 +208,6 @@ def cluster_pairs(pair_counts: Counter) -> dict:
             uf.union((name, None), (name, dominant[name]))
 
     return {pair: uf.find(pair) for pair in pair_counts}
-
-
-def load_rows(path: Path = RAW) -> list[dict]:
-    # 일부 자치구 CSV에 NUL 바이트가 섞여 있어 csv 모듈이 죽는다 — 제거 후 파싱
-    import io
-
-    text = path.read_text(encoding="utf-8-sig", errors="replace").replace("\x00", "")
-    return list(csv.DictReader(io.StringIO(text)))
 
 
 def build_clusters(rows: list[dict], recent: tuple = RECENT) -> dict:
