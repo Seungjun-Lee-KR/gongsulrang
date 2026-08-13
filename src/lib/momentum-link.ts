@@ -99,6 +99,12 @@ function findRank(name: string, lat: number, lng: number): number | undefined {
 const rankOfKakaoId = new Map<string, number>();
 const appearancesOfRank = new Map<number, MomentumAppearance[]>();
 
+// 1순위: 16이 restaurants.json에 붙인 kakaoId와의 정확 조인.
+// 좌표+이름 휴리스틱은 kakaoId가 없는 항목의 폴백이다.
+restaurants.forEach((r) => {
+  if (r.kakaoId) rankOfKakaoId.set(r.kakaoId, r.rank);
+});
+
 function collect(data: MomentumData, scope: string, href: string) {
   const byRank = new Map<number, MomentumAppearance>();
   (Object.keys(BOARD_LABELS) as BoardKey[]).forEach((key) => {

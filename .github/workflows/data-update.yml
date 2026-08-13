@@ -142,6 +142,11 @@ jobs:
         # 06이 restaurants.json을 새로 쓰므로 매번 그 뒤에 재적용해야 한다.
         run: python scripts/16_official_names.py
 
+      - name: 중복 등재 병합 + 안정 id
+        # 같은 kakaoId = 같은 가게 → 병합·재랭킹. 댓글은 rank가 아니라
+        # 여기서 부여되는 안정 id에 묶인다.
+        run: python scripts/17_dedupe_rankings.py
+
       - name: 모멘텀 랭킹 (본청 + 자치구)
         # 13이 데이터에서 분기 축을 자동 도출하므로 분기가 바뀌어도 무설정.
         # 카카오 장소 캐시(data/output/.kakao_place_cache.json)가 커밋돼 있어

@@ -25,7 +25,11 @@ const PROVIDER_BADGE_CLASS: Record<string, string> = {
   naver: "bg-[#0d2a18] border-[#1a4a2c] text-[#03c75a]",
 };
 
-export default function CommentSection({ rank }: { rank: number }) {
+export default function CommentSection({
+  restaurantId,
+}: {
+  restaurantId: string;
+}) {
   const { data: session, status } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +46,7 @@ export default function CommentSection({ rank }: { rank: number }) {
     let cancelled = false;
     (async () => {
       try {
-        const r = await fetch(`/api/comments/${rank}`, { cache: "no-store" });
+        const r = await fetch(`/api/comments/${restaurantId}`, { cache: "no-store" });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = (await r.json()) as { comments: Comment[] };
         if (!cancelled) setComments(data.comments);
@@ -55,7 +59,7 @@ export default function CommentSection({ rank }: { rank: number }) {
     return () => {
       cancelled = true;
     };
-  }, [rank, refreshKey]);
+  }, [restaurantId, refreshKey]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +67,7 @@ export default function CommentSection({ rank }: { rank: number }) {
     setSubmitting(true);
     setError(null);
     try {
-      const r = await fetch(`/api/comments/${rank}`, {
+      const r = await fetch(`/api/comments/${restaurantId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content }),
@@ -84,7 +88,7 @@ export default function CommentSection({ rank }: { rank: number }) {
   const remove = async (id: string) => {
     if (!confirm("이 댓글을 삭제할까요?")) return;
     try {
-      const r = await fetch(`/api/comments/${rank}?id=${id}`, {
+      const r = await fetch(`/api/comments/${restaurantId}?id=${id}`, {
         method: "DELETE",
       });
       if (!r.ok) {

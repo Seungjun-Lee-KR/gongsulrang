@@ -136,6 +136,8 @@ def main() -> None:
         if not doc:
             continue
 
+        # 카카오 place id는 중복 병합(17)과 모멘텀 연결의 안정 키
+        r["kakaoId"] = doc["id"]
         official = doc["place_name"].strip()
         if official and official != r["name"]:
             if "ledgerName" not in r:

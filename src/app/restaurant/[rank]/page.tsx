@@ -335,7 +335,7 @@ export default async function Page({
             가본 후기·정정 의견·일행 추천 등 자유롭게 남겨주세요.
           </p>
           <div className="mt-5">
-            <CommentSection rank={r.rank} />
+            <CommentSection restaurantId={r.id} />
           </div>
         </section>
       </main>
