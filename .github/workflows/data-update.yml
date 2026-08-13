@@ -137,6 +137,11 @@ jobs:
       - name: 프론트엔드 JSON 생성
         run: python scripts/06_to_frontend_json.py
 
+      - name: 공식 상호 보정 (Kakao)
+        # 카드 명세서상 상호(사업자 등록명) → 실제 간판 상호.
+        # 06이 restaurants.json을 새로 쓰므로 매번 그 뒤에 재적용해야 한다.
+        run: python scripts/16_official_names.py
+
       - name: 모멘텀 랭킹 (본청 + 자치구)
         # 13이 데이터에서 분기 축을 자동 도출하므로 분기가 바뀌어도 무설정.
         # 카카오 장소 캐시(data/output/.kakao_place_cache.json)가 커밋돼 있어

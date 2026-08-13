@@ -44,6 +44,7 @@ export default async function Page({
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: r.name,
+    ...(r.ledgerName ? { alternateName: r.ledgerName } : {}),
     url: `https://gongsulrang.vercel.app/restaurant/${r.rank}`,
   };
   if (r.formattedAddress || r.guDong || r.region) {
@@ -99,6 +100,14 @@ export default async function Page({
             <h1 className="mt-3 break-keep text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
               {r.name}
             </h1>
+            {r.ledgerName && (
+              <p
+                className="mt-1.5 text-xs text-mute"
+                title="카드 명세서의 가맹점명(사업자 등록명)이 간판과 달라, 실제 상호로 보정했습니다"
+              >
+                장부상 상호: {r.ledgerName}
+              </p>
+            )}
             {r.topAgency && (
               <p className="mt-2 break-keep text-sm text-mute">
                 주요 이용 기관:{" "}
