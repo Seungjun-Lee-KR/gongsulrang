@@ -1,4 +1,6 @@
+import Link from "next/link";
 import type { MomentumEntry } from "@/types/momentum";
+import { getRankForKakaoId } from "@/lib/momentum-link";
 
 export const MOMENTUM_COLORS = {
   rising: "var(--color-accent)",
@@ -9,7 +11,7 @@ export const MOMENTUM_COLORS = {
 } as const;
 
 /** 끼니 성향 배지 — 보드 선정 기준(점심 70%·저녁 50%)과 같은 임계 */
-function mealBadge(e: MomentumEntry): string | null {
+export function mealBadge(e: MomentumEntry): string | null {
   if (!e.timed || e.timed < 10) return null;
   if ((e.lunch ?? 0) / e.timed >= 0.7) return "🌞 점심형";
   if ((e.dinner ?? 0) / e.timed >= 0.5) return "🌙 저녁형";
@@ -17,17 +19,23 @@ function mealBadge(e: MomentumEntry): string | null {
 }
 
 /** 분기별 방문 추이 스파크라인 (서버 렌더, 네이티브 툴팁) */
-function Sparkline({
+export function Sparkline({
   series,
   quarters,
   color,
+  width = 200,
+  height = 40,
+  className = "block",
 }: {
   series: number[];
   quarters: string[];
   color: string;
+  width?: number;
+  height?: number;
+  className?: string;
 }) {
-  const W = 200;
-  const H = 40;
+  const W = width;
+  const H = height;
   const PAD = 3;
   const max = Math.max(...series, 1);
   const x = (i: number) => PAD + (i * (W - PAD * 2)) / (series.length - 1);
@@ -45,7 +53,7 @@ function Sparkline({
       viewBox={`0 0 ${W} ${H}`}
       role="img"
       aria-label={`분기별 방문 추이: ${series.join(", ")}`}
-      className="block"
+      className={className}
     >
       <rect
         x={bandX.toFixed(1)}
@@ -109,6 +117,9 @@ function Row({
   color: string;
   metric: { value: string; label: string };
 }) {
+  const cumulativeRank = entry.kakao
+    ? getRankForKakaoId(entry.kakao.id)
+    : undefined;
   return (
     <tr className="border-t border-line first:border-t-0 transition hover:bg-elev2">
       <td className="w-9 py-3 pl-4 pr-0 text-right font-mono text-[13px] tabular text-mute">
@@ -156,6 +167,18 @@ function Row({
           )}{" "}
           · {entry.depts}개 부서
           {mealBadge(entry) && <> · {mealBadge(entry)}</>}
+          {cumulativeRank !== undefined && (
+            <>
+              {" · "}
+              <Link
+                href={`/restaurant/${cumulativeRank}`}
+                className="font-semibold text-accent hover:underline"
+                title="공슐랭 누적 랭킹 상세 페이지"
+              >
+                누적 {cumulativeRank}위 →
+              </Link>
+            </>
+          )}
         </div>
       </td>
       <td className="w-[216px] px-3.5 py-3">

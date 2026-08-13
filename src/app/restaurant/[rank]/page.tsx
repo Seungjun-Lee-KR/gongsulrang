@@ -6,6 +6,8 @@ import KakaoMap from "@/components/KakaoMap";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import CommentSection from "@/components/CommentSection";
+import { Sparkline, mealBadge } from "@/components/MomentumBoards";
+import { getMomentumForRank } from "@/lib/momentum-link";
 
 export function generateStaticParams() {
   return restaurants.map((r) => ({ rank: String(r.rank) }));
@@ -34,6 +36,7 @@ export default async function Page({
   const r = restaurants.find((x) => String(x.rank) === rank);
   if (!r) notFound();
 
+  const momentumApps = getMomentumForRank(r.rank);
   const photos = r.photos ?? [];
   const photoSlots = [0, 1, 2];
 
@@ -254,6 +257,61 @@ export default async function Page({
             </div>
           </div>
         </section>
+
+        {momentumApps.length > 0 && (
+          <section className="mt-3 rounded-xl border border-line bg-elev p-4">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-mute">
+                분기별 추이
+              </h2>
+              <span className="text-xs text-mute">
+                요즘도 가는 집인지 — 공무원 법인카드 방문수 흐름
+              </span>
+            </div>
+            <div className="mt-2 divide-y divide-line">
+              {momentumApps.map((app) => (
+                <div
+                  key={app.scope}
+                  className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3.5"
+                >
+                  <div className="min-w-[220px] flex-1">
+                    <Link
+                      href={app.href}
+                      className="text-sm font-bold text-ink transition hover:text-accent"
+                    >
+                      {app.scope} 뜨는집 →
+                    </Link>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {app.boards.map((b) => (
+                        <span
+                          key={b.key}
+                          className="rounded-full border border-accent/40 px-2 py-0.5 text-[11px] font-semibold text-accent"
+                        >
+                          {b.label} {b.position}위
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-1.5 text-xs tabular text-mute">
+                      최근 2분기 {app.entry.recent}회
+                      {app.entry.perPerson && (
+                        <> · 인당 {app.entry.perPerson.toLocaleString()}원</>
+                      )}
+                      {mealBadge(app.entry) && <> · {mealBadge(app.entry)}</>}
+                    </div>
+                  </div>
+                  <Sparkline
+                    series={app.entry.series}
+                    quarters={app.quarters}
+                    color="var(--color-accent)"
+                    width={300}
+                    height={52}
+                    className="block max-w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <p className="mt-6 text-xs leading-5 text-mute">
           수치는 서울 열린데이터광장·각 자치구가 공개한 업무추진비 집행내역을
