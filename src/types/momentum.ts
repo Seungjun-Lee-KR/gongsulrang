@@ -27,6 +27,17 @@ export type MomentumEntry = {
   growth?: number;
   /** steady 항목만: 분기 방문수 변동계수 (낮을수록 꾸준) */
   cv?: number;
+  /** 인당 지출 중앙값 (결제액/인원, "과장 등 6명" 파싱). 표본 5건 미만이면 null */
+  perPerson?: number | null;
+  /** 인당 지출 표본 수 */
+  perPersonN?: number;
+  /** 끼니 분류 행수 — timed가 분모 (시간·목적으로 분류된 전체) */
+  lunch?: number;
+  dinner?: number;
+  timed?: number;
+  /** lunchSpots/dinnerSpots 항목만 */
+  lunchShare?: number;
+  dinnerShare?: number;
 };
 
 export type MomentumData = {
@@ -37,6 +48,10 @@ export type MomentumData = {
   rising: MomentumEntry[];
   newcomers: MomentumEntry[];
   steady: MomentumEntry[];
+  /** 점심(11–14시) 비중 70% 이상 — 방문수 순 */
+  lunchSpots: MomentumEntry[];
+  /** 저녁(17시 이후) 비중 50% 이상 — 방문수 순 */
+  dinnerSpots: MomentumEntry[];
   stats: {
     transactions: number;
     restaurants: number;

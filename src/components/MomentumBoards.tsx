@@ -4,7 +4,17 @@ export const MOMENTUM_COLORS = {
   rising: "var(--color-accent)",
   newcomers: "var(--color-accent2)",
   steady: "#a9b2c4",
+  lunch: "#d99a2b",
+  dinner: "#8b7ff0",
 } as const;
+
+/** 끼니 성향 배지 — 보드 선정 기준(점심 70%·저녁 50%)과 같은 임계 */
+function mealBadge(e: MomentumEntry): string | null {
+  if (!e.timed || e.timed < 10) return null;
+  if ((e.lunch ?? 0) / e.timed >= 0.7) return "🌞 점심형";
+  if ((e.dinner ?? 0) / e.timed >= 0.5) return "🌙 저녁형";
+  return null;
+}
 
 /** 분기별 방문 추이 스파크라인 (서버 렌더, 네이티브 툴팁) */
 function Sparkline({
@@ -133,8 +143,19 @@ function Row({
           )}
         </div>
         <div className="mt-0.5 text-xs tabular text-mute">
-          {entry.kakao ? `${entry.kakao.address} · ` : ""}평균{" "}
-          {entry.avgAmount.toLocaleString()}원 · {entry.depts}개 부서
+          {entry.kakao ? `${entry.kakao.address} · ` : ""}
+          {entry.perPerson ? (
+            <span
+              className="font-semibold text-ink/80"
+              title={`법인카드 결제액 ÷ 인원 중앙값 (표본 ${entry.perPersonN}건)`}
+            >
+              인당 {entry.perPerson.toLocaleString()}원
+            </span>
+          ) : (
+            <>평균 {entry.avgAmount.toLocaleString()}원</>
+          )}{" "}
+          · {entry.depts}개 부서
+          {mealBadge(entry) && <> · {mealBadge(entry)}</>}
         </div>
       </td>
       <td className="w-[216px] px-3.5 py-3">

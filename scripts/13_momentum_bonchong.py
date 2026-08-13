@@ -123,6 +123,39 @@ def normalize(name: str) -> str:
     return s
 
 
+# 인당 지출: 사용자 "문화시설과장 등 6명" / "과장 외 3명"에서 인원을 파싱.
+# '외'는 명시된 사람을 제외한 수라 +1. 본청은 85%가 이 형식이다.
+_HEADCOUNT = re.compile(r"(외\s*)?(\d{1,3})\s*명")
+# 끼니 분류: 사용시간(본청 100%, 자치구 50~75%) 우선, 없으면 목적 키워드
+_HOUR = re.compile(r"^(\d{1,2})[:시]")
+_LUNCH_KW = ("오찬", "중식", "점심")
+_DINNER_KW = ("만찬", "석식", "회식", "저녁")
+
+
+def headcount_of(user: str) -> int | None:
+    m = _HEADCOUNT.search(user)
+    if not m:
+        return None
+    n = int(m.group(2)) + (1 if m.group(1) else 0)
+    return n if 1 <= n <= 99 else None
+
+
+def meal_of(time_str: str, purpose: str) -> str | None:
+    m = _HOUR.match(time_str.strip())
+    if m:
+        h = int(m.group(1))
+        if 11 <= h <= 14:
+            return "lunch"
+        if 17 <= h <= 23:
+            return "dinner"
+        return "other"
+    if any(k in purpose for k in _LUNCH_KW):
+        return "lunch"
+    if any(k in purpose for k in _DINNER_KW):
+        return "dinner"
+    return None
+
+
 # 도로명주소 → (구, 도로명, 건물번호). "서울 중구 무교로 21", "중구 무교로21",
 # "서울시 중구 무교로 21 더익스체인지서울 2층" 이 모두 같은 키가 된다.
 _ROAD = re.compile(r"([가-힣]+구)\s+([가-힣A-Za-z0-9·]+(?:로|길))\s*(\d+(?:-\d+)?)")
@@ -225,7 +258,9 @@ def build_clusters(rows: list[dict], recent: tuple = RECENT) -> dict:
             continue
         pair = (name, addr_key(r["주소"]))
         pair_counts[pair] += 1
-        parsed.append((pair, raw_name, q, r["부서명"], r["사용금액"]))
+        meal = meal_of(r.get("사용시간") or "", r.get("사용목적") or "")
+        hc = headcount_of(r.get("사용자") or "")
+        parsed.append((pair, raw_name, q, r["부서명"], r["사용금액"], meal, hc))
 
     root_of = cluster_pairs(pair_counts)
 
@@ -238,8 +273,10 @@ def build_clusters(rows: list[dict], recent: tuple = RECENT) -> dict:
         "amounts": defaultdict(list),
         "addrs": defaultdict(Counter),  # 클러스터 내 주소키 분포
         "name_cluster": defaultdict(Counter),  # 이름키 → 클러스터별 행수
+        "meal": defaultdict(Counter),  # lunch/dinner/other 행수
+        "pp": defaultdict(list),  # 인당 지출 표본 (금액/인원)
     }
-    for pair, raw_name, q, dept, amount in parsed:
+    for pair, raw_name, q, dept, amount, meal, hc in parsed:
         root = root_of[pair]
         C["qv"][root][q] += 1
         C["display"][root][raw_name] += 1
@@ -249,10 +286,18 @@ def build_clusters(rows: list[dict], recent: tuple = RECENT) -> dict:
             C["addrs"][root][pair[1]] += 1
         if q in recent:
             C["recent_depts"][root].add(dept)
+        if meal:
+            C["meal"][root][meal] += 1
         try:
-            C["amounts"][root].append(int(amount))
+            amt = int(amount)
         except ValueError:
-            pass
+            amt = None
+        if amt is not None:
+            C["amounts"][root].append(amt)
+        if amt and hc and hc >= 2:
+            pp = amt / hc
+            if 3000 <= pp <= 300000:  # 인원 오파싱·비식사 결제 가드
+                C["pp"][root].append(pp)
     return C
 
 
@@ -273,6 +318,8 @@ def display_name(C: dict, root) -> str:
 
 def entry(C: dict, key, quarters=QUARTERS, recent=RECENT, base=BASE) -> dict:
     series = [C["qv"][key][q] for q in quarters]
+    meal = C["meal"][key]
+    pp = C["pp"][key]
     return {
         "name": display_name(C, key),
         "series": series,
@@ -281,6 +328,13 @@ def entry(C: dict, key, quarters=QUARTERS, recent=RECENT, base=BASE) -> dict:
         "depts": len(C["recent_depts"][key]),
         "avgAmount": int(statistics.mean(C["amounts"][key])) if C["amounts"][key] else 0,
         "variants": len(C["display"][key]),
+        # 인당 지출: 결제액/인원 중앙값. 표본 5건 미만이면 신뢰 불가 → null
+        "perPerson": int(round(statistics.median(pp), -2)) if len(pp) >= 5 else None,
+        "perPersonN": len(pp),
+        # 끼니 분류 행수 (timed = 시간·목적으로 분류된 전체)
+        "lunch": meal["lunch"],
+        "dinner": meal["dinner"],
+        "timed": sum(meal.values()),
     }
 
 
@@ -340,6 +394,17 @@ def make_result(
             steady.append(e)
     steady.sort(key=lambda e: e["cv"])
 
+    # 상황별: 시간·목적으로 분류된 행이 10건 이상인 후보 중 끼니 쏠림이
+    # 뚜렷한 곳. 저녁 기저율(~20%)이 낮아 임계도 낮다(70% vs 50%).
+    def meal_spots(kind: str, min_share: float) -> list[dict]:
+        spots = []
+        for e in candidates:
+            if e["timed"] >= 10 and e[kind] / e["timed"] >= min_share:
+                e[f"{kind}Share"] = round(e[kind] / e["timed"], 2)
+                spots.append(e)
+        spots.sort(key=lambda e: -e["recent"])
+        return spots[:20]
+
     return {
         "source": source,
         "quarters": list(quarters),
@@ -348,6 +413,8 @@ def make_result(
         "rising": rising[:20],
         "newcomers": newcomers[:20],
         "steady": steady[:20],
+        "lunchSpots": meal_spots("lunch", 0.7),
+        "dinnerSpots": meal_spots("dinner", 0.5),
         "stats": {
             "transactions": n_transactions,
             "restaurants": len(C["qv"]),

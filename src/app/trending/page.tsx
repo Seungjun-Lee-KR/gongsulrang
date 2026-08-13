@@ -12,8 +12,17 @@ export const metadata = {
 };
 
 export default function TrendingPage() {
-  const { rising, newcomers, steady, stats, quarters, recentQuarters, baseQuarters } =
-    momentum;
+  const {
+    rising,
+    newcomers,
+    steady,
+    lunchSpots,
+    dinnerSpots,
+    stats,
+    quarters,
+    recentQuarters,
+    baseQuarters,
+  } = momentum;
 
   return (
     <div className="flex flex-1 flex-col bg-base text-ink">
@@ -88,6 +97,28 @@ export default function TrendingPage() {
             label: "변동계수 · 낮을수록 꾸준",
           })}
         />
+        <Board
+          title="점심 명당"
+          how="결제 시각의 70% 이상이 점심(11–14시)인 곳 — 오찬·간담회 자리"
+          color={MOMENTUM_COLORS.lunch}
+          items={lunchSpots.slice(0, 10)}
+          quarters={quarters}
+          metric={(e) => ({
+            value: `${Math.round((e.lunchShare ?? 0) * 100)}%`,
+            label: `점심 비중 · 최근 ${e.recent}회`,
+          })}
+        />
+        <Board
+          title="저녁 회식 명당"
+          how="결제 시각의 절반 이상이 저녁(17시 이후)인 곳 — 회식·만찬 자리"
+          color={MOMENTUM_COLORS.dinner}
+          items={dinnerSpots.slice(0, 10)}
+          quarters={quarters}
+          metric={(e) => ({
+            value: `${Math.round((e.dinnerShare ?? 0) * 100)}%`,
+            label: `저녁 비중 · 최근 ${e.recent}회`,
+          })}
+        />
 
         <div className="mt-14 rounded-2xl border border-line bg-elev p-6">
           <h3 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-mute">
@@ -125,6 +156,18 @@ export default function TrendingPage() {
               카카오에서 찾지 못한 곳입니다 — 브랜드를 유추할 수 없는
               법인명이거나 폐업했을 수 있습니다. 틀린 이름을 조용히 보여주느니
               장부 표기를 그대로 둡니다.
+            </li>
+            <li>
+              <strong className="font-semibold text-ink/90">인당 지출:</strong>{" "}
+              장부의 사용자란(&ldquo;과장 등 6명&rdquo;)에서 인원을 파싱해
+              결제액을 나눈 중앙값입니다 — 메뉴판 가격이 아니라 실제로 결제된
+              가격입니다. 표본 5건 미만이면 표시하지 않습니다.
+            </li>
+            <li>
+              <strong className="font-semibold text-ink/90">점심/저녁 분류:</strong>{" "}
+              결제 시각 기준(점심 11–14시, 저녁 17시 이후)이고, 시각이 없는
+              거래는 목적의 오찬·만찬 류 키워드로 보충합니다. 저녁은 기저율이
+              낮아(전체의 ~25%) 절반만 넘어도 뚜렷한 저녁집입니다.
             </li>
             <li>
               스파크라인 세로축은 행마다 독립입니다 — 추세를 읽는 용도이며

@@ -162,6 +162,8 @@ def merge_by_place(C: dict, place_of: dict, totals: dict):
         "amounts": defaultdict(list),
         "addrs": defaultdict(Counter),
         "name_cluster": defaultdict(Counter),
+        "meal": defaultdict(Counter),
+        "pp": defaultdict(list),
     }
     for root in C["qv"]:
         dst = canon.get(root, root)
@@ -171,6 +173,8 @@ def merge_by_place(C: dict, place_of: dict, totals: dict):
         M["recent_depts"][dst] |= C["recent_depts"][root]
         M["amounts"][dst].extend(C["amounts"][root])
         M["addrs"][dst].update(C["addrs"][root])
+        M["meal"][dst].update(C["meal"][root])
+        M["pp"][dst].extend(C["pp"][root])
     for nk, roots in C["name_cluster"].items():
         for root, cnt in roots.items():
             M["name_cluster"][nk][canon.get(root, root)] += cnt
