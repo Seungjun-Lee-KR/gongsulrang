@@ -46,3 +46,15 @@ export type MomentumData = {
     kakaoMerged: number;
   };
 };
+
+/** scripts/15가 만드는 자치구별 모멘텀 — 본청과 같은 구조 + 구 식별자 */
+export type DistrictMomentum = MomentumData & {
+  /** CSV 접두 (예: "gangnam") */
+  slug: string;
+  /** 한글 구명 (예: "강남구") — URL 세그먼트로도 쓴다 */
+  name: string;
+};
+
+export type DistrictMomentumFile = {
+  districts: DistrictMomentum[];
+};

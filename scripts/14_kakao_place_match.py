@@ -138,36 +138,11 @@ def pick_place(display: str, addr: str, x: str, y: str) -> dict | None:
     return None
 
 
-def main() -> None:
-    rows = momentum.load_rows()
-    C = momentum.build_clusters(rows)
+def merge_by_place(C: dict, place_of: dict, totals: dict):
+    """같은 place id로 앵커링된 클러스터를 병합한 집계 M을 만든다.
 
-    totals = {k: sum(c.values()) for k, c in C["qv"].items()}
-    targets = [k for k, t in totals.items() if t >= MIN_TOTAL_VISITS]
-    targets.sort(key=lambda k: -totals[k])
-    print(f"클러스터 {len(totals):,}곳 중 매칭 대상(방문≥{MIN_TOTAL_VISITS}) {len(targets):,}곳")
-
-    place_of: dict = {}  # root → kakao doc
-    unmatched = 0
-    for i, root in enumerate(targets, 1):
-        name = momentum.display_name(C, root)
-        addr_counter = C["addrs"][root]
-        addr = addr_counter.most_common(1)[0][0] if addr_counter else None
-        doc = None
-        if addr:
-            xy = geocode(addr)
-            if xy:
-                doc = pick_place(name, addr, *xy)
-        if doc:
-            place_of[root] = doc
-        else:
-            unmatched += 1
-        if i % 200 == 0:
-            print(f"  {i}/{len(targets)} … 매칭 {len(place_of)} / 실패 {unmatched}")
-
-    CACHE_PATH.write_text(json.dumps(_cache, ensure_ascii=False))
-
-    # ── place id가 같은 클러스터 병합 ──
+    반환: (M, canon, merges). 15_momentum_districts.py가 재사용한다.
+    """
     by_place: dict[str, list] = defaultdict(list)
     for root, doc in place_of.items():
         by_place[doc["id"]].append(root)
@@ -199,6 +174,11 @@ def main() -> None:
     for nk, roots in C["name_cluster"].items():
         for root, cnt in roots.items():
             M["name_cluster"][nk][canon.get(root, root)] += cnt
+    return M, canon, merges
+
+
+def kakao_decorate(place_of: dict):
+    """make_result용 decorate: 매칭된 클러스터에 kakao 필드를 붙인다."""
 
     def decorate(key, e: dict) -> None:
         doc = place_of.get(key)
@@ -215,10 +195,44 @@ def main() -> None:
         else:
             e["kakao"] = None  # 장부명 그대로 — 조용한 오매칭보다 낫다
 
+    return decorate
+
+
+def main() -> None:
+    rows = momentum.load_rows()
+    C = momentum.build_clusters(rows)
+
+    totals = {k: sum(c.values()) for k, c in C["qv"].items()}
+    targets = [k for k, t in totals.items() if t >= MIN_TOTAL_VISITS]
+    targets.sort(key=lambda k: -totals[k])
+    print(f"클러스터 {len(totals):,}곳 중 매칭 대상(방문≥{MIN_TOTAL_VISITS}) {len(targets):,}곳")
+
+    place_of: dict = {}  # root → kakao doc
+    unmatched = 0
+    for i, root in enumerate(targets, 1):
+        name = momentum.display_name(C, root)
+        addr_counter = C["addrs"][root]
+        addr = addr_counter.most_common(1)[0][0] if addr_counter else None
+        doc = None
+        if addr:
+            xy = geocode(addr)
+            if xy:
+                doc = pick_place(name, addr, *xy)
+        if doc:
+            place_of[root] = doc
+        else:
+            unmatched += 1
+        if i % 200 == 0:
+            print(f"  {i}/{len(targets)} … 매칭 {len(place_of)} / 실패 {unmatched}")
+
+    CACHE_PATH.write_text(json.dumps(_cache, ensure_ascii=False))
+
+    M, canon, merges = merge_by_place(C, place_of, totals)
+
     result = momentum.make_result(
         M,
         len(rows),
-        decorate=decorate,
+        decorate=kakao_decorate(place_of),
         extra_stats={
             "kakaoMatched": len(place_of),
             "kakaoUnmatched": unmatched,

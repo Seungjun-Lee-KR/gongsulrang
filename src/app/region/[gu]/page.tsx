@@ -7,6 +7,7 @@ import {
   getRegionSummaries,
   getRestaurantsByRegion,
 } from "@/lib/aggregations";
+import { getDistrictMomentum } from "@/data/momentum-districts";
 import { formatWon } from "@/lib/format";
 
 export function generateStaticParams() {
@@ -67,6 +68,14 @@ export default async function RegionDetail({
             <span className="rounded-full border border-line2 bg-elev px-3 py-1 font-mono text-xs tabular text-mute">
               총 {formatWon(totalAmount)}
             </span>
+            {getDistrictMomentum(region) && (
+              <Link
+                href={`/trending/${encodeURIComponent(region)}`}
+                className="rounded-full border border-accent/40 px-3 py-1 text-xs font-semibold text-accent transition hover:bg-accent/10"
+              >
+                🔥 {region} 뜨는 집 보기
+              </Link>
+            )}
           </div>
         </div>
 

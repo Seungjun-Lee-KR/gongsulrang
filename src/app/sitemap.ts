@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { restaurants } from "@/data/restaurants";
+import { districtMomentum } from "@/data/momentum-districts";
 import {
   getAgencySummaries,
   getRegionSummaries,
@@ -19,6 +20,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/agency`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/map`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
+
+  const trendingEntries: MetadataRoute.Sitemap = districtMomentum.map((d) => ({
+    url: `${BASE}/trending/${encodeURIComponent(d.name)}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
 
   const regionEntries: MetadataRoute.Sitemap = getRegionSummaries().map((s) => ({
     url: `${BASE}/region/${encodeURIComponent(s.region)}`,
@@ -43,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticEntries,
+    ...trendingEntries,
     ...regionEntries,
     ...agencyEntries,
     ...restaurantEntries,

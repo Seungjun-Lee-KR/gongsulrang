@@ -1,7 +1,9 @@
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { Board, MOMENTUM_COLORS } from "@/components/MomentumBoards";
 import { momentum } from "@/data/momentum";
-import type { MomentumEntry } from "@/types/momentum";
+import { districtMomentum } from "@/data/momentum-districts";
 
 export const metadata = {
   title: "요즘 뜨는 집 · 공슐랭",
@@ -9,203 +11,8 @@ export const metadata = {
     "서울시 본청 업무추진비 15만 건으로 찾은 분기별 식당 트렌드 — 뜨는 집, 신규 진입, 스테디셀러",
 };
 
-const SECTION_COLORS = {
-  rising: "var(--color-accent)",
-  newcomers: "var(--color-accent2)",
-  steady: "#a9b2c4",
-} as const;
-
-/** 분기별 방문 추이 스파크라인 (서버 렌더, 네이티브 툴팁) */
-function Sparkline({
-  series,
-  quarters,
-  color,
-}: {
-  series: number[];
-  quarters: string[];
-  color: string;
-}) {
-  const W = 200;
-  const H = 40;
-  const PAD = 3;
-  const max = Math.max(...series, 1);
-  const x = (i: number) => PAD + (i * (W - PAD * 2)) / (series.length - 1);
-  const y = (v: number) => H - PAD - (v * (H - PAD * 2)) / max;
-  const pts = series.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
-  const line = pts.join(" ");
-  const area = `${PAD},${H - PAD} ${line} ${W - PAD},${H - PAD}`;
-  const bandX = x(series.length - 2); // 최근 2분기 강조 밴드
-  const last = series[series.length - 1];
-
-  return (
-    <svg
-      width={W}
-      height={H}
-      viewBox={`0 0 ${W} ${H}`}
-      role="img"
-      aria-label={`분기별 방문 추이: ${series.join(", ")}`}
-      className="block"
-    >
-      <rect
-        x={bandX.toFixed(1)}
-        y={0}
-        width={(W - PAD - bandX).toFixed(1)}
-        height={H}
-        fill={color}
-        opacity={0.07}
-      />
-      <line
-        x1={PAD}
-        y1={H - PAD}
-        x2={W - PAD}
-        y2={H - PAD}
-        stroke="var(--color-line2)"
-        strokeWidth={1}
-      />
-      <polygon points={area} fill={color} opacity={0.1} />
-      <polyline
-        points={line}
-        fill="none"
-        stroke={color}
-        strokeWidth={2}
-        strokeLinejoin="round"
-        strokeLinecap="round"
-      />
-      <circle
-        cx={x(series.length - 1).toFixed(1)}
-        cy={y(last).toFixed(1)}
-        r={3}
-        fill={color}
-        stroke="var(--color-elev)"
-        strokeWidth={2}
-      />
-      {series.map((v, i) => (
-        <rect
-          key={i}
-          x={(x(i) - 7.7).toFixed(1)}
-          y={0}
-          width={15.4}
-          height={H}
-          fill="transparent"
-        >
-          <title>{`${quarters[i].replace("-", " ")} · ${v}회`}</title>
-        </rect>
-      ))}
-    </svg>
-  );
-}
-
-function Row({
-  entry,
-  index,
-  color,
-  metric,
-}: {
-  entry: MomentumEntry;
-  index: number;
-  color: string;
-  metric: { value: string; label: string };
-}) {
-  return (
-    <tr className="border-t border-line first:border-t-0 transition hover:bg-elev2">
-      <td className="w-9 py-3 pl-4 pr-0 text-right font-mono text-[13px] tabular text-mute">
-        {index + 1}
-      </td>
-      <td className="min-w-[220px] px-3.5 py-3">
-        <div className="text-[15px] font-bold tracking-tight text-ink">
-          {entry.kakao ? (
-            <>
-              <a
-                href={entry.kakao.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-line2 transition hover:border-accent"
-              >
-                {entry.name}
-              </a>
-              <span className="ml-1.5 rounded border border-line2 px-1.5 py-px align-[1px] text-[10.5px] font-semibold text-mute">
-                {entry.kakao.category}
-              </span>
-            </>
-          ) : (
-            <>
-              {entry.name}
-              <span
-                className="ml-1.5 rounded border border-dashed border-line2 px-1.5 py-px align-[1px] text-[10.5px] font-semibold text-mute"
-                title="카카오 장소 매칭 실패 — 장부상 표기 그대로"
-              >
-                장부명
-              </span>
-            </>
-          )}
-        </div>
-        <div className="mt-0.5 text-xs tabular text-mute">
-          {entry.kakao ? `${entry.kakao.address} · ` : ""}평균{" "}
-          {entry.avgAmount.toLocaleString()}원 · {entry.depts}개 부서
-        </div>
-      </td>
-      <td className="w-[216px] px-3.5 py-3">
-        <Sparkline series={entry.series} quarters={momentum.quarters} color={color} />
-      </td>
-      <td className="w-24 whitespace-nowrap px-3.5 py-3 text-right tabular">
-        <span className="text-[14.5px] font-extrabold" style={{ color }}>
-          {metric.value}
-        </span>
-        <span className="block text-[11px] font-medium text-mute">
-          {metric.label}
-        </span>
-      </td>
-    </tr>
-  );
-}
-
-function Board({
-  title,
-  how,
-  color,
-  items,
-  metric,
-}: {
-  title: string;
-  how: string;
-  color: string;
-  items: MomentumEntry[];
-  metric: (e: MomentumEntry) => { value: string; label: string };
-}) {
-  return (
-    <section className="mt-12">
-      <div className="flex flex-wrap items-baseline gap-3">
-        <h2 className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight text-ink">
-          <span
-            aria-hidden
-            className="h-2.5 w-2.5 shrink-0 rounded-[3px]"
-            style={{ background: color }}
-          />
-          {title}
-        </h2>
-        <span className="text-[12.5px] text-mute">{how}</span>
-      </div>
-      <div className="mt-3.5 overflow-x-auto rounded-2xl border border-line bg-elev">
-        <table className="w-full min-w-[720px] border-collapse">
-          <tbody>
-            {items.map((e, i) => (
-              <Row
-                key={e.kakao?.id ?? e.name}
-                entry={e}
-                index={i}
-                color={color}
-                metric={metric(e)}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
-
 export default function TrendingPage() {
-  const { rising, newcomers, steady, stats, recentQuarters, baseQuarters } =
+  const { rising, newcomers, steady, stats, quarters, recentQuarters, baseQuarters } =
     momentum;
 
   return (
@@ -229,11 +36,34 @@ export default function TrendingPage() {
           </p>
         </div>
 
+        {districtMomentum.length > 0 && (
+          <nav
+            aria-label="자치구별 뜨는 집"
+            className="mt-6 rounded-2xl border border-line bg-elev p-4"
+          >
+            <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-mute">
+              자치구별로 보기
+            </div>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {districtMomentum.map((d) => (
+                <Link
+                  key={d.slug}
+                  href={`/trending/${encodeURIComponent(d.name)}`}
+                  className="rounded-full border border-line2 px-3 py-1 text-[12.5px] font-medium text-ink/80 transition hover:border-accent hover:text-accent"
+                >
+                  {d.name}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
+
         <Board
           title="뜨는 집"
           how="기존 식당 중 최근 2분기 방문이 전년 동기 대비 가장 가파르게 는 곳"
-          color={SECTION_COLORS.rising}
+          color={MOMENTUM_COLORS.rising}
           items={rising.slice(0, 10)}
+          quarters={quarters}
           metric={(e) => ({
             value: `${e.growth}×`,
             label: `${e.base} → ${e.recent}회`,
@@ -242,15 +72,17 @@ export default function TrendingPage() {
         <Board
           title="신규 진입"
           how="전년 동분기 기록이 없다가 최근 2분기에 나타난 곳 — 방문수 순"
-          color={SECTION_COLORS.newcomers}
+          color={MOMENTUM_COLORS.newcomers}
           items={newcomers.slice(0, 10)}
+          quarters={quarters}
           metric={(e) => ({ value: `${e.recent}회`, label: "최근 2분기" })}
         />
         <Board
           title="스테디셀러"
           how="13개 분기 전부 등장하며 변동이 가장 적은 곳 — 검증된 노포"
-          color={SECTION_COLORS.steady}
+          color={MOMENTUM_COLORS.steady}
           items={steady.slice(0, 10)}
+          quarters={quarters}
           metric={(e) => ({
             value: `cv ${e.cv}`,
             label: "변동계수 · 낮을수록 꾸준",

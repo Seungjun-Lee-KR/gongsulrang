@@ -66,9 +66,19 @@ def normalize(name: str) -> str:
     return s
 
 
+# "2026-03-05" 외에 자치구 장부의 "2025.2.", "2025/3/2", "20260219" 변형도 잡는다.
+# 연도가 없는 표기("2.21.", "06-05")는 분기를 특정할 수 없어 버린다.
+_DATE_HEAD = re.compile(r"^(20\d{2})[.\-/년\s]+(\d{1,2})\b")
+_DATE_COMPACT = re.compile(r"^(20\d{2})(\d{2})\d{2}$")
+
+
 def quarter_of(date: str) -> str | None:
-    if len(date) >= 7 and date[:4].isdigit() and int(date[:4]) >= 2023:
-        return f"{date[:4]}-Q{(int(date[5:7]) - 1) // 3 + 1}"
+    m = _DATE_HEAD.match(date) or _DATE_COMPACT.match(date)
+    if not m:
+        return None
+    y, mo = int(m.group(1)), int(m.group(2))
+    if y >= 2023 and 1 <= mo <= 12:
+        return f"{y}-Q{(mo - 1) // 3 + 1}"
     return None
 
 
@@ -159,12 +169,15 @@ def cluster_pairs(pair_counts: Counter) -> dict:
     return {pair: uf.find(pair) for pair in pair_counts}
 
 
-def load_rows() -> list[dict]:
-    with open(RAW, encoding="utf-8-sig") as f:
-        return list(csv.DictReader(f))
+def load_rows(path: Path = RAW) -> list[dict]:
+    # 일부 자치구 CSV에 NUL 바이트가 섞여 있어 csv 모듈이 죽는다 — 제거 후 파싱
+    import io
+
+    text = path.read_text(encoding="utf-8-sig", errors="replace").replace("\x00", "")
+    return list(csv.DictReader(io.StringIO(text)))
 
 
-def build_clusters(rows: list[dict]) -> dict:
+def build_clusters(rows: list[dict], recent: tuple = RECENT) -> dict:
     """원장 → 가게 클러스터 집계. 14_kakao_place_match.py가 재사용한다."""
     # ── 1차: (이름키, 주소키) 쌍 수집 ──
     parsed = []  # (pair, raw_name, quarter, 부서, 금액)
@@ -201,7 +214,7 @@ def build_clusters(rows: list[dict]) -> dict:
         C["name_cluster"][pair[0]][root] += 1
         if pair[1]:
             C["addrs"][root][pair[1]] += 1
-        if q in RECENT:
+        if q in recent:
             C["recent_depts"][root].add(dept)
         try:
             C["amounts"][root].append(int(amount))
@@ -225,24 +238,40 @@ def display_name(C: dict, root) -> str:
     return C["display"][root].most_common(1)[0][0]
 
 
-def entry(C: dict, key) -> dict:
-    series = [C["qv"][key][q] for q in QUARTERS]
+def entry(C: dict, key, quarters=QUARTERS, recent=RECENT, base=BASE) -> dict:
+    series = [C["qv"][key][q] for q in quarters]
     return {
         "name": display_name(C, key),
         "series": series,
-        "recent": sum(C["qv"][key][q] for q in RECENT),
-        "base": sum(C["qv"][key][q] for q in BASE),
+        "recent": sum(C["qv"][key][q] for q in recent),
+        "base": sum(C["qv"][key][q] for q in base),
         "depts": len(C["recent_depts"][key]),
         "avgAmount": int(statistics.mean(C["amounts"][key])) if C["amounts"][key] else 0,
         "variants": len(C["display"][key]),
     }
 
 
-def make_result(C: dict, n_transactions: int, decorate=None, extra_stats=None) -> dict:
-    """클러스터 집계 → 랭킹 JSON. decorate(key, entry)로 항목을 보강할 수 있다."""
+def make_result(
+    C: dict,
+    n_transactions: int,
+    decorate=None,
+    extra_stats=None,
+    *,
+    quarters=QUARTERS,
+    recent=RECENT,
+    base=BASE,
+    source="서울시 본청 업무추진비",
+    min_recent=15,
+    min_depts=3,
+    steady_min=5,
+) -> dict:
+    """클러스터 집계 → 랭킹 JSON. decorate(key, entry)로 항목을 보강할 수 있다.
+
+    임계값 기본은 본청(분기 ~1.2만 건) 기준 — 자치구는 규모에 맞춰 내려 쓴다.
+    """
 
     def make(key) -> dict:
-        e = entry(C, key)
+        e = entry(C, key, quarters, recent, base)
         if decorate:
             decorate(key, e)
         return e
@@ -251,7 +280,8 @@ def make_result(C: dict, n_transactions: int, decorate=None, extra_stats=None) -
     candidates = [
         make(k)
         for k in C["qv"]
-        if sum(C["qv"][k][q] for q in RECENT) >= 15 and len(C["recent_depts"][k]) >= 3
+        if sum(C["qv"][k][q] for q in recent) >= min_recent
+        and len(C["recent_depts"][k]) >= min_depts
     ]
 
     rising = sorted(
@@ -270,18 +300,18 @@ def make_result(C: dict, n_transactions: int, decorate=None, extra_stats=None) -
 
     steady = []
     for k in C["qv"]:
-        series = [C["qv"][k][q] for q in QUARTERS]
-        if all(v >= 5 for v in series):
+        series = [C["qv"][k][q] for q in quarters]
+        if all(v >= steady_min for v in series):
             e = make(k)
             e["cv"] = round(statistics.stdev(series) / statistics.mean(series), 3)
             steady.append(e)
     steady.sort(key=lambda e: e["cv"])
 
     return {
-        "source": "서울시 본청 업무추진비",
-        "quarters": QUARTERS,
-        "recentQuarters": list(RECENT),
-        "baseQuarters": list(BASE),
+        "source": source,
+        "quarters": list(quarters),
+        "recentQuarters": list(recent),
+        "baseQuarters": list(base),
         "rising": rising[:20],
         "newcomers": newcomers[:20],
         "steady": steady[:20],
