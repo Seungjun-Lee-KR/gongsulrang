@@ -132,7 +132,8 @@ export default async function Page({
 
         <section className="mt-6 grid grid-cols-3 gap-3">
           {photoSlots.map((i) => {
-            const src = photos[i];
+            // &i=슬롯: 참조 만료 시 프록시가 같은 슬롯의 새 참조로 치유
+            const src = photos[i] ? `${photos[i]}&i=${i}` : undefined;
             return (
               <div
                 key={i}
